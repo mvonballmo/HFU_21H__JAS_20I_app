@@ -1,0 +1,19 @@
+{
+  "name": "js_app",
+  "version": "1.0.0",
+  "description": "A demo app",
+  "main": "library.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mvonballmo/HFU_21H__JAS_20I_app.git"
+  },
+  "author": "Marco von Ballmoos",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mvonballmo/HFU_21H__JAS_20I_app/issues"
+  },
+  "homepage": "https://github.com/mvonballmo/HFU_21H__JAS_20I_app#readme"
+}
