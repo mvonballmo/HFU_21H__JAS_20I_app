@@ -1,15 +1,20 @@
-counter = 1;
+_counter = 1;
 m = 2;
-show(counter + m);
+show(_counter + m);
+
+function counter()
+{
+  return _counter;
+}
 
 function increment()
 {
-  return ++counter;
+  return ++_counter;
 }
 
 function decrement()
 {
-  return --counter;
+  return --_counter;
 }
 
 function show(value)
