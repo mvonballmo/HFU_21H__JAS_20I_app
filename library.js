@@ -4,5 +4,5 @@ show(n + m);
 
 function show(value)
 {
-  console.log(value);
+  console.warn(value);
 }
