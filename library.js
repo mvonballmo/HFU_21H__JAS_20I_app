@@ -16,3 +16,5 @@ function show(value)
 {
   console.warn(value);
 }
+
+module.exports = increment;
