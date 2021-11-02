@@ -4,12 +4,12 @@ show(counter + m);
 
 function increment()
 {
-  return counter++;
+  return ++counter;
 }
 
 function decrement()
 {
-  return counter--;
+  return --counter;
 }
 
 function show(value)
