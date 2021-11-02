@@ -1,15 +1,15 @@
-n = 1;
+counter = 1;
 m = 2;
-show(n + m);
+show(counter + m);
 
 function increment()
 {
-  return n++;
+  return counter++;
 }
 
 function decrement()
 {
-  return n--;
+  return counter--;
 }
 
 function show(value)
@@ -17,4 +17,8 @@ function show(value)
   console.warn(value);
 }
 
-module.exports = increment;
+module.exports = {
+  counter,
+  increment,
+  decrement
+}
