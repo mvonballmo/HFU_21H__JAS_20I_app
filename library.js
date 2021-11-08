@@ -1,5 +1,7 @@
-_counter = 1;
-m = 2;
+"use strict";
+
+let _counter = 1;
+let m = 2;
 show(_counter + m);
 
 function counter()
