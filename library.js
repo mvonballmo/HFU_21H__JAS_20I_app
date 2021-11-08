@@ -24,8 +24,11 @@ function show(value)
   console.warn(value);
 }
 
-module.exports = {
-  counter,
-  increment,
-  decrement
-}
+// TODO Re-export methods with ES6 Modules
+// https://trello.com/c/6dpjfKIP/6-fix-js-module-exports-so-it-works-in-the-browser
+
+// module.exports = {
+//   counter,
+//   increment,
+//   decrement
+// }
