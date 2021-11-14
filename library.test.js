@@ -1,3 +1,4 @@
+const { test } = require('@jest/globals');
 const library = require('./library');
 
 test('counter is initialized to 1', () => {
