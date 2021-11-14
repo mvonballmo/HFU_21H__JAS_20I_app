@@ -1,3 +1,7 @@
+/**
+ * @jest-environment jsdom
+ */
+
 import { counter, increment, decrement } from './library.js';
 
 test('counter is initialized to 1', () => {

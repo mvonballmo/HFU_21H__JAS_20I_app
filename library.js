@@ -21,5 +21,8 @@ export function decrement()
 
 export function show(value)
 {
-  console.warn(value);
+  const output = document.getElementById('output');
+  if (output) {
+    output.value += value;
+  }
 }
