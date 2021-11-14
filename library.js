@@ -21,7 +21,7 @@ function decrement()
 
 function show(value)
 {
-  console.warn(value);
+  console.log(value);
 }
 
 // TODO Re-export methods with ES6 Modules
