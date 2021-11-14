@@ -17,6 +17,11 @@
   },
   "homepage": "https://github.com/mvonballmo/HFU_21H__JAS_20I_app#readme",
   "devDependencies": {
+    "@babel/core": "^7.16.0",
+    "@babel/node": "^7.16.0",
+    "@babel/preset-env": "^7.16.0",
+    "babel-jest": "^27.3.1",
+    "http-server": "^14.0.0",
     "jest": "^27.3.1"
   }
 }

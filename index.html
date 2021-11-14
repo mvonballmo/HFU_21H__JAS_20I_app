@@ -3,10 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <title>Demo</title>
-    <script src="library.js"></script>
+    <script type="module">
+      import * as library from './library.js';
+
+      window.add = () => {
+        library.show(library.increment())
+      };
+
+      window.subtract = () => {
+        library.show(library.decrement())
+      };
+    </script>
 </head>
 <body>
-  <button onclick="show(increment())">+</button>
-  <button onclick="show(decrement())">-</button>
+  <button onclick="add()">+</button>
+  <button onclick="subtract()">-</button>
 </body>
 </html>
