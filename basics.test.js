@@ -127,7 +127,7 @@ describe('Basic functions and operators', () => {
       }
 
       fullName() {
-        return `${super.fullName()} @ {this.schoolName}`
+        return `${super.fullName()} @ ${this.schoolName}`
       }
     }
 
