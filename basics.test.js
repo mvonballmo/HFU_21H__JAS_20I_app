@@ -132,14 +132,14 @@ describe('Basic functions and operators', () => {
     }
 
     const p1 = new Person("Bob");
-    // p1.fullName() == "Bob Doe"
     const p2 = new Person("Bob", "Smith");
-    // p2.fullName() == "Bob Smith"
     const p3 = new Teacher("Bob", "Smith", "HFU");
+    const p4 = new Teacher("Bob", "Smith");
 
     expect(p1.fullName()).toBe("Bob Doe");
     expect(p2.fullName()).toBe("Bob Smith");
     expect(p3.fullName()).toBe("Bob Smith @ HFU");
+    expect(p4.fullName()).toBe("Bob Smith @ unknown");
   })
 
   test('b is set to value', () => {
