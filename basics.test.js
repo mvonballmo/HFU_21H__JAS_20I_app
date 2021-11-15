@@ -101,16 +101,9 @@ describe('Basic functions and operators', () => {
 
   test('classes with inheritance', () => {
     class Person {
-      firstName = "John";
-      lastName = "Doe";
-
       constructor(firstName, lastName) {
-        if (firstName) {
-          this.firstName = firstName;
-        }
-        if (lastName) {
-          this.lastName = lastName;
-        }
+        this.firstName = firstName ?? "John";
+        this.lastName = lastName ?? "Doe";
       }
 
       fullName() {
@@ -119,13 +112,9 @@ describe('Basic functions and operators', () => {
     }
 
     class Teacher extends Person {
-      schoolName = "unknown";
-
       constructor(firstName, lastName, schoolName) {
         super(firstName, lastName);
-        if (schoolName) {
-          this.schoolName = schoolName;
-        }
+        this.schoolName = schoolName ?? "unknown";
       }
 
       fullName() {
