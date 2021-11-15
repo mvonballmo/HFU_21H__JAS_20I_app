@@ -122,7 +122,7 @@ describe('Basic functions and operators', () => {
       schoolName = "unknown";
 
       constructor(firstName, lastName, schoolName) {
-        super();
+        super(firstName, lastName);
         this.schoolName = schoolName;
       }
 
