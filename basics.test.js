@@ -105,8 +105,12 @@ describe('Basic functions and operators', () => {
       lastName = "Doe";
 
       constructor(firstName, lastName) {
-        this.firstName = firstName;
-        this.lastName = lastName;
+        if (firstName) {
+          this.firstName = firstName;
+        }
+        if (lastName) {
+          this.lastName = lastName;
+        }
       }
 
       fullName() {
