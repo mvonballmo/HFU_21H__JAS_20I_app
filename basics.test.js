@@ -123,7 +123,9 @@ describe('Basic functions and operators', () => {
 
       constructor(firstName, lastName, schoolName) {
         super(firstName, lastName);
-        this.schoolName = schoolName;
+        if (schoolName) {
+          this.schoolName = schoolName;
+        }
       }
 
       fullName() {
