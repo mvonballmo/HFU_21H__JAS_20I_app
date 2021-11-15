@@ -99,6 +99,45 @@ describe('Basic functions and operators', () => {
     expect(bar).toBe(true);
   })
 
+  test('classes with inheritance', () => {
+    class Person {
+      firstName = "John";
+      lastName = "Doe";
+
+      constructor(firstName, lastName) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+      }
+
+      fullName() {
+        return `${this.firstName} ${this.lastName}`
+      }
+    }
+
+    class Teacher extends Person {
+      schoolName = "unknown";
+
+      constructor(firstName, lastName, schoolName) {
+        super();
+        this.schoolName = schoolName;
+      }
+
+      fullName() {
+        return `${super.fullName} @ {this.schoolName}`
+      }
+    }
+
+    const p1 = new Person("Bob");
+    // p1.fullName() == "Bob Doe"
+    const p2 = new Person("Bob", "Smith");
+    // p2.fullName() == "Bob Smith"
+    const p3 = new Teacher("Bob", "Smith", "HFU");
+
+    expect(p1.fullName()).toBe("Bob Doe");
+    expect(p2.fullName()).toBe("Bob Smith");
+    expect(p3.fullName()).toBe("Bob Smith @ HFU");
+  })
+
   test('b is set to value', () => {
     (function () {
       var a = b = 5;
