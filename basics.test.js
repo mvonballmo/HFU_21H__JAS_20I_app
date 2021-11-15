@@ -26,8 +26,10 @@ describe('Basic functions and operators', () => {
   );
 
   test('var uses same variable', () => {
+    // noinspection ES6ConvertVarToLetConst,JSDuplicatedDeclaration
     var x = 1;
     {
+      // noinspection ES6ConvertVarToLetConst,JSDuplicatedDeclaration
       var x = 2;  // gleiche Variable!
 
       expect(x).toBe(2);
@@ -104,4 +106,44 @@ describe('Basic functions and operators', () => {
 
     expect(b).toBe(5);
   });
+
+  test('arrays work as expected', () => {
+    const empty1 = [];
+    const empty2 = new Array();
+    const filled = [1, 2, 3, "test", {}, { a: 42 }];
+    const sparse1 = [,,];         // sparse1.length == 3
+    const sparse2 = new Array(3); // sparse2.length == 3
+    const a = filled[1];          // a == 2
+
+    const sparse4 = ["a", , , , "b"];
+
+    expect(sparse4).toEqual(["a", undefined, undefined, undefined, "b"]);
+  })
+
+  test('d', () => {
+    const empty = {};
+    const person = {
+      first: "Bob",
+      last: "Hoffman",
+      age: 34,
+      company: {
+        name: "Apple"
+      }
+    };
+
+    expect(person.age).toBe(34);
+    expect(person.company.name).toBe("Apple");
+  })
+
+  test('map', () => {
+    const m = new Map();
+
+    m.set('a', 1);
+    m.set('b', 2);
+    m.set('c', 3);
+
+    for (const [key, value] of m) {
+      console.log(key + ' = ' + value)
+    }
+  })
 })
