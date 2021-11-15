@@ -3,17 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Demo</title>
-    <script type="module">
-      import * as library from './library.js';
-
-      window.add = () => {
-        library.show(library.increment())
-      };
-
-      window.subtract = () => {
-        library.show(library.decrement())
-      };
-    </script>
+    <script src="main.js" type="module"></script>
 </head>
 <body>
   <button onclick="add()">+</button>
