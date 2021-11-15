@@ -1,4 +1,4 @@
-const { test, expect, describe } = require('@jest/globals');
+const {test, expect, describe} = require('@jest/globals');
 
 describe('Basic functions and operators', () => {
 
@@ -100,7 +100,7 @@ describe('Basic functions and operators', () => {
   })
 
   test('b is set to value', () => {
-    (function() {
+    (function () {
       var a = b = 5;
     })();
 
@@ -110,8 +110,8 @@ describe('Basic functions and operators', () => {
   test('arrays work as expected', () => {
     const empty1 = [];
     const empty2 = new Array();
-    const filled = [1, 2, 3, "test", {}, { a: 42 }];
-    const sparse1 = [,,];         // sparse1.length == 3
+    const filled = [1, 2, 3, "test", {}, {a: 42}];
+    const sparse1 = [, ,];         // sparse1.length == 3
     const sparse2 = new Array(3); // sparse2.length == 3
     const a = filled[1];          // a == 2
 
@@ -195,7 +195,7 @@ describe('Basic functions and operators', () => {
     expect(person3.company?.name).toBe(undefined);
   })
 
-  test("test comparison operators", () =>{
+  test("test comparison operators", () => {
     const x = 1 == '1';   // x ist 'true'
     const y = 1 === '1';  // y ist 'false'
 
@@ -207,6 +207,7 @@ describe('Basic functions and operators', () => {
     function sum(x, y, z) {
       return x + y + z;
     }
+
     const numbers = [1, 2, 3];
     const total = sum(...numbers);  // Ergibt 6
 
@@ -231,4 +232,37 @@ describe('Basic functions and operators', () => {
     expect(f).toEqual(-1)
   })
 
+  test("switch statement", () => {
+
+    const x = 42;
+
+    function calculateY(x) {
+      switch (x) {
+        case 41:
+          return 1;
+        case 42:
+          return 2;
+        default:
+          return 3;
+      }
+    }
+
+    let y = calculateY(x);
+
+    expect(y).toBe(2);
+  })
+
+  test("for_in", () => {
+    const o = { a: 1, b: 2, c: 3 };
+
+    for (const property in o) {
+      // console.log(o[property]);
+    }
+
+    const keys = Object.keys(o);
+
+    expect(keys).toEqual(["a", "b", "c"]);
+
+    // o[keys[2]] == "c"
+  })
 })
