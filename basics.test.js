@@ -65,6 +65,38 @@ describe('Basic functions and operators', () => {
     expect(typeof temp).toBe('undefined');
   })
 
+  test('destructuring arrays', () => {
+    const items = [10, 20, 30, 40, 50];
+    const [a, b, ...rest] = items;
+    const [c, d] = items; // c == 10, d == 20
+
+    expect(a).toBe(10);
+    expect(b).toBe(20);
+    expect(c).toBe(10);
+    expect(d).toBe(20);
+    expect(rest).toEqual([30, 40, 50]);
+  })
+
+  test('destructuring arrays', () => {
+    const items = [10, 20, 30, 40, 50];
+    const [a, b, ...rest] = items;
+    const [c, d] = items; // c == 10, d == 20
+
+    expect(a).toBe(10);
+    expect(b).toBe(20);
+    expect(c).toBe(10);
+    expect(d).toBe(20);
+    expect(rest).toEqual([30, 40, 50]);
+  })
+
+  test('destructuring objects with renaming', () => {
+    const o = {p: 42, q: true};
+    const {p: foo, q: bar} = o;
+
+    expect(foo).toBe(42);
+    expect(bar).toBe(true);
+  })
+
   test('b is set to value', () => {
     (function() {
       var a = b = 5;
