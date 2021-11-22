@@ -139,8 +139,9 @@ describe('Basic functions and operators', () => {
   });
 
   test('b is set to value', () => {
+    let b;
     (function () {
-      var a = b = 5;
+      b = 5;
     })();
 
     expect(b).toBe(5);
