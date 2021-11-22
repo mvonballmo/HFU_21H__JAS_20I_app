@@ -25,6 +25,7 @@ describe("Basic functions and operators", () => {
     // noinspection ES6ConvertVarToLetConst,JSDuplicatedDeclaration
     var x = 1;
     {
+      // eslint-disable-next-line no-redeclare
       // noinspection ES6ConvertVarToLetConst,JSDuplicatedDeclaration
       var x = 2; // gleiche Variable!
 
@@ -137,9 +138,11 @@ describe("Basic functions and operators", () => {
   test("b is set to value", () => {
     let b;
     (function () {
+      // eslint-disable-next-line no-undef
       b = 5;
     })();
 
+    // eslint-disable-next-line no-undef
     expect(b).toBe(5);
   });
 
