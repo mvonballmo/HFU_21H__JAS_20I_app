@@ -1,0 +1,16 @@
+* {
+  box-sizing: border-box;
+}
+:root {
+  --control-width: 100px;
+  --default-spacing: 5px;
+}
+.buttons {
+  display: grid;
+  grid-template-columns: var(--control-width);
+  grid-gap: var(--default-spacing);
+  margin-bottom: var(--default-spacing);
+}
+textarea {
+  width: var(--control-width);
+}
