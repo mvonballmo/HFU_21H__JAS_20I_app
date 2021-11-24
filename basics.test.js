@@ -323,7 +323,7 @@ describe("Basic functions and operators", () => {
 
     const toAdd = 20;
 
-    const result = items.map((item) => item + toAdd);
+    const result = items.map(item => item + toAdd);
 
     expect(result).toStrictEqual([30, 40, 50, 60, 70]);
   });
@@ -341,7 +341,7 @@ describe("Basic functions and operators", () => {
   test("array filter", () => {
     const items = [10, 20, 30, 40, 50];
 
-    const result = items.filter((i) => i > 30);
+    const result = items.filter(i => i > 30);
 
     expect(result).toStrictEqual([40, 50]);
   });
