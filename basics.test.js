@@ -312,5 +312,83 @@ describe('Basic functions and operators', () => {
       const expectedItem = items[items.indexOf(item)];
       expect(item).toBe(expectedItem);
     }
-  })
-})
+  });
+
+  test("array map", () => {
+    const items = [10, 20, 30, 40, 50];
+
+    const toAdd = 20;
+
+    const result = items.map((item) => item + toAdd);
+
+    expect(result).toStrictEqual([30, 40, 50, 60, 70]);
+  });
+
+  test("array reduce", () => {
+    const items = [10, 20, 30, 40, 50];
+
+    const sum = (a, b) => a + b;
+
+    const result = items.reduce(sum);
+
+    expect(result).toStrictEqual(150);
+  });
+
+  test("array filter", () => {
+    const items = [10, 20, 30, 40, 50];
+
+    const result = items.filter((i) => i > 30);
+
+    expect(result).toStrictEqual([40, 50]);
+  });
+
+  test("array flat", () => {
+    const items = [10, [20, [30, 60]], 40, 50];
+
+    const result = items.flat(2);
+
+    expect(result).toEqual([10, 20, 30, 60, 40, 50]);
+  });
+
+  test("array slice", () => {
+    const items = [10, 20, 30, 40, 50];
+
+    const result = items.slice(1, 3);
+
+    expect(result).toEqual([20, 30]);
+  });
+
+  test("math stuff", () => {
+    const max = Math.max(1, 2, 3, 4);
+
+    expect(result).toEqual(4);
+  });
+
+  test("date stuff", () => {
+    const date = new Date(Date.parse("04 Dec 2021 00:10:00 GMT"));
+    const month = date.getUTCMonth();
+    const hour = date.getUTCHours();
+
+    expect(month).toBe(11);
+    expect(hour).toBe(0);
+
+    const dateWithTimeStamp = new Date(86400);
+    const dateWithISOYear = new Date(Date.parse("2021.12.04 00:10:00 GMT"));
+    const dateWithUSYear = new Date(Date.parse("12/04/2021 00:10:00 GMT"));
+    const defaultDate = new Date();
+
+    const now = Date.now();
+  });
+
+  test("add method adds one", () => {
+    const obj = {
+      a: 1,
+
+      add() {
+        return this.a + 1;
+      },
+    };
+
+    expect(obj.add()).toBe(2);
+  });
+});
