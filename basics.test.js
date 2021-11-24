@@ -131,6 +131,11 @@ describe("Basic functions and operators", () => {
 
     expect(typeof p1).toBe("object");
 
+    const obj = {
+      firstName: "Bob",
+      lastName: "Jones",
+    };
+
     expect(p1 instanceof Person).toBeTruthy();
     expect(obj instanceof Person).toBeFalsy();
   });
@@ -360,7 +365,7 @@ describe("Basic functions and operators", () => {
   test("math stuff", () => {
     const max = Math.max(1, 2, 3, 4);
 
-    expect(result).toEqual(4);
+    expect(max).toEqual(4);
   });
 
   test("date stuff", () => {
