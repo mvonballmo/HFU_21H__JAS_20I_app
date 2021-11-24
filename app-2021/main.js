@@ -44,3 +44,12 @@ const buttons = document.getElementsByTagName("button");
 for (const button of buttons) {
   button.addEventListener("click", log);
 }
+
+const duckDuckGo = document.getElementById("search");
+
+duckDuckGo.addEventListener("click", e => {
+  const shouldChangePage = confirm("Are you sure?");
+  if (!shouldChangePage) {
+    e.preventDefault();
+  }
+});
