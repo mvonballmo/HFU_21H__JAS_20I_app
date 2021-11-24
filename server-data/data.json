@@ -1,0 +1,136 @@
+{
+  "albums": [
+    {
+      "title": "First album",
+      "description": "This is an album description."
+    },
+    {
+      "title": "Second album",
+      "description": "This is an album description."
+    },
+    {
+      "title": "Third album",
+      "description": "This is an album description."
+    },
+    {
+      "title": "Fourth album",
+      "description": "This is an album description."
+    },
+    {
+      "title": "Fifth album",
+      "description": "This is an album description."
+    },
+    {
+      "title": "Sixth album",
+      "description": "This is an album description."
+    }
+  ],
+  "classes": [
+    {
+      "id": 1,
+      "pluralCaption": "Cars",
+      "baseUrl": "cars/"
+    },
+    {
+      "id": 2,
+      "pluralCaption": "Addresses",
+      "baseUrl": "addresses/"
+    }
+  ],
+  "cars": [
+    {
+      "id": 1,
+      "model": "Volkswagen"
+    },
+    {
+      "id": 2,
+      "model": "Opel"
+    }
+  ],
+  "addresses": [
+    {
+      "id": 1,
+      "lastName": "Smith",
+      "firstName": "Peter",
+      "salary": "3750.00 Euro",
+      "birthDate": "geb. 12.04.1958"
+    },
+    {
+      "id": 2,
+      "lastName": "von Ballmoos",
+      "firstName": "Marco",
+      "salary": "30000.00 Euro",
+      "birthDate": "geb. 12.04.1998"
+    },
+    {
+      "id": 3,
+      "lastName": "Maier",
+      "firstName": "Hanseeee",
+      "salary": "3500.00 Euro",
+      "birthDate": "geb. 15.03.1962"
+    },
+    {
+      "id": 4,
+      "lastName": "Schmitz",
+      "firstName": "Kerim",
+      "salary": "3750.00 Euro",
+      "birthDate": "geb. 12.04.1958"
+    },
+    {
+      "id": 5,
+      "lastName": "Schmitz",
+      "firstName": "Peter",
+      "salary": "3750.00 Euro",
+      "birthDate": "geb. 12.04.1958"
+    },
+    {
+      "id": 6,
+      "lastName": "von Ballmoos",
+      "firstName": "Marco",
+      "salary": "30000.00 Euro",
+      "birthDate": "geb. 12.04.1998"
+    },
+    {
+      "id": 7,
+      "lastName": "Maier",
+      "firstName": "Hans",
+      "salary": "3500.00 Euro",
+      "birthDate": "geb. 15.03.1962"
+    },
+    {
+      "id": 8,
+      "lastName": "Schmitz",
+      "firstName": "Kerim",
+      "salary": "3750.00 Euro",
+      "birthDate": "geb. 12.04.1958"
+    },
+    {
+      "id": 9,
+      "lastName": "Schmitz",
+      "firstName": "Peter",
+      "salary": "3750.00 Euro",
+      "birthDate": "geb. 12.04.1958"
+    },
+    {
+      "id": 10,
+      "lastName": "von Ballmoos",
+      "firstName": "Marco",
+      "salary": "30000.00 Euro",
+      "birthDate": "geb. 12.04.1998"
+    },
+    {
+      "id": 11,
+      "lastName": "Maier",
+      "firstName": "Hans",
+      "salary": "3500.00 Euro",
+      "birthDate": "geb. 15.03.1962"
+    },
+    {
+      "firstName": "bob",
+      "lastName": "jones",
+      "birthDate": "2021-03-14",
+      "salary": "10000",
+      "id": 14
+    }
+  ]
+}

@@ -1,0 +1,148 @@
+<link rel="stylesheet" href="style.css">
+<script src="lib.js"></script>
+
+<script>
+  function getAddressUrl(relativeUrl = '') {
+    return `addresses/${relativeUrl}`;
+  }
+
+  function setError(message) {
+    setContent(
+      "status",
+      createText(message)
+    );
+  }
+
+  async function deleteAddress(id, index) {
+    try {
+      await deleteData(getAddressUrl(id));
+
+      clearContent("detail-panel");
+      removeListItem("list-panel", index);
+    } catch (error) {
+      setError(`Unable to delete address [${id}]: ${error.message}`);
+    }
+  }
+
+  async function updateAddress(address, index) {
+    try {
+      await putData(getAddressUrl(address.id), address);
+
+      updateListItem("list-panel", index, createAddressListItem(address, index));
+    } catch (error) {
+      setError(`Unable to update address [${address.id}]: ${error.message}`);
+    }
+  }
+
+  async function createNewAddress(address, index) {
+    try {
+      address = await postData(getAddressUrl(), address);
+
+      index = getListItemCount("list-panel");
+
+      addListItem("list-panel", index, createAddressListItem(address, index));
+
+      setDetail(address, index);
+    } catch (error) {
+      setError(`Unable to create address: ${error.message}`);
+    }
+  }
+
+  function saveAddress(address, index) {
+    const inputs = document.getElementById('detail-panel').getElementsByTagName('input');
+
+    for (const input of inputs) {
+      address[input.id] = input.value
+    }
+
+    if (addressExists(address, index)) {
+      updateAddress(address, index);
+    } else {
+      createNewAddress(address, index);
+    }
+  }
+
+  function addressExists(address, index) {
+    return index >= 0;
+  }
+
+  function* getDetailButtons(address, index) {
+    if (addressExists(address, index)) {
+      yield createButton("Delete", () => deleteAddress(address.id, index));
+    }
+
+    yield createButton("Save", () => saveAddress(address, index));
+  }
+
+  function setDetail(address, index) {
+    setContent(
+      "detail-panel",
+      createPanel(
+        address,
+        getDetailButtons(address, index)
+      )
+    );
+  }
+
+  async function showAddress(id, index) {
+    try {
+      const address = await getData(getAddressUrl(id));
+
+      setDetail(address, index);
+    } catch (error) {
+      setContent('detail-panel', createText('no address'));
+      setError(`Unable to retrieve address [${id}]: ${error.message}`);
+    }
+  }
+
+  function createAddressListItem(a, index) {
+    return createLink(`${a.firstName} ${a.lastName}`, () => showAddress(a.id, index))
+  }
+
+  async function getAddresses() {
+    try {
+      const addresses = await getData(getAddressUrl());
+
+      setList(
+        "list-panel",
+        addresses.map(createAddressListItem)
+      );
+    } catch (error) {
+      setError(`Unable to retrieve addresses: ${error.message}`);
+    }
+  }
+
+  function createAddress() {
+    // TODO Figure out how to create a new object generically (add to schema?)
+    const address = {
+      firstName: '',
+      lastName: '',
+      birthDate: new Date(),
+      salary: 0,
+    }
+    setDetail(address, -1);
+  }
+
+  window.onload = getAddresses;
+</script>
+
+<body>
+  <div id="list">
+    <h2>Addresses</h2>
+    <ul class="toolbar">
+      <li><a href="#" onclick="createAddress()">New...</a></li>
+      <li><a href="#" onclick="getAddresses()">Refresh</a></li>
+    </ul>
+    <ul id="list-panel">
+    </ul>
+  </div>
+  <div id="data">
+    <div id="detail">
+      <h2>Details</h2>
+      <div id="detail-panel">
+      </div>
+    </div>
+    <div id="status">
+    </div>
+  </div>
+</body>

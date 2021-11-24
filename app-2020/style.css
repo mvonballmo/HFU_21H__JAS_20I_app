@@ -1,0 +1,62 @@
+body {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  margin: 0px;
+  height: 100%;
+}
+
+#list {
+  background-color: lightgray;
+  padding: 10px;
+}
+
+#list-panel {
+  padding-inline-start: 20px;
+}
+
+#data {
+  display: grid;
+  grid-template-rows: 1fr 25px;
+}
+
+#detail {
+  padding: 10px;
+}
+
+#status {
+  border-top: 1px solid lightgray;
+}
+
+label {
+  font-weight: bold;
+  padding-right: 10px;
+}
+
+ul.toolbar {
+  display: block;
+  padding: 0;
+}
+
+.toolbar>li {
+  display: inline;
+}
+
+.toolbar>li+li:before {
+  content: " | "
+}
+
+.removed {
+  animation: fadeOut 3s;
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+    height: auto;
+  }
+
+  100% {
+    opacity: 0;
+    height: 0;
+  }
+}
