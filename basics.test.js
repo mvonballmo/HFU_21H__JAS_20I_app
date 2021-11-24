@@ -131,7 +131,12 @@ describe('Basic functions and operators', () => {
     expect(p2.fullName()).toBe("Bob Smith");
     expect(p3.fullName()).toBe("Bob Smith @ HFU");
     expect(p4.fullName()).toBe("Bob Smith @ unknown");
-  })
+
+    expect(typeof p1).toBe("object");
+
+    expect(p1 instanceof Person).toBeTruthy();
+    expect(obj instanceof Person).toBeFalsy();
+  });
 
   test('b is set to value', () => {
     (function () {
