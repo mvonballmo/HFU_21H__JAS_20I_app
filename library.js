@@ -4,24 +4,20 @@ let _counter = 1;
 let m = 2;
 show(_counter + m);
 
-export function counter()
-{
+export function counter() {
   return _counter;
 }
 
-export function increment()
-{
+export function increment() {
   return ++_counter;
 }
 
-export function decrement()
-{
+export function decrement() {
   return --_counter;
 }
 
-export function show(value)
-{
-  const output = document.getElementById('output');
+export function show(value) {
+  const output = document.getElementById("output");
   if (output) {
     output.value += value;
   }
