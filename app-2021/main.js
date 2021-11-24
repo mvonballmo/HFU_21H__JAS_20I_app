@@ -30,5 +30,15 @@ window.showAddress = async () => {
 
 const buttons = document.getElementsByTagName("button");
 for (const button of buttons) {
-  button.addEventListener("click", e => console.log(e.target.id));
+  button.addEventListener("click", e => {
+    console.log("Arrow Function");
+    console.log(e.target.id);
+    console.log(this); // This does not capture any context
+  });
+
+  button.addEventListener("click", function (e) {
+    console.log("Standard Function");
+    console.log(e.target.id);
+    console.log(this);
+  });
 }
