@@ -28,17 +28,19 @@ window.showAddress = async () => {
   nav.innerHTML = `<ul>${listItems}</ul>`;
 };
 
+const log = e => {
+  console.log(`${e.target.nodeName}, ${e.currentTarget.nodeName}`);
+  e.stopPropagation();
+};
+
+document.addEventListener("click", log, { capture: true });
+
+const containers = document.querySelectorAll(".buttons");
+for (const container of containers) {
+  container.addEventListener("click", log);
+}
+
 const buttons = document.getElementsByTagName("button");
 for (const button of buttons) {
-  button.addEventListener("click", e => {
-    console.log("Arrow Function");
-    console.log(e.target.id);
-    console.log(this); // This does not capture any context
-  });
-
-  button.addEventListener("click", function (e) {
-    console.log("Standard Function");
-    console.log(e.target.id);
-    console.log(this);
-  });
+  button.addEventListener("click", log);
 }
