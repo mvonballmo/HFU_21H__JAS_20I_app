@@ -1,9 +1,9 @@
-import * as library from './library.js';
+import { show, decrement, increment } from "./library.js";
 
 window.add = () => {
-  library.show(library.increment())
+  show(increment());
 };
 
 window.subtract = () => {
-  library.show(library.decrement())
+  show(decrement());
 };
