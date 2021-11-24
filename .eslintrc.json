@@ -1,12 +1,13 @@
 {
   "env": {
     "browser": true,
-    "commonjs": true,
+    "commonjs": false,
     "es2021": true
   },
   "extends": ["eslint:recommended", "prettier"],
   "parserOptions": {
-    "ecmaVersion": 2021
+    "ecmaVersion": 2021,
+    "sourceType": "module"
   },
   "rules": {
     "no-unused-vars": ["warn", { "vars": "all", "args": "after-used", "ignoreRestSiblings": false }],
