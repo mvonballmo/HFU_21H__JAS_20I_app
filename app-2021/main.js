@@ -33,7 +33,7 @@ const log = e => {
   e.stopPropagation();
 };
 
-document.addEventListener("click", log, { capture: true });
+document.addEventListener("click", log);
 
 const containers = document.querySelectorAll(".buttons");
 for (const container of containers) {
