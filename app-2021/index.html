@@ -8,14 +8,16 @@
 </head>
 <body>
 <div class="buttons">
-  <button onclick="add()">+</button>
-  <button onclick="subtract()">-</button>
+  <button id="add" onclick="add()">+</button>
+  <button id="subtract" onclick="subtract()">-</button>
 </div>
 
 <textarea id="output"></textarea>
 
 <div class="buttons">
   <button onclick="showAddress()">Show Address</button>
+  <button id="a" onclick="console.log(this.id)">Log Value</button>
+  <button id="b" onclick="console.log(this.id)">Log Value</button>
 </div>
 
 <nav></nav>

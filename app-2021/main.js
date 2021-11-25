@@ -27,3 +27,8 @@ window.showAddress = async () => {
 
   nav.innerHTML = `<ul>${listItems}</ul>`;
 };
+
+const buttons = document.getElementsByTagName("button");
+for (const button of buttons) {
+  button.onclick = e => console.log(e.target.id);
+}
