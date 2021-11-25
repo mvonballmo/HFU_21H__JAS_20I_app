@@ -179,15 +179,17 @@ describe("Basic functions and operators", () => {
     expect(person.company.name).toBe("Apple");
   });
 
-  test("map", () => {
+  test("test map", () => {
     const m = new Map();
 
     m.set("a", 1);
     m.set("b", 2);
     m.set("c", 3);
 
+    const expected = ["a", "b", "c"];
+
     for (const [key, value] of m) {
-      console.log(key + " = " + value);
+      expect(key).toBe(expected[value - 1]);
     }
   });
 
