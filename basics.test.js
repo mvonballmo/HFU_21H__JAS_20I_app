@@ -1,4 +1,4 @@
-const { test, expect, describe } = require("@jest/globals");
+import { describe, expect, test } from "@jest/globals";
 
 describe("Basic functions and operators", () => {
   const bioCases = [
