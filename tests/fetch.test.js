@@ -19,4 +19,11 @@ describe("Fetch", () => {
       })
       .catch(error => done(error));
   });
+
+  test("call fetch with async/await", async () => {
+    const promise = await fetch("http://localhost:3000/addresses");
+    const addresses = await promise.json();
+
+    expect(addresses.length).toBe(12);
+  });
 });
