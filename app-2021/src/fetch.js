@@ -1,3 +1,5 @@
+const serverRoot = "http://localhost:3001/";
+
 async function execute(url, init = undefined) {
   const response = await fetch(url, init);
 
@@ -15,7 +17,7 @@ function insertOrUpdate(url, address, method) {
 }
 
 export function getAddressesUrl() {
-  return "http://localhost:3001/addresses";
+  return `${serverRoot}addresses`;
 }
 
 export function getAddresses() {
@@ -39,5 +41,5 @@ export function deleteAddress(address) {
 }
 
 export function getCars() {
-  return execute("http://localhost:3001/cars");
+  return execute(`${serverRoot}cars`);
 }
