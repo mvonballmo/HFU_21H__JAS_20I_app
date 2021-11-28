@@ -17,7 +17,7 @@ export class crud {
    * @return Promise<[{ id: number }]>
    */
   getAll() {
-    return execute(this._rootUrl);
+    return this.#execute(this._rootUrl);
   }
 
   /**
@@ -26,7 +26,7 @@ export class crud {
    * @param {number} id The unique identifier for the requested entity.
    */
   get(id) {
-    return execute(`${this._rootUrl}/${id}`);
+    return this.#execute(`${this._rootUrl}/${id}`);
   }
 
   /**
@@ -36,7 +36,7 @@ export class crud {
    * @return The inserted object with the ID applied.
    */
   insert(entity) {
-    return insertOrUpdate(`${this._rootUrl}/`, entity, "POST");
+    return this.#insertOrUpdate(`${this._rootUrl}/`, entity, "POST");
   }
 
   /**
@@ -45,7 +45,7 @@ export class crud {
    * @param {{ id: number }} entity The object to update.
    */
   update(entity) {
-    return insertOrUpdate(`${this._rootUrl}/${entity.id}`, entity, "PUT");
+    return this.#insertOrUpdate(`${this._rootUrl}/${entity.id}`, entity, "PUT");
   }
 
   /**
@@ -57,26 +57,26 @@ export class crud {
     return fetch(`${this._rootUrl}/${entity.id}`, { method: "DELETE" });
   }
 
+  async #execute(url, init = undefined) {
+    const response = await fetch(url, init);
+
+    return response.json();
+  }
+
+  #insertOrUpdate(url, address, method) {
+    return this.#execute(url, {
+      method: method,
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(address),
+    });
+  }
+
   /**
    * The root url to use for all entity commands.
    *
    * @type string
    */
   #_rootUrl;
-}
-
-async function execute(url, init = undefined) {
-  const response = await fetch(url, init);
-
-  return response.json();
-}
-
-function insertOrUpdate(url, address, method) {
-  return execute(url, {
-    method: method,
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(address),
-  });
 }
