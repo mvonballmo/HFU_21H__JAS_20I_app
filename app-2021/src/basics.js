@@ -19,6 +19,10 @@ export function decrement() {
 export function show(value) {
   const output = document.getElementById("output");
   if (output) {
-    output.value += value;
+    if (output.value) {
+      output.value += "\n" + value;
+    } else {
+      output.value = value;
+    }
   }
 }

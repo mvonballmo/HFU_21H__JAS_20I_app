@@ -26,6 +26,7 @@ In order to run all tests, do the following:
 ### Run
 
 - Open a terminal
+- Execute `json-server ./app-2021/data.json --watch --port 3000`
 - Switch to the `app-2021` folder
 - Execute `npx http-server`
 - Browse to [http://127.0.0.1:8080](http://127.0.0.1:8080)
