@@ -41,6 +41,9 @@ describe("Fetch", () => {
     const promise = await fetch("http://localhost:3000/addresses");
     const addresses = JSON.parse(await promise.text());
 
+    expect(response.ok).toBeTruthy();
+    expect(response.status).toBe(200);
+
     expect(addresses.length).toBe(12);
   });
 
