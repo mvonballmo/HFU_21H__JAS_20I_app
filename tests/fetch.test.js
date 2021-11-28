@@ -1,6 +1,16 @@
 import { describe, expect, test } from "@jest/globals";
 import "isomorphic-fetch";
 
+/*
+  This test suite requires a server running at:
+
+  <http://localhost:3000>
+
+  The project includes the json-server and test data, which you can start with:
+
+  json-server ./server-data/data.json
+*/
+
 describe("Fetch", () => {
   test("call fetch gets addresses", () => {
     return fetch("http://localhost:3000/addresses")
