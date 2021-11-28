@@ -15,5 +15,5 @@ Public App/demos for the HFU Intro to JavaScript course for 2021 to 2022.
 
 In order to run all tests, do the following:
 
-- Execute `json-server ./server-data/data.json` to start a mini JSON server
+- Execute `json-server ./server-data/data.json --watch` to start a mini JSON server
 - Execute `npm run test`

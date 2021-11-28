@@ -8,7 +8,7 @@ import "isomorphic-fetch";
 
   The project includes the json-server and test data, which you can start with:
 
-  json-server ./server-data/data.json
+  json-server ./server-data/data.json --watch
 */
 
 describe("Fetch", () => {
@@ -74,5 +74,66 @@ describe("Fetch", () => {
 
     expect(addresses.length).toBe(12);
     expect(cars.length).toBe(2);
+  });
+
+  test("Create new address", async () => {
+    const address = {
+      firstName: "test",
+      lastName: "tester",
+      birthDate: "2021-03-31",
+      salary: "20050",
+    };
+
+    let addresses = await getAddresses();
+
+    expect(addresses.length).toBe(12);
+
+    await fetch(`http://localhost:3000/addresses/`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(address),
+    });
+
+    addresses = await getAddresses();
+
+    expect(addresses.length).toBe(13);
+  });
+
+  test("Update existing address", async () => {
+    let addresses = await getAddresses();
+
+    let address = addresses.find(a => a.id === 1);
+
+    expect(address.firstName).toBe("Peter");
+
+    address.firstName = "Moritz";
+
+    await fetch(`http://localhost:3000/addresses/${address.id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(address),
+    });
+
+    addresses = await getAddresses();
+
+    address = addresses.find(a => a.id === 1);
+
+    expect(address.firstName).toBe("Moritz");
+  });
+
+  test("Delete address", async () => {
+    let addresses = await getAddresses();
+
+    expect(addresses.length).toBe(12);
+
+    await fetch(`http://localhost:3000/addresses/1`, { method: "DELETE" });
+
+    addresses = await getAddresses();
+
+    expect(addresses.length).toBe(11);
   });
 });
