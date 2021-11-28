@@ -1,6 +1,6 @@
 import { describe, expect, test } from "@jest/globals";
 import "isomorphic-fetch";
-import { crud } from "./fetch";
+import { crud } from "./crud";
 
 /*
   This test suite requires a server running at:
