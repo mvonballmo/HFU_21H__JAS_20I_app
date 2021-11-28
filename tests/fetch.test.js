@@ -55,4 +55,24 @@ describe("Fetch", () => {
       // Wird immer ausgeführt (cleanup, logging, usw.)
     }
   });
+
+  async function getAddresses() {
+    const response = await fetch("http://localhost:3000/addresses");
+    return await response.json();
+  }
+
+  async function getCars() {
+    const response = await fetch("http://localhost:3000/cars");
+    return await response.json();
+  }
+
+  test("wait for multiple fetch calls", async () => {
+    const addressPromise = getAddresses();
+    const carPromise = getCars();
+
+    const [addresses, cars] = await Promise.all([addressPromise, carPromise]);
+
+    expect(addresses.length).toBe(12);
+    expect(cars.length).toBe(2);
+  });
 });
