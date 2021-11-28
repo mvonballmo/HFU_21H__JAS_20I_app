@@ -1,5 +1,6 @@
 import { describe, expect, test } from "@jest/globals";
 import "isomorphic-fetch";
+import { deleteAddress, updateAddress, getAddress, getAddresses, insertAddress, getCars } from "./fetch";
 
 /*
   This test suite requires a server running at:
@@ -10,46 +11,6 @@ import "isomorphic-fetch";
 */
 
 describe("Fetch", () => {
-  async function execute(url, init = undefined) {
-    const response = await fetch(url, init);
-
-    return response.json();
-  }
-
-  function getAddresses() {
-    return execute("http://localhost:3001/addresses");
-  }
-
-  function getAddress(id) {
-    return execute(`http://localhost:3001/addresses/${id}`);
-  }
-
-  function insertOrUpdate(url, address, method) {
-    return execute(url, {
-      method: method,
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(address),
-    });
-  }
-
-  function insertAddress(address) {
-    return insertOrUpdate(`http://localhost:3001/addresses/`, address, "POST");
-  }
-
-  function updateAddress(address) {
-    return insertOrUpdate(`http://localhost:3001/addresses/${address.id}`, address, "PUT");
-  }
-
-  function deleteAddress(address) {
-    return fetch(`http://localhost:3001/addresses/${address.id}`, { method: "DELETE" });
-  }
-
-  function getCars() {
-    return execute("http://localhost:3001/cars");
-  }
-
   test("call fetch gets addresses with done", done => {
     fetch("http://localhost:3001/addresses")
       .then(data => data.json())
