@@ -21,7 +21,7 @@ export class crud {
    * Gets all entities from the database.
    */
   getAll() {
-    return execute(getAddressesUrl());
+    return execute(this._rootUrl);
   }
 
   /**
@@ -30,7 +30,7 @@ export class crud {
    * @param {number} id The unique identifier for the requested entity.
    */
   get(id) {
-    return execute(`${getAddressesUrl()}/${id}`);
+    return execute(`${this._rootUrl}/${id}`);
   }
 
   /**
@@ -40,7 +40,7 @@ export class crud {
    * @return The inserted object with the ID applied.
    */
   insert(entity) {
-    return insertOrUpdate(`${getAddressesUrl()}/`, entity, "POST");
+    return insertOrUpdate(`${this._rootUrl}/`, entity, "POST");
   }
 
   /**
@@ -49,7 +49,7 @@ export class crud {
    * @param {{ id: number }} entity The object to update.
    */
   update(entity) {
-    return insertOrUpdate(`${getAddressesUrl()}/${entity.id}`, entity, "PUT");
+    return insertOrUpdate(`${this._rootUrl}/${entity.id}`, entity, "PUT");
   }
 
   /**
@@ -58,13 +58,13 @@ export class crud {
    * @param {{ id: number }} entity The object to delete.
    */
   delete(entity) {
-    return fetch(`${getAddressesUrl()}/${entity.id}`, { method: "DELETE" });
+    return fetch(`${this._rootUrl}/${entity.id}`, { method: "DELETE" });
   }
 
   /**
    * The root url to use for all entity commands.
    *
-   * @private
+   * @type string
    */
   #_rootUrl;
 }
