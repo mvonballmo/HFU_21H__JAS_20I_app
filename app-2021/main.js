@@ -1,4 +1,4 @@
-import { show, decrement, increment } from "./library.js";
+import { show, decrement, increment } from "./src/library.js";
 
 window.add = () => {
   show(increment());

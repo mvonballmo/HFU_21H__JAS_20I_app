@@ -2,7 +2,7 @@
   "name": "js_app",
   "version": "1.0.0",
   "description": "A demo app",
-  "main": "library.js",
+  "main": "app-2021/src/library.js",
   "scripts": {
     "test": "jest"
   },
