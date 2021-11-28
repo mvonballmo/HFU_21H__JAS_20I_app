@@ -33,4 +33,16 @@ describe("Fetch", () => {
 
     expect(addresses.length).toBe(12);
   });
+
+  test("call fetch with caught error", async () => {
+    try {
+      const promise = await fetch("htsssstp://localhost:3000/addresses");
+      return await promise.json();
+    } catch (error) {
+      const e = error; // Für Debugging
+      // Error wird ignoriert
+    } finally {
+      // Wird immer ausgeführt (cleanup, logging, usw.)
+    }
+  });
 });
