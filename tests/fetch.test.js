@@ -6,7 +6,7 @@ describe("Fetch", () => {
     return fetch("http://localhost:3000/addresses")
       .then(data => data.json())
       .then(addresses => {
-        expect(addresses.length).toBe(34);
+        expect(addresses.length).toBe(12);
       });
   });
 
@@ -14,7 +14,7 @@ describe("Fetch", () => {
     fetch("http://localhost:3000/addresses")
       .then(data => data.json())
       .then(addresses => {
-        expect(addresses.length).toBe(34);
+        expect(addresses.length).toBe(12);
         done();
       })
       .catch(error => done(error));
