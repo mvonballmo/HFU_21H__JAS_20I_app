@@ -8,6 +8,7 @@ import {
   insertAddress,
   getCars,
   getAddressesUrl,
+  createAddressCrud,
 } from "./fetch";
 
 /*
@@ -122,18 +123,20 @@ describe("Fetch", () => {
       salary: "20050",
     };
 
-    let addresses = await getAddresses();
+    const addressCrud = createAddressCrud();
+
+    let addresses = await addressCrud.getAll();
 
     expect(addresses.length).toBe(12);
 
-    address = await insertAddress(address);
+    address = await addressCrud.insert(address);
 
     try {
-      addresses = await getAddresses();
+      addresses = await addressCrud.getAll();
 
       expect(addresses.length).toBe(13);
     } finally {
-      await deleteAddress(address);
+      await addressCrud.delete(address);
     }
   });
 

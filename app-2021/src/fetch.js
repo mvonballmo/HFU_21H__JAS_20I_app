@@ -1,5 +1,74 @@
 const serverRoot = "http://localhost:3001/";
 
+/**
+ * Describes an object that performs CRUD for a given entity.
+ */
+export class crud {
+  /**
+   * Creates a new object for the given `rootUrl`.
+   *
+   * @param {string} rootUrl The root URL to use.
+   */
+  constructor(rootUrl) {
+    this._rootUrl = rootUrl;
+  }
+
+  get getRootUrl() {
+    return this._rootUrl;
+  }
+
+  /**
+   * Gets all entities from the database.
+   */
+  getAll() {
+    return execute(getAddressesUrl());
+  }
+
+  /**
+   * Gets the entity with the given `id` from the database.
+   *
+   * @param {number} id The unique identifier for the requested entity.
+   */
+  get(id) {
+    return execute(`${getAddressesUrl()}/${id}`);
+  }
+
+  /**
+   * Inserts the given `entity` into the database.
+   *
+   * @param {{}} entity The object to insert.
+   * @return The inserted object with the ID applied.
+   */
+  insert(entity) {
+    return insertOrUpdate(`${getAddressesUrl()}/`, entity, "POST");
+  }
+
+  /**
+   * Updates the given `entity` in the database.
+   *
+   * @param {{ id: number }} entity The object to update.
+   */
+  update(entity) {
+    return insertOrUpdate(`${getAddressesUrl()}/${entity.id}`, entity, "PUT");
+  }
+
+  /**
+   * Deletes the given `entity` from the database.
+   *
+   * @param {{ id: number }} entity The object to delete.
+   */
+  delete(entity) {
+    return fetch(`${getAddressesUrl()}/${entity.id}`, { method: "DELETE" });
+  }
+
+  /**
+   * The root url to use for all entity commands.
+   *
+   * @private
+   */
+  #_rootUrl;
+}
+
 async function execute(url, init = undefined) {
   const response = await fetch(url, init);
 
@@ -42,4 +111,13 @@ export function deleteAddress(address) {
 
 export function getCars() {
   return execute(`${serverRoot}cars`);
+}
+
+/**
+ * Gets an object that performs CRUD for addresses.
+ *
+ * @return {crud}
+ */
+export function createAddressCrud() {
+  return new crud("http://localhost:3001/addresses");
 }
