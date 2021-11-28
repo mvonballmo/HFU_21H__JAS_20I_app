@@ -3,7 +3,7 @@ const rootUrl = "http://localhost:3100/";
 function setContent(id, ...elements) {
   const container = document.getElementById(id);
 
-  container.innerHTML = '';
+  container.innerHTML = "";
 
   for (const element of elements) {
     container.appendChild(element);
@@ -19,8 +19,8 @@ function getRowId(id, index) {
 }
 
 function createListItem(listId, element, index) {
-  const result = document.createElement('li');
-  result.setAttribute("id", getRowId(listId, index))
+  const result = document.createElement("li");
+  result.setAttribute("id", getRowId(listId, index));
   result.appendChild(element);
 
   return result;
@@ -36,7 +36,7 @@ function removeListItem(listId, rowIndex) {
   const row = document.querySelector(`#${getRowId(listId, rowIndex)}`);
   if (row != null) {
     row.onanimationend = e => row.parentElement.removeChild(row);
-    row.classList.add('removed')
+    row.classList.add("removed");
   }
 }
 
@@ -54,7 +54,7 @@ function addListItem(listId, rowIndex, element) {
   document.getElementById(listId).appendChild(row);
 }
 
-async function getData(relativeUrl = '') {
+async function getData(relativeUrl = "") {
   const response = await fetch(`${rootUrl}${relativeUrl}`);
   if (!response.ok) {
     throw new Error(response.statusText);
@@ -64,7 +64,7 @@ async function getData(relativeUrl = '') {
 }
 
 async function deleteData(relativeUrl) {
-  const response = await fetch(`${rootUrl}${relativeUrl}`, { method: 'DELETE' });
+  const response = await fetch(`${rootUrl}${relativeUrl}`, { method: "DELETE" });
   if (!response.ok) {
     throw new Error(response.statusText);
   }
@@ -73,16 +73,13 @@ async function deleteData(relativeUrl) {
 }
 
 async function updateData(method, relativeUrl, data) {
-  const response = await fetch(
-    `${rootUrl}${relativeUrl}`,
-    {
-      method: method,
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(data)
-    }
-  );
+  const response = await fetch(`${rootUrl}${relativeUrl}`, {
+    method: method,
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data),
+  });
 
   if (!response.ok) {
     throw new Error(response.statusText);
@@ -92,15 +89,15 @@ async function updateData(method, relativeUrl, data) {
 }
 
 function putData(relativeUrl, data) {
-  return updateData('PUT', relativeUrl, data);
+  return updateData("PUT", relativeUrl, data);
 }
 
 function postData(relativeUrl, data) {
-  return updateData('POST', relativeUrl, data);
+  return updateData("POST", relativeUrl, data);
 }
 
 function createText(text) {
-  const label = document.createElement('span');
+  const label = document.createElement("span");
   label.textContent = text;
 
   return label;
@@ -110,26 +107,26 @@ function getInputType(value) {
   // TODO Extract this from the metadata
 
   if (value instanceof Date) {
-    return 'date';
+    return "date";
   }
 
   if (Number.isFinite(value)) {
-    return 'number';
+    return "number";
   }
 
-  return 'text';
+  return "text";
 }
 
 function createField(id, value) {
-  const result = document.createElement('div');
-  result.className = 'field';
+  const result = document.createElement("div");
+  result.className = "field";
 
-  const label = document.createElement('label');
+  const label = document.createElement("label");
   label.textContent = id;
 
   result.appendChild(label);
 
-  const input = document.createElement('input');
+  const input = document.createElement("input");
   input.type = getInputType(value);
   input.id = id;
   input.value = value;
@@ -140,8 +137,8 @@ function createField(id, value) {
 }
 
 function createPanel(data, buttons) {
-  const result = document.createElement('div');
-  result.className = 'panel';
+  const result = document.createElement("div");
+  result.className = "panel";
 
   for (const key in data) {
     if (Object.hasOwnProperty.call(data, key)) {
@@ -149,8 +146,8 @@ function createPanel(data, buttons) {
     }
   }
 
-  const buttonArea = document.createElement('div');
-  buttonArea.className = 'buttons';
+  const buttonArea = document.createElement("div");
+  buttonArea.className = "buttons";
 
   for (const button of buttons) {
     buttonArea.appendChild(button);
@@ -162,7 +159,7 @@ function createPanel(data, buttons) {
 }
 
 function createButton(text, onclick) {
-  const result = document.createElement('button');
+  const result = document.createElement("button");
   result.onclick = onclick;
   result.textContent = text;
 
@@ -170,8 +167,8 @@ function createButton(text, onclick) {
 }
 
 function createLink(text, onclick) {
-  const result = document.createElement('a');
-  result.href = '#';
+  const result = document.createElement("a");
+  result.href = "#";
   result.textContent = text;
   result.onclick = onclick;
 
@@ -179,8 +176,8 @@ function createLink(text, onclick) {
 }
 
 function createTextInput(id, label) {
-  const result = document.createElement('input')
-  result.type = 'text';
+  const result = document.createElement("input");
+  result.type = "text";
 
   return result;
 }
