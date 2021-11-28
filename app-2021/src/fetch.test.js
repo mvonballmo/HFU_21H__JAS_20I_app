@@ -4,11 +4,9 @@ import "isomorphic-fetch";
 /*
   This test suite requires a server running at:
 
-  <http://localhost:3000>
+  <http://localhost:3001>
 
-  The project includes the json-server and test data, which you can start with:
-
-  json-server ./server-data/data.json --watch
+  See the README.md at the root of the project to instructions on how to launch the server.
 */
 
 describe("Fetch", () => {
@@ -19,11 +17,11 @@ describe("Fetch", () => {
   }
 
   function getAddresses() {
-    return execute("http://localhost:3000/addresses");
+    return execute("http://localhost:3001/addresses");
   }
 
   function getAddress(id) {
-    return execute(`http://localhost:3000/addresses/${id}`);
+    return execute(`http://localhost:3001/addresses/${id}`);
   }
 
   function insertOrUpdate(url, address, method) {
@@ -37,23 +35,23 @@ describe("Fetch", () => {
   }
 
   function insertAddress(address) {
-    return insertOrUpdate(`http://localhost:3000/addresses/`, address, "POST");
+    return insertOrUpdate(`http://localhost:3001/addresses/`, address, "POST");
   }
 
   function updateAddress(address) {
-    return insertOrUpdate(`http://localhost:3000/addresses/${address.id}`, address, "PUT");
+    return insertOrUpdate(`http://localhost:3001/addresses/${address.id}`, address, "PUT");
   }
 
   function deleteAddress(address) {
-    return fetch(`http://localhost:3000/addresses/${address.id}`, { method: "DELETE" });
+    return fetch(`http://localhost:3001/addresses/${address.id}`, { method: "DELETE" });
   }
 
   function getCars() {
-    return execute("http://localhost:3000/cars");
+    return execute("http://localhost:3001/cars");
   }
 
   test("call fetch gets addresses with done", done => {
-    fetch("http://localhost:3000/addresses")
+    fetch("http://localhost:3001/addresses")
       .then(data => data.json())
       .then(addresses => {
         expect(addresses.length).toBe(12);
@@ -63,14 +61,14 @@ describe("Fetch", () => {
   });
 
   test("call fetch with async/await", async () => {
-    const promise = await fetch("http://localhost:3000/addresses");
+    const promise = await fetch("http://localhost:3001/addresses");
     const addresses = await promise.json();
 
     expect(addresses.length).toBe(12);
   });
 
   test("call fetch with async/await and JSON.parse()", async () => {
-    const response = await fetch("http://localhost:3000/addresses");
+    const response = await fetch("http://localhost:3001/addresses");
 
     expect(response.ok).toBeTruthy();
     expect(response.status).toBe(200);
@@ -81,7 +79,7 @@ describe("Fetch", () => {
   });
 
   test("call fetch with async/await and 404", async () => {
-    const response = await fetch("http://localhost:3000/addressessss");
+    const response = await fetch("http://localhost:3001/addressessss");
 
     expect(response.ok).toBeFalsy();
     expect(response.status).toBe(404);
@@ -127,7 +125,7 @@ describe("Fetch", () => {
 
   test("call fetch with caught error", async () => {
     try {
-      const promise = await fetch("htsssstp://localhost:3000/addresses");
+      const promise = await fetch("htsssstp://localhost:3001/addresses");
       return await promise.json();
     } catch (error) {
       const e = error; // Für Debugging

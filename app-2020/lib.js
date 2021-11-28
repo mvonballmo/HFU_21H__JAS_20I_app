@@ -1,4 +1,4 @@
-const rootUrl = 'http://localhost:3000/';
+const rootUrl = "http://localhost:3100/";
 
 function setContent(id, ...elements) {
   const container = document.getElementById(id);
