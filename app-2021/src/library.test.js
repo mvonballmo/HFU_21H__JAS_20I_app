@@ -3,7 +3,7 @@
  */
 
 import { describe, expect, test } from "@jest/globals";
-import { counter, increment, decrement } from "./library.js";
+import { counter, increment, decrement } from "./basics.js";
 
 describe("Library Functions", () => {
   test("counter is initialized to 1", () => {
