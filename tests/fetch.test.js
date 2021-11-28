@@ -12,28 +12,45 @@ import "isomorphic-fetch";
 */
 
 describe("Fetch", () => {
+  async function execute(url, init = undefined) {
+    const response = await fetch(url, init);
+
+    return response.json();
+  }
+
   async function getAddresses() {
-    const response = await fetch("http://localhost:3000/addresses");
-    return await response.json();
+    return execute("http://localhost:3000/addresses");
   }
 
   async function getAddress(id) {
-    const response = await fetch(`http://localhost:3000/addresses/${id}`);
-    return await response.json();
+    return execute(`http://localhost:3000/addresses/${id}`);
+  }
+
+  async function insertOrUpdate(url, address, method) {
+    return execute(url, {
+      method: method,
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(address),
+    });
+  }
+
+  async function insertAddress(address) {
+    return insertOrUpdate(`http://localhost:3000/addresses/`, address, "POST");
+  }
+
+  async function updateAddress(address) {
+    return insertOrUpdate(`http://localhost:3000/addresses/${address.id}`, address, "PUT");
+  }
+
+  async function deleteAddress(address) {
+    return fetch(`http://localhost:3000/addresses/${address.id}`, { method: "DELETE" });
   }
 
   async function getCars() {
-    const response = await fetch("http://localhost:3000/cars");
-    return await response.json();
+    return execute("http://localhost:3000/cars");
   }
-
-  test("call fetch gets addresses", () => {
-    return fetch("http://localhost:3000/addresses")
-      .then(data => data.json())
-      .then(addresses => {
-        expect(addresses.length).toBe(12);
-      });
-  });
 
   test("call fetch gets addresses with done", done => {
     fetch("http://localhost:3000/addresses")
@@ -92,8 +109,8 @@ describe("Fetch", () => {
     expect(cars.length).toBe(2);
   });
 
-  test("Create new address", async () => {
-    const address = {
+  test("Insert address", async () => {
+    let address = {
       firstName: "test",
       lastName: "tester",
       birthDate: "2021-03-31",
@@ -104,37 +121,35 @@ describe("Fetch", () => {
 
     expect(addresses.length).toBe(12);
 
-    await fetch(`http://localhost:3000/addresses/`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(address),
-    });
+    address = await insertAddress(address);
 
-    addresses = await getAddresses();
+    try {
+      addresses = await getAddresses();
 
-    expect(addresses.length).toBe(13);
+      expect(addresses.length).toBe(13);
+    } finally {
+      await deleteAddress(address);
+    }
   });
 
-  test("Update existing address", async () => {
+  test("Update address", async () => {
     let address = await getAddress(1);
 
     expect(address.firstName).toBe("Peter");
 
     address.firstName = "Moritz";
 
-    await fetch(`http://localhost:3000/addresses/${address.id}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(address),
-    });
+    await updateAddress(address);
 
-    address = await getAddress(1);
+    try {
+      address = await getAddress(1);
 
-    expect(address.firstName).toBe("Moritz");
+      expect(address.firstName).toBe("Moritz");
+    } finally {
+      address.firstName = "Peter";
+
+      await updateAddress(address);
+    }
   });
 
   test("Delete address", async () => {
@@ -142,10 +157,16 @@ describe("Fetch", () => {
 
     expect(addresses.length).toBe(12);
 
-    await fetch(`http://localhost:3000/addresses/1`, { method: "DELETE" });
+    const address = addresses.find(a => a.id === 14);
 
-    addresses = await getAddresses();
+    await deleteAddress(address);
 
-    expect(addresses.length).toBe(11);
+    try {
+      addresses = await getAddresses();
+
+      expect(addresses.length).toBe(11);
+    } finally {
+      await insertAddress(address);
+    }
   });
 });
