@@ -72,7 +72,9 @@ describe("JSON", () => {
     const replacer = (k, v) => (isString(v) ? undefined : v);
     const obj = { color: "red", speed: 50.2 };
     const json = JSON.stringify(obj, replacer);
-    // json == '{"speed":50.2}'
+
+    expect(json).toBe('{"speed":50.2}');
+
     const json2 = JSON.stringify(obj, replacer, /* space: */ 2);
 
     const expected = `{
