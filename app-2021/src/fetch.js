@@ -1,5 +1,3 @@
-const serverRoot = "http://localhost:3001/";
-
 /**
  * Describes an object that performs CRUD for a given entity.
  */
@@ -13,12 +11,10 @@ export class crud {
     this._rootUrl = rootUrl;
   }
 
-  get getRootUrl() {
-    return this._rootUrl;
-  }
-
   /**
    * Gets all entities from the database.
+   *
+   * @return Promise<[{ id: number }]>
    */
   getAll() {
     return execute(this._rootUrl);
@@ -83,41 +79,4 @@ function insertOrUpdate(url, address, method) {
     },
     body: JSON.stringify(address),
   });
-}
-
-export function getAddressesUrl() {
-  return `${serverRoot}addresses`;
-}
-
-export function getAddresses() {
-  return execute(getAddressesUrl());
-}
-
-export function getAddress(id) {
-  return execute(`${getAddressesUrl()}/${id}`);
-}
-
-export function insertAddress(address) {
-  return insertOrUpdate(`${getAddressesUrl()}/`, address, "POST");
-}
-
-export function updateAddress(address) {
-  return insertOrUpdate(`${getAddressesUrl()}/${address.id}`, address, "PUT");
-}
-
-export function deleteAddress(address) {
-  return fetch(`${getAddressesUrl()}/${address.id}`, { method: "DELETE" });
-}
-
-export function getCars() {
-  return execute(`${serverRoot}cars`);
-}
-
-/**
- * Gets an object that performs CRUD for addresses.
- *
- * @return {crud}
- */
-export function createAddressCrud() {
-  return new crud("http://localhost:3001/addresses");
 }

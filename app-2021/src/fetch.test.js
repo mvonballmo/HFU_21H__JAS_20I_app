@@ -1,15 +1,6 @@
 import { describe, expect, test } from "@jest/globals";
 import "isomorphic-fetch";
-import {
-  deleteAddress,
-  updateAddress,
-  getAddress,
-  getAddresses,
-  insertAddress,
-  getCars,
-  getAddressesUrl,
-  createAddressCrud,
-} from "./fetch";
+import { crud } from "./fetch";
 
 /*
   This test suite requires a server running at:
@@ -20,6 +11,14 @@ import {
 */
 
 describe("Fetch", () => {
+  const serverRoot = "http://localhost:3001/";
+  const addressCrud = new crud(getAddressesUrl());
+  const carCrud = new crud(`${serverRoot}cars`);
+
+  function getAddressesUrl() {
+    return `${serverRoot}addresses`;
+  }
+
   test("call fetch gets addresses with done", done => {
     fetch(getAddressesUrl())
       .then(data => data.json())
@@ -106,8 +105,8 @@ describe("Fetch", () => {
   });
 
   test("wait for multiple fetch calls", async () => {
-    const addressPromise = getAddresses();
-    const carPromise = getCars();
+    const addressPromise = addressCrud.getAll();
+    const carPromise = carCrud.getAll();
 
     const [addresses, cars] = await Promise.all([addressPromise, carPromise]);
 
@@ -116,20 +115,18 @@ describe("Fetch", () => {
   });
 
   test("Insert address", async () => {
-    let address = {
-      firstName: "test",
-      lastName: "tester",
-      birthDate: "2021-03-31",
-      salary: "20050",
-    };
-
-    const addressCrud = createAddressCrud();
+    const addressCrud = new crud(getAddressesUrl());
 
     let addresses = await addressCrud.getAll();
 
     expect(addresses.length).toBe(12);
 
-    address = await addressCrud.insert(address);
+    const address = await addressCrud.insert({
+      firstName: "test",
+      lastName: "tester",
+      birthDate: "2021-03-31",
+      salary: "20050",
+    });
 
     try {
       addresses = await addressCrud.getAll();
@@ -141,40 +138,41 @@ describe("Fetch", () => {
   });
 
   test("Update address", async () => {
-    let address = await getAddress(1);
+    const addressCrud = new crud(getAddressesUrl());
+    let address = await addressCrud.get(1);
 
     expect(address.firstName).toBe("Peter");
 
     address.firstName = "Moritz";
 
-    await updateAddress(address);
+    await addressCrud.update(address);
 
     try {
-      address = await getAddress(1);
+      address = await addressCrud.get(1);
 
       expect(address.firstName).toBe("Moritz");
     } finally {
       address.firstName = "Peter";
 
-      await updateAddress(address);
+      await addressCrud.update(address);
     }
   });
 
   test("Delete address", async () => {
-    let addresses = await getAddresses();
+    let addresses = await addressCrud.getAll();
 
     expect(addresses.length).toBe(12);
 
     const address = addresses.find(a => a.id === 14);
 
-    await deleteAddress(address);
+    await addressCrud.delete(address);
 
     try {
-      addresses = await getAddresses();
+      addresses = await addressCrud.getAll();
 
       expect(addresses.length).toBe(11);
     } finally {
-      await insertAddress(address);
+      await addressCrud.insert(address);
     }
   });
 });
