@@ -12,6 +12,21 @@ import "isomorphic-fetch";
 */
 
 describe("Fetch", () => {
+  async function getAddresses() {
+    const response = await fetch("http://localhost:3000/addresses");
+    return await response.json();
+  }
+
+  async function getAddress(id) {
+    const response = await fetch(`http://localhost:3000/addresses/${id}`);
+    return await response.json();
+  }
+
+  async function getCars() {
+    const response = await fetch("http://localhost:3000/cars");
+    return await response.json();
+  }
+
   test("call fetch gets addresses", () => {
     return fetch("http://localhost:3000/addresses")
       .then(data => data.json())
@@ -67,16 +82,6 @@ describe("Fetch", () => {
     }
   });
 
-  async function getAddresses() {
-    const response = await fetch("http://localhost:3000/addresses");
-    return await response.json();
-  }
-
-  async function getCars() {
-    const response = await fetch("http://localhost:3000/cars");
-    return await response.json();
-  }
-
   test("wait for multiple fetch calls", async () => {
     const addressPromise = getAddresses();
     const carPromise = getCars();
@@ -113,9 +118,7 @@ describe("Fetch", () => {
   });
 
   test("Update existing address", async () => {
-    let addresses = await getAddresses();
-
-    let address = addresses.find(a => a.id === 1);
+    let address = await getAddress(1);
 
     expect(address.firstName).toBe("Peter");
 
@@ -129,9 +132,7 @@ describe("Fetch", () => {
       body: JSON.stringify(address),
     });
 
-    addresses = await getAddresses();
-
-    address = addresses.find(a => a.id === 1);
+    address = await getAddress(1);
 
     expect(address.firstName).toBe("Moritz");
   });
