@@ -14,24 +14,28 @@ function insertOrUpdate(url, address, method) {
   });
 }
 
+export function getAddressesUrl() {
+  return "http://localhost:3001/addresses";
+}
+
 export function getAddresses() {
-  return execute("http://localhost:3001/addresses");
+  return execute(getAddressesUrl());
 }
 
 export function getAddress(id) {
-  return execute(`http://localhost:3001/addresses/${id}`);
+  return execute(`${getAddressesUrl()}/${id}`);
 }
 
 export function insertAddress(address) {
-  return insertOrUpdate(`http://localhost:3001/addresses/`, address, "POST");
+  return insertOrUpdate(`${getAddressesUrl()}/`, address, "POST");
 }
 
 export function updateAddress(address) {
-  return insertOrUpdate(`http://localhost:3001/addresses/${address.id}`, address, "PUT");
+  return insertOrUpdate(`${getAddressesUrl()}/${address.id}`, address, "PUT");
 }
 
 export function deleteAddress(address) {
-  return fetch(`http://localhost:3001/addresses/${address.id}`, { method: "DELETE" });
+  return fetch(`${getAddressesUrl()}/${address.id}`, { method: "DELETE" });
 }
 
 export function getCars() {

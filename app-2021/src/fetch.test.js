@@ -1,6 +1,14 @@
 import { describe, expect, test } from "@jest/globals";
 import "isomorphic-fetch";
-import { deleteAddress, updateAddress, getAddress, getAddresses, insertAddress, getCars } from "./fetch";
+import {
+  deleteAddress,
+  updateAddress,
+  getAddress,
+  getAddresses,
+  insertAddress,
+  getCars,
+  getAddressesUrl,
+} from "./fetch";
 
 /*
   This test suite requires a server running at:
@@ -12,7 +20,7 @@ import { deleteAddress, updateAddress, getAddress, getAddresses, insertAddress, 
 
 describe("Fetch", () => {
   test("call fetch gets addresses with done", done => {
-    fetch("http://localhost:3001/addresses")
+    fetch(getAddressesUrl())
       .then(data => data.json())
       .then(addresses => {
         expect(addresses.length).toBe(12);
@@ -22,14 +30,14 @@ describe("Fetch", () => {
   });
 
   test("call fetch with async/await", async () => {
-    const promise = await fetch("http://localhost:3001/addresses");
+    const promise = await fetch(getAddressesUrl());
     const addresses = await promise.json();
 
     expect(addresses.length).toBe(12);
   });
 
   test("call fetch with async/await and JSON.parse()", async () => {
-    const response = await fetch("http://localhost:3001/addresses");
+    const response = await fetch(getAddressesUrl());
 
     expect(response.ok).toBeTruthy();
     expect(response.status).toBe(200);
@@ -40,7 +48,7 @@ describe("Fetch", () => {
   });
 
   test("call fetch with async/await and 404", async () => {
-    const response = await fetch("http://localhost:3001/addressessss");
+    const response = await fetch(getAddressesUrl() + "ssss");
 
     expect(response.ok).toBeFalsy();
     expect(response.status).toBe(404);
@@ -86,7 +94,7 @@ describe("Fetch", () => {
 
   test("call fetch with caught error", async () => {
     try {
-      const promise = await fetch("htsssstp://localhost:3001/addresses");
+      const promise = await fetch("foo" + getAddressesUrl());
       return await promise.json();
     } catch (error) {
       const e = error; // Für Debugging
