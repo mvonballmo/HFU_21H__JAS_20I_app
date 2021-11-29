@@ -18,15 +18,15 @@ describe("Fetch", () => {
     return response.json();
   }
 
-  async function getAddresses() {
+  function getAddresses() {
     return execute("http://localhost:3000/addresses");
   }
 
-  async function getAddress(id) {
+  function getAddress(id) {
     return execute(`http://localhost:3000/addresses/${id}`);
   }
 
-  async function insertOrUpdate(url, address, method) {
+  function insertOrUpdate(url, address, method) {
     return execute(url, {
       method: method,
       headers: {
@@ -36,19 +36,19 @@ describe("Fetch", () => {
     });
   }
 
-  async function insertAddress(address) {
+  function insertAddress(address) {
     return insertOrUpdate(`http://localhost:3000/addresses/`, address, "POST");
   }
 
-  async function updateAddress(address) {
+  function updateAddress(address) {
     return insertOrUpdate(`http://localhost:3000/addresses/${address.id}`, address, "PUT");
   }
 
-  async function deleteAddress(address) {
+  function deleteAddress(address) {
     return fetch(`http://localhost:3000/addresses/${address.id}`, { method: "DELETE" });
   }
 
-  async function getCars() {
+  function getCars() {
     return execute("http://localhost:3000/cars");
   }
 
