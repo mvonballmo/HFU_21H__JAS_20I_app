@@ -38,13 +38,21 @@ describe("Fetch", () => {
   });
 
   test("call fetch with async/await and JSON.parse()", async () => {
-    const promise = await fetch("http://localhost:3000/addresses");
-    const addresses = JSON.parse(await promise.text());
+    const response = await fetch("http://localhost:3000/addresses");
 
     expect(response.ok).toBeTruthy();
     expect(response.status).toBe(200);
 
+    const addresses = JSON.parse(await response.text());
+
     expect(addresses.length).toBe(12);
+  });
+
+  test("call fetch with async/await and 404", async () => {
+    const response = await fetch("http://localhost:3000/addressessss");
+
+    expect(response.ok).toBeFalsy();
+    expect(response.status).toBe(404);
   });
 
   test("call fetch with caught error", async () => {
