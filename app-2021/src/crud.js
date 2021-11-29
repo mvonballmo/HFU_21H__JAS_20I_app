@@ -73,17 +73,17 @@ export class crud {
 
   /**
    * @param {string} url
-   * @param {{}} address
+   * @param {{}} entity
    * @param {string} method
-   * @return {Promise<any>} A promise for the delete task.
+   * @return {Promise<any>} A promise for the insert or update task.
    */
-  #insertOrUpdate(url, address, method) {
+  #insertOrUpdate(url, entity, method) {
     return this.#execute(url, {
       method: method,
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(address),
+      body: JSON.stringify(entity),
     });
   }
 
