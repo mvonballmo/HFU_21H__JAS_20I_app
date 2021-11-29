@@ -1,6 +1,6 @@
 import { describe, expect, test } from "@jest/globals";
 
-describe("Basic functions and operators", () => {
+describe("JSON", () => {
   const JsonTestText = `{
   "firstName": "John",
   "lastName": "Doe",
@@ -35,7 +35,7 @@ describe("Basic functions and operators", () => {
     expect(jsonText).toBe(JsonTestText);
   });
 
-  test("convert to JSON", () => {
+  test("convert from JSON", () => {
     const obj = JSON.parse(JsonTestText);
 
     expect("firstName" in obj).toBeTruthy();
