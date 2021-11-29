@@ -26,4 +26,11 @@ describe("Fetch", () => {
 
     expect(addresses.length).toBe(12);
   });
+
+  test("call fetch with async/await and JSON.parse()", async () => {
+    const promise = await fetch("http://localhost:3000/addresses");
+    const addresses = JSON.parse(await promise.text());
+
+    expect(addresses.length).toBe(12);
+  });
 });
