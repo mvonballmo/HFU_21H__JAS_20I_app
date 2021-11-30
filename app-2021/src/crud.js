@@ -8,16 +8,16 @@ export class crud {
    * @param {string} rootUrl The root URL to use.
    */
   constructor(rootUrl) {
-    this._rootUrl = rootUrl;
+    this.#_rootUrl = rootUrl;
   }
 
   /**
    * Gets all entities from the database.
    *
-   * @return {Promise<{ id: number }>}
+   * @return {Promise<[{ id: number }]>}
    */
   getAll() {
-    return this.#execute(this._rootUrl);
+    return this.#execute(this.#_rootUrl);
   }
 
   /**
@@ -27,7 +27,7 @@ export class crud {
    * @return {Promise<{ id: number }>}
    */
   get(id) {
-    return this.#execute(`${this._rootUrl}/${id}`);
+    return this.#execute(`${this.#_rootUrl}/${id}`);
   }
 
   /**
@@ -37,7 +37,7 @@ export class crud {
    * @return {Promise<{ id: number }>} The inserted object with the ID applied.
    */
   insert(entity) {
-    return this.#insertOrUpdate(`${this._rootUrl}/`, entity, "POST");
+    return this.#insertOrUpdate(`${this.#_rootUrl}/`, entity, "POST");
   }
 
   /**
@@ -47,7 +47,7 @@ export class crud {
    * @return {Promise<{ id: number }>} The updated object
    */
   update(entity) {
-    return this.#insertOrUpdate(`${this._rootUrl}/${entity.id}`, entity, "PUT");
+    return this.#insertOrUpdate(`${this.#_rootUrl}/${entity.id}`, entity, "PUT");
   }
 
   /**
@@ -57,7 +57,7 @@ export class crud {
    * @return {Promise<Response>} A promise for the delete task.
    */
   delete(entity) {
-    return fetch(`${this._rootUrl}/${entity.id}`, { method: "DELETE" });
+    return fetch(`${this.#_rootUrl}/${entity.id}`, { method: "DELETE" });
   }
 
   /**
