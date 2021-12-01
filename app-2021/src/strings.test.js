@@ -74,4 +74,14 @@ describe("Basic functions and operators", () => {
     expect(test.toLocaleUpperCase("de-CH")).toBe("THIS IS Ä SENTENCE.");
     expect(test.toUpperCase()).toBe("THIS IS Ä SENTENCE.");
   });
+
+  test("replace() and replaceAll()", () => {
+    const test = "This is a sentence.";
+
+    expect(test.replace("is", "at")).toBe("That is a sentence.");
+    expect(test.replaceAll("is", "at")).toBe("That at a sentence.");
+
+    expect(test.replace(/[^ ]s/, "at")).toBe("That is a sentence.");
+    expect(test.replaceAll(/[^ ]s/g, "at")).toBe("That at a sentence.");
+  });
 });
