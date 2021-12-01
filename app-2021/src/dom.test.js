@@ -179,4 +179,13 @@ describe("DOM", () => {
 
     expect(div.childElementCount).toBe(1);
   });
+
+  test("textContent", () => {
+    document.body.innerHTML = `<button id="a" data-test="b" data-data="c">Test</button>`;
+
+    const element = document.getElementById("a");
+
+    expect(element.textContent).toBe("Test");
+    expect(element.innerHTML).toBe("Test");
+  });
 });
