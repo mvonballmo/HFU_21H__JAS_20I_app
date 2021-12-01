@@ -62,4 +62,14 @@ describe("Find", () => {
       { object: person.company.projects[0], propertyName: "role", value: "software developer", searchText: "dev" },
     ]);
   });
+
+  test("find 'pro' or 'ma' in person", () => {
+    const [...multiResults] = findText(person, "pro", "ma");
+
+    expect(multiResults).toEqual([
+      { object: person, propertyName: "last", value: "Hoffman", searchText: "ma" },
+      { object: person.company.projects[1], propertyName: "role", value: "project manager", searchText: "pro" },
+      { object: person.company.projects[1], propertyName: "role", value: "project manager", searchText: "ma" },
+    ]);
+  });
 });
