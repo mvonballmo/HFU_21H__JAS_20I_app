@@ -50,4 +50,28 @@ describe("Basic functions and operators", () => {
     expect(test.indexOf("man")).toBe(-1);
     expect(test.lastIndexOf("man")).toBe(-1);
   });
+
+  test("startsWith() and endsWith()", () => {
+    const test = "This is a sentence.";
+
+    expect(test.startsWith("is")).toBeFalsy();
+    expect(test.startsWith("This")).toBeTruthy();
+
+    expect(test.endsWith("sentence.")).toBeTruthy();
+    expect(test.endsWith("man")).toBeFalsy();
+  });
+
+  test("toLowerCase(), toLocaleLowerCase()", () => {
+    const test = "This is ä sentence.";
+
+    expect(test.toLocaleLowerCase("de-CH")).toBe("this is ä sentence.");
+    expect(test.toLowerCase()).toBe("this is ä sentence.");
+  });
+
+  test("toUpperCase(), toLocaleUpperCase()", () => {
+    const test = "This is ä sentence.";
+
+    expect(test.toLocaleUpperCase("de-CH")).toBe("THIS IS Ä SENTENCE.");
+    expect(test.toUpperCase()).toBe("THIS IS Ä SENTENCE.");
+  });
 });
