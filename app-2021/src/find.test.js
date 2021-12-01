@@ -27,20 +27,20 @@ describe("Find", () => {
   test("find 'Hoff' in person", () => {
     const [...hoffmanResults] = findText(person, "Hoff");
 
-    expect(hoffmanResults).toEqual([{ object: person, propertyName: "last", value: "Hoffman", searchText: "Hoff" }]);
+    expect(hoffmanResults).toEqual([{ object: person, propertyName: "last", value: "Hoffman", matches: ["Hoff"] }]);
   });
 
   test("find 'o' in person", () => {
     const [...oResults] = findText(person, "o");
 
     expect(oResults).toEqual([
-      { object: person, propertyName: "first", value: "Bob", searchText: "o" },
-      { object: person, propertyName: "middle", value: "Joe", searchText: "o" },
-      { object: person, propertyName: "last", value: "Hoffman", searchText: "o" },
-      { object: person.company, propertyName: "role", value: "software developer", searchText: "o" },
-      { object: person.company.projects[0], propertyName: "role", value: "software developer", searchText: "o" },
-      { object: person.company.projects[1], propertyName: "name", value: "MacBook Pro", searchText: "o" },
-      { object: person.company.projects[1], propertyName: "role", value: "project manager", searchText: "o" },
+      { object: person, propertyName: "first", value: "Bob", matches: ["o"] },
+      { object: person, propertyName: "middle", value: "Joe", matches: ["o"] },
+      { object: person, propertyName: "last", value: "Hoffman", matches: ["o"] },
+      { object: person.company, propertyName: "role", value: "software developer", matches: ["o"] },
+      { object: person.company.projects[0], propertyName: "role", value: "software developer", matches: ["o"] },
+      { object: person.company.projects[1], propertyName: "name", value: "MacBook Pro", matches: ["o"] },
+      { object: person.company.projects[1], propertyName: "role", value: "project manager", matches: ["o"] },
     ]);
   });
 
@@ -48,8 +48,8 @@ describe("Find", () => {
     const [...softwareResults] = findText(person, "software");
 
     expect(softwareResults).toEqual([
-      { object: person.company, propertyName: "role", value: "software developer", searchText: "software" },
-      { object: person.company.projects[0], propertyName: "role", value: "software developer", searchText: "software" },
+      { object: person.company, propertyName: "role", value: "software developer", matches: ["software"] },
+      { object: person.company.projects[0], propertyName: "role", value: "software developer", matches: ["software"] },
     ]);
   });
 
@@ -57,9 +57,9 @@ describe("Find", () => {
     const [...multiResults] = findText(person, "Hoff", "dev");
 
     expect(multiResults).toEqual([
-      { object: person, propertyName: "last", value: "Hoffman", searchText: "Hoff" },
-      { object: person.company, propertyName: "role", value: "software developer", searchText: "dev" },
-      { object: person.company.projects[0], propertyName: "role", value: "software developer", searchText: "dev" },
+      { object: person, propertyName: "last", value: "Hoffman", matches: ["Hoff"] },
+      { object: person.company, propertyName: "role", value: "software developer", matches: ["dev"] },
+      { object: person.company.projects[0], propertyName: "role", value: "software developer", matches: ["dev"] },
     ]);
   });
 
@@ -67,9 +67,8 @@ describe("Find", () => {
     const [...multiResults] = findText(person, "pro", "ma");
 
     expect(multiResults).toEqual([
-      { object: person, propertyName: "last", value: "Hoffman", searchText: "ma" },
-      { object: person.company.projects[1], propertyName: "role", value: "project manager", searchText: "pro" },
-      { object: person.company.projects[1], propertyName: "role", value: "project manager", searchText: "ma" },
+      { object: person, propertyName: "last", value: "Hoffman", matches: ["ma"] },
+      { object: person.company.projects[1], propertyName: "role", value: "project manager", matches: ["pro", "ma"] },
     ]);
   });
 });

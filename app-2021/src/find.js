@@ -2,7 +2,7 @@
  *
  * @param {any} obj
  * @param {...string} searchTexts
- * @return {[{object: any, propertyName: string, value: string, searchText: string}]}
+ * @return {[{object: any, propertyName: string, value: string, matches: string[]}]}
  */
 export function* findText(obj, ...searchTexts) {
   for (const key in obj) {
@@ -13,15 +13,15 @@ export function* findText(obj, ...searchTexts) {
     } else {
       const textValue = value.toString();
 
-      for (const searchText of searchTexts) {
-        if (textValue.includes(searchText)) {
-          yield {
-            object: obj,
-            propertyName: key,
-            value: textValue,
-            searchText,
-          };
-        }
+      const matches = searchTexts.filter(s => textValue.includes(s));
+
+      if (matches.length > 0) {
+        yield {
+          object: obj,
+          propertyName: key,
+          value: textValue,
+          matches,
+        };
       }
     }
   }
