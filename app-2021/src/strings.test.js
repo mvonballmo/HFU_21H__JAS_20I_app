@@ -147,6 +147,18 @@ describe("Basic functions and operators", () => {
   test("match() with single result", () => {
     const test = "This is a sentence.";
 
+    const match = test.match(/[^ ]s/);
+
+    expect(match.index).toBe(2);
+    expect(match.groups).toBeUndefined();
+    expect(match.input).toBe(test);
+    expect(match.length).toBe(1);
+    expect(match[0]).toBe("is"); // Full match
+  });
+
+  test("match() with single result and capture groups", () => {
+    const test = "This is a sentence.";
+
     const match = test.match(/(([^ ])s)/);
 
     expect(match.index).toBe(2);
@@ -156,6 +168,26 @@ describe("Basic functions and operators", () => {
     expect(match[0]).toBe("is"); // Full match
     expect(match[1]).toBe("is"); // Outer capture group
     expect(match[2]).toBe("i"); // Inner capture group
+  });
+
+  test("match() with case-sensitivity", () => {
+    const test = "This is a sentence.";
+
+    const match = test.match(/[^ \\.]*t[^ \\.]*/);
+
+    expect(match.index).toBe(10);
+    expect(match.length).toBe(1);
+    expect(match[0]).toBe("sentence"); //
+  });
+
+  test("match() with case-insensitivity", () => {
+    const test = "This is a sentence.";
+
+    const match = test.match(/[^ \\.]*t[^ \\.]*/i);
+
+    expect(match.index).toBe(0);
+    expect(match.length).toBe(1);
+    expect(match[0]).toBe("This"); //
   });
 
   test("match() with multiple results (global)", () => {
