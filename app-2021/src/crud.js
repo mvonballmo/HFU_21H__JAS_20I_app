@@ -57,7 +57,7 @@ export class crud {
    * @return {Promise<Response>} A promise for the delete task.
    */
   delete(entity) {
-    return fetch(`${this.#_rootUrl}/${entity.id}`, { method: "DELETE" });
+    return this.#execute(`${this.#_rootUrl}/${entity.id}`, { method: "DELETE" });
   }
 
   /**
