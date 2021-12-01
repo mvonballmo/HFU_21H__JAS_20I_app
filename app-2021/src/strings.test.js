@@ -20,4 +20,34 @@ describe("Basic functions and operators", () => {
 
     expect(output).toEqual(expectedResult);
   });
+
+  test("string.substr()", () => {
+    const test = "This is a sentence.";
+
+    expect(test.substr(1)).toBe("his is a sentence.");
+    expect(test.substr(1, 10)).toBe("his is a s");
+  });
+
+  test("string.substring()", () => {
+    const test = "This is a sentence.";
+
+    expect(test.substring(1)).toBe("his is a sentence.");
+    expect(test.substring(1, 10)).toBe("his is a ");
+  });
+
+  test("string.includes()", () => {
+    const test = "This is a sentence.";
+
+    expect(test.includes("is")).toBeTruthy();
+  });
+
+  test("string.indexOf() and lastIndexOf()", () => {
+    const test = "This is a sentence.";
+
+    expect(test.indexOf("is")).toBe(2);
+    expect(test.lastIndexOf("is")).toBe(5);
+
+    expect(test.indexOf("man")).toBe(-1);
+    expect(test.lastIndexOf("man")).toBe(-1);
+  });
 });
