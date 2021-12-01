@@ -11,7 +11,7 @@ describe("Basic functions and operators", () => {
 
   test.each(bioCases)("given %p and %p, Bio returns %p", (argOne, argTwo, expectedResult) => {
     function Bio(t, name, age) {
-      const years = age == 1 ? " year" : " years";
+      const years = age === 1 ? " year" : " years";
 
       return `${t[0]}${name}${t[1]}${age}${years}${t[2]}`;
     }
