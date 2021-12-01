@@ -1,6 +1,6 @@
 import { describe, expect, test } from "@jest/globals";
 
-describe("Basic functions and operators", () => {
+describe("String functions", () => {
   const bioCases = [
     ["bob", -2, 'The user "bob" is -2 years old.'],
     ["bob", -1, 'The user "bob" is -1 years old.'],

@@ -1,6 +1,6 @@
 import { describe, expect, test } from "@jest/globals";
 
-describe("Basic functions and operators", () => {
+describe("Objects", () => {
   test("destructuring objects with renaming", () => {
     const o = { p: 42, q: true };
     const { p: foo, q: bar } = o;
