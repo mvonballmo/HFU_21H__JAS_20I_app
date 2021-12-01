@@ -1,5 +1,5 @@
 import { describe, expect, test } from "@jest/globals";
-import { findText } from "./find";
+import { findText, findTextCI } from "./find";
 
 describe("Find", () => {
   const person = {
@@ -68,6 +68,17 @@ describe("Find", () => {
 
     expect(multiResults).toEqual([
       { object: person, propertyName: "last", value: "Hoffman", matches: ["ma"] },
+      { object: person.company.projects[1], propertyName: "role", value: "project manager", matches: ["pro", "ma"] },
+    ]);
+  });
+
+  test("find 'pro' or 'ma' case-insensitive in person", () => {
+    const [...multiResults] = findTextCI(person, "pro", "ma");
+
+    expect(multiResults).toEqual([
+      { object: person, propertyName: "last", value: "Hoffman", matches: ["ma"] },
+      { object: person.company.projects[0], propertyName: "name", value: "iMac 30-inch", matches: ["ma"] },
+      { object: person.company.projects[1], propertyName: "name", value: "MacBook Pro", matches: ["pro", "ma"] },
       { object: person.company.projects[1], propertyName: "role", value: "project manager", matches: ["pro", "ma"] },
     ]);
   });
