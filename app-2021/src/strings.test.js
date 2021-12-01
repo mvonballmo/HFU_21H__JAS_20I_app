@@ -126,6 +126,14 @@ describe("Basic functions and operators", () => {
     expect(realWords).toEqual(["This", " ", "is", " ", "a", " ", "sentence", ".", ""]);
   });
 
+  test("trim(), trimStart(), and trimEnd()", () => {
+    const test = " \t\nThis is a sentence. \t\n";
+
+    expect(test.trim()).toBe("This is a sentence.");
+    expect(test.trimStart()).toBe("This is a sentence. \t\n");
+    expect(test.trimEnd()).toBe(" \t\nThis is a sentence.");
+  });
+
   test("replace() and replaceAll()", () => {
     const test = "This is a sentence.";
 
