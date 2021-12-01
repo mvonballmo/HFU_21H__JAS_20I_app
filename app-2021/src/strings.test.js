@@ -113,7 +113,7 @@ describe("Basic functions and operators", () => {
   test("split() with regular expression", () => {
     const test = "This is a sentence.";
 
-    const realWords = test.split(/ |\./);
+    const realWords = test.split(/[ .]/);
 
     expect(realWords).toEqual(["This", "is", "a", "sentence", ""]);
   });
@@ -121,7 +121,7 @@ describe("Basic functions and operators", () => {
   test("split() with regular expression and capture group", () => {
     const test = "This is a sentence.";
 
-    const realWords = test.split(/( |\.)/);
+    const realWords = test.split(/([ .])/);
 
     expect(realWords).toEqual(["This", " ", "is", " ", "a", " ", "sentence", ".", ""]);
   });
