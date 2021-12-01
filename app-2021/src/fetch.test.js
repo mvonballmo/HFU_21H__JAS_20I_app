@@ -54,7 +54,24 @@ describe("Fetch", () => {
     expect(response.status).toBe(404);
   });
 
-  test("Call fetch with timeout and try/catch", async () => {
+  test("Call fetch with timeout via AbortController", async () => {
+    const controller = new AbortController();
+    const promise = fetch("http://localhost:3020/addresses", {
+      signal: controller.signal,
+    });
+
+    // Start the timer
+    // NOTE: we use a VERY LOW timeout so that the abort occurs before the connection is refused
+    const timeoutId = setTimeout(() => controller.abort(), 1);
+
+    try {
+      await expect(promise).rejects.toThrow("The user aborted a request.");
+    } finally {
+      clearTimeout(timeoutId);
+    }
+  });
+
+  test("Call fetch with timeout via AbortController with try/catch", async () => {
     const controller = new AbortController();
 
     // Start the timer
@@ -70,23 +87,6 @@ describe("Fetch", () => {
 
       expect(error.name).toBe("AbortError");
       expect(error.message).toBe("The user aborted a request.");
-    } finally {
-      clearTimeout(timeoutId);
-    }
-  });
-
-  test("Call fetch with timeout", async () => {
-    const controller = new AbortController();
-    const promise = fetch("http://localhost:3020/addresses", {
-      signal: controller.signal,
-    });
-
-    // Start the timer
-    // NOTE: we use a VERY LOW timeout so that the abort occurs before the connection is refused
-    const timeoutId = setTimeout(() => controller.abort(), 1);
-
-    try {
-      await expect(promise).rejects.toThrow("The user aborted a request.");
     } finally {
       clearTimeout(timeoutId);
     }
