@@ -239,4 +239,41 @@ describe("Basic functions and operators", () => {
     expect(match1[1]).toBe("is");
     expect(match1[2]).toBe("i");
   });
+
+  test("find text in object", () => {
+    const person = {
+      first: "Bob",
+      middle: "Joe",
+      last: "Hoffman",
+      age: 34,
+      company: {
+        name: "Apple",
+        role: "software developer",
+        employedSince: "2020.03.04",
+        projects: [
+          {
+            name: "iMac 30-inch",
+            role: "software developer",
+          },
+          {
+            name: "MacBook Pro",
+            role: "project manager",
+          },
+        ],
+      },
+    };
+
+    const findText = (obj, searchText) => {
+      for (const objKey in obj) {
+        const value = obj[objKey];
+        const textValue = value.toString();
+
+        if (textValue.includes(searchText)) {
+          return textValue;
+        }
+      }
+    };
+
+    expect(findText(person, "Hoff")).toBe("Hoffman");
+  });
 });
