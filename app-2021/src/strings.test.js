@@ -263,17 +263,23 @@ describe("Basic functions and operators", () => {
       },
     };
 
-    const findText = (obj, searchText) => {
+    function* findText(obj, searchText) {
       for (const objKey in obj) {
         const value = obj[objKey];
         const textValue = value.toString();
 
         if (textValue.includes(searchText)) {
-          return textValue;
+          yield textValue;
         }
       }
-    };
+    }
 
-    expect(findText(person, "Hoff")).toBe("Hoffman");
+    const [...hoffmanResults] = findText(person, "Hoff");
+
+    expect(hoffmanResults).toEqual(["Hoffman"]);
+
+    const [...oResults] = findText(person, "o");
+
+    expect(oResults).toEqual(["Bob", "Joe", "Hoffman", "[object Object]"]);
   });
 });
