@@ -223,4 +223,16 @@ describe("DOM", () => {
 
     expect(div.childElementCount).toBe(1);
   });
+
+  test("data attributes", () => {
+    document.body.innerHTML = `<button id="a" data-test="b" data-data="c">Test</button>`;
+
+    const element = document.getElementById("a");
+
+    expect("data" in element.dataset).toBeTruthy();
+    expect("test" in element.dataset).toBeTruthy();
+
+    expect(element.dataset.data).toBe("c");
+    expect(element.dataset.test).toBe("b");
+  });
 });
