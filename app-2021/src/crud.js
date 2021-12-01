@@ -11,6 +11,8 @@ export class crud {
     this.#_rootUrl = rootUrl;
   }
 
+  timeOutInMilliseconds = 5000;
+
   /**
    * Gets all entities from the database.
    *
@@ -66,10 +68,21 @@ export class crud {
    * @return {Promise<any>}
    */
   async #execute(url, init = undefined) {
-    const response = await fetch(url, init);
+    const response = await this.#fetchWithTimeout(url, init);
 
     return response.json();
   }
+
+  #fetchWithTimeout = (url, { signal, ...options } = {}) => {
+    const controller = new AbortController();
+    const response = fetch(url, { signal: controller.signal, ...options });
+    if (signal) {
+      signal.addEventListener("abort", () => controller.abort());
+    }
+    const timeout = setTimeout(() => controller.abort(), this.timeOutInMilliseconds);
+
+    return response.finally(() => clearTimeout(timeout));
+  };
 
   /**
    * @param {string} url

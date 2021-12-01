@@ -92,6 +92,21 @@ describe("Fetch", () => {
     }
   });
 
+  test("Call fetch with timeout in crud", async () => {
+    const addresses = new crud("http://localhost:3021/addresses");
+
+    addresses.timeOutInMilliseconds = 1;
+
+    try {
+      await addresses.getAll();
+    } catch (error) {
+      expect(error).toBeInstanceOf(Error);
+
+      expect(error.name).toBe("AbortError");
+      expect(error.message).toBe("The user aborted a request.");
+    }
+  });
+
   test("call fetch with caught error", async () => {
     try {
       const promise = await fetch("foo" + getAddressesUrl());
