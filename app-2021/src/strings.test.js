@@ -84,6 +84,48 @@ describe("Basic functions and operators", () => {
     expect(test.slice(4, 4)).toBe("");
   });
 
+  test("split() with space", () => {
+    const test = "This is a sentence.";
+
+    const words = test.split(" ");
+
+    expect(words).toEqual(["This", "is", "a", "sentence."]);
+  });
+
+  test("split() with space and emoji", () => {
+    const emojiWords = "Hi! 👍🏻".split(" ");
+
+    expect(emojiWords).toEqual(["Hi!", "👍🏻"]);
+  });
+
+  test("split() characters", () => {
+    const characters = "Hi! 👍🏻".split("");
+
+    expect(characters.length).toEqual(8);
+  });
+
+  test("split() characters with emoji", () => {
+    const characters = "Hi!".split("");
+
+    expect(characters).toEqual(["H", "i", "!"]);
+  });
+
+  test("split() with regular expression", () => {
+    const test = "This is a sentence.";
+
+    const realWords = test.split(/ |\./);
+
+    expect(realWords).toEqual(["This", "is", "a", "sentence", ""]);
+  });
+
+  test("split() with regular expression and capture group", () => {
+    const test = "This is a sentence.";
+
+    const realWords = test.split(/( |\.)/);
+
+    expect(realWords).toEqual(["This", " ", "is", " ", "a", " ", "sentence", ".", ""]);
+  });
+
   test("replace() and replaceAll()", () => {
     const test = "This is a sentence.";
 
