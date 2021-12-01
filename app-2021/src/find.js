@@ -1,4 +1,8 @@
 /**
+ * Finds all occurrences of any of the `searchTexts` in the given `obj` using a case-sensitive match.
+ *
+ * Each item in the result includes the object in the hierarchy, the name and value of the property,
+ * and the matched elements from the `searchTexts`.
  *
  * @param {any} obj
  * @param {...string} searchTexts
