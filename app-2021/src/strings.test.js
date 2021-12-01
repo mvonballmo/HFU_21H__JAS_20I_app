@@ -264,8 +264,8 @@ describe("Basic functions and operators", () => {
     };
 
     function* findText(obj, searchText) {
-      for (const objKey in obj) {
-        const value = obj[objKey];
+      for (const key in obj) {
+        const value = obj[key];
 
         if (typeof value === "object") {
           yield* findText(value, searchText);
@@ -273,7 +273,11 @@ describe("Basic functions and operators", () => {
           const textValue = value.toString();
 
           if (textValue.includes(searchText)) {
-            yield textValue;
+            yield {
+              object: obj,
+              propertyName: key,
+              value: textValue,
+            };
           }
         }
       }
@@ -281,22 +285,25 @@ describe("Basic functions and operators", () => {
 
     const [...hoffmanResults] = findText(person, "Hoff");
 
-    expect(hoffmanResults).toEqual(["Hoffman"]);
+    expect(hoffmanResults).toEqual([{ object: person, propertyName: "last", value: "Hoffman" }]);
 
     const [...oResults] = findText(person, "o");
 
     expect(oResults).toEqual([
-      "Bob",
-      "Joe",
-      "Hoffman",
-      "software developer",
-      "software developer",
-      "MacBook Pro",
-      "project manager",
+      { object: person, propertyName: "first", value: "Bob" },
+      { object: person, propertyName: "middle", value: "Joe" },
+      { object: person, propertyName: "last", value: "Hoffman" },
+      { object: person.company, propertyName: "role", value: "software developer" },
+      { object: person.company.projects[0], propertyName: "role", value: "software developer" },
+      { object: person.company.projects[1], propertyName: "name", value: "MacBook Pro" },
+      { object: person.company.projects[1], propertyName: "role", value: "project manager" },
     ]);
 
     const [...softwareResults] = findText(person, "software");
 
-    expect(softwareResults).toEqual(["software developer", "software developer"]);
+    expect(softwareResults).toEqual([
+      { object: person.company, propertyName: "role", value: "software developer" },
+      { object: person.company.projects[0], propertyName: "role", value: "software developer" },
+    ]);
   });
 });
