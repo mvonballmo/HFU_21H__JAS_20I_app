@@ -266,10 +266,15 @@ describe("Basic functions and operators", () => {
     function* findText(obj, searchText) {
       for (const objKey in obj) {
         const value = obj[objKey];
-        const textValue = value.toString();
 
-        if (textValue.includes(searchText)) {
-          yield textValue;
+        if (typeof value === "object") {
+          yield* findText(value, searchText);
+        } else {
+          const textValue = value.toString();
+
+          if (textValue.includes(searchText)) {
+            yield textValue;
+          }
         }
       }
     }
@@ -280,6 +285,18 @@ describe("Basic functions and operators", () => {
 
     const [...oResults] = findText(person, "o");
 
-    expect(oResults).toEqual(["Bob", "Joe", "Hoffman", "[object Object]"]);
+    expect(oResults).toEqual([
+      "Bob",
+      "Joe",
+      "Hoffman",
+      "software developer",
+      "software developer",
+      "MacBook Pro",
+      "project manager",
+    ]);
+
+    const [...softwareResults] = findText(person, "software");
+
+    expect(softwareResults).toEqual(["software developer", "software developer"]);
   });
 });
