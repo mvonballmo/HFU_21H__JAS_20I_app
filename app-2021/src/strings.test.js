@@ -75,6 +75,15 @@ describe("Basic functions and operators", () => {
     expect(test.toUpperCase()).toBe("THIS IS Ä SENTENCE.");
   });
 
+  test("slice()", () => {
+    const test = "This is a sentence.";
+
+    expect(test.slice(4)).toBe(" is a sentence.");
+    expect(test.slice(4, 6)).toBe(" i");
+    expect(test.slice(4, 5)).toBe(" ");
+    expect(test.slice(4, 4)).toBe("");
+  });
+
   test("replace() and replaceAll()", () => {
     const test = "This is a sentence.";
 
