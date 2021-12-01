@@ -21,27 +21,27 @@ describe("Basic functions and operators", () => {
     expect(output).toEqual(expectedResult);
   });
 
-  test("string.substr()", () => {
+  test("substr()", () => {
     const test = "This is a sentence.";
 
     expect(test.substr(1)).toBe("his is a sentence.");
     expect(test.substr(1, 10)).toBe("his is a s");
   });
 
-  test("string.substring()", () => {
+  test("substring()", () => {
     const test = "This is a sentence.";
 
     expect(test.substring(1)).toBe("his is a sentence.");
     expect(test.substring(1, 10)).toBe("his is a ");
   });
 
-  test("string.includes()", () => {
+  test("includes()", () => {
     const test = "This is a sentence.";
 
     expect(test.includes("is")).toBeTruthy();
   });
 
-  test("string.indexOf() and lastIndexOf()", () => {
+  test("indexOf() and lastIndexOf()", () => {
     const test = "This is a sentence.";
 
     expect(test.indexOf("is")).toBe(2);
