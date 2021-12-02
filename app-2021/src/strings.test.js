@@ -104,6 +104,24 @@ describe("Basic functions and operators", () => {
     expect(characters.length).toEqual(8);
   });
 
+  test("split() characters from emojis", () => {
+    const characters = "👍🏻👍🏻👍🏻👍🏻".split("");
+
+    expect(characters.length).toBe(16);
+  });
+
+  test("spread characters from simple emojis", () => {
+    const characters = [..."👍👍👍👍"];
+
+    expect(characters).toEqual(["👍", "👍", "👍", "👍"]);
+  });
+
+  test("spread characters from emojis", () => {
+    const characters = [..."👍🏻👍🏻👍🏻👍🏻"];
+
+    expect(characters).toEqual(["👍", "🏻", "👍", "🏻", "👍", "🏻", "👍", "🏻"]);
+  });
+
   test("split() characters with emoji", () => {
     const characters = "Hi!".split("");
 
