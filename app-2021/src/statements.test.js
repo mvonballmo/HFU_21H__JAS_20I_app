@@ -54,9 +54,13 @@ describe("Statements", () => {
   };
 
   test("throw and catch exceptions", () => {
+    const divideWrapperOne = (a, b) => divide(a, b);
+    const divideWrapperTwo = (a, b) => divideWrapperOne(a, b);
+    const divideWrapperThree = (a, b) => divideWrapperTwo(a, b);
+
     const tryDivide = (a, b) => {
       try {
-        return { result: divide(a, b) };
+        return { result: divideWrapperThree(a, b) };
       } catch (error) {
         return { error };
       }
