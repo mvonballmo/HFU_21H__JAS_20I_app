@@ -47,12 +47,8 @@ describe("Recursion", () => {
       return -1;
     }
 
-    if (n === 0) {
-      return 0;
-    }
-
-    if (n === 1) {
-      return 1;
+    if (n === 0 || n === 1) {
+      return n;
     }
 
     return getFibonacci(n - 1) + getFibonacci(n - 2);
