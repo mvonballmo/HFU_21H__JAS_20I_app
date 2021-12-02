@@ -42,23 +42,45 @@ describe("Recursion", () => {
     [7, 13],
   ];
 
+  const getFibonacci = n => {
+    if (!Number.isInteger(n) || n < 0) {
+      return -1;
+    }
+
+    if (n === 0) {
+      return 0;
+    }
+
+    if (n === 1) {
+      return 1;
+    }
+
+    return getFibonacci(n - 1) + getFibonacci(n - 2);
+  };
+
   test.each(fibonacciCases)("fibonacci: f(%p) == %p", (input, expected) => {
-    const getFibonacci = n => {
-      if (!Number.isInteger(n) || n < 0) {
-        return -1;
-      }
-
-      if (n === 0) {
-        return 0;
-      }
-
-      if (n === 1) {
-        return 1;
-      }
-
-      return getFibonacci(n - 1) + getFibonacci(n - 2);
-    };
-
     expect(getFibonacci(input)).toBe(expected);
+  });
+
+  test("fibonacci generator", () => {
+    function* getFibonacciSequence() {
+      let i = 0;
+      while (i >= 0) {
+        yield getFibonacci(i);
+
+        i += 1;
+      }
+    }
+
+    const fibonacci = getFibonacciSequence();
+
+    expect(fibonacci.next().value).toBe(0);
+    expect(fibonacci.next().value).toBe(1);
+    expect(fibonacci.next().value).toBe(1);
+    expect(fibonacci.next().value).toBe(2);
+    expect(fibonacci.next().value).toBe(3);
+    expect(fibonacci.next().value).toBe(5);
+    expect(fibonacci.next().value).toBe(8);
+    expect(fibonacci.next().value).toBe(13);
   });
 });
