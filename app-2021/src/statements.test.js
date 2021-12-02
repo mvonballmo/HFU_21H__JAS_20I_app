@@ -44,4 +44,47 @@ describe("Statements", () => {
       expect(item).toBe(expectedItem);
     }
   });
+
+  const divide = (a, b) => {
+    if (b === 0) {
+      throw `Cannot divide [${a}] by [${b}].`;
+    }
+
+    return a / b;
+  };
+
+  test("throw and catch exceptions", () => {
+    const tryDivide = (a, b) => {
+      try {
+        return { result: divide(a, b) };
+      } catch (error) {
+        return { error };
+      }
+    };
+
+    expect(() => divide(1, 0)).toThrow("Cannot divide [1] by [0].");
+    expect(tryDivide(1, 0).error).toBe("Cannot divide [1] by [0].");
+  });
+
+  test("finally is always called", () => {
+    let flag = -1;
+
+    const divideWithFinally = (a, b) => {
+      try {
+        divide(a, b);
+        flag = 0;
+      } finally {
+        flag = 1;
+      }
+    };
+
+    expect(() => divideWithFinally(1, 0)).toThrow("Cannot divide [1] by [0].");
+
+    expect(flag).toBe(1);
+
+    flag = -1;
+    divideWithFinally(1, 1);
+
+    expect(flag).toBe(1);
+  });
 });
