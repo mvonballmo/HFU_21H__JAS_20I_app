@@ -23,13 +23,15 @@ describe("Statements", () => {
   test("for_in", () => {
     const o = { a: 1, b: 2, c: 3 };
 
+    const propertyNames = [];
     for (const property in o) {
-      // console.log(o[property]);
+      propertyNames.push(property);
     }
 
     const keys = Object.keys(o);
 
     expect(keys).toEqual(["a", "b", "c"]);
+    expect(propertyNames).toEqual(keys);
 
     // o[keys[2]] == "c"
   });
