@@ -84,4 +84,44 @@ describe("Recursion", () => {
 
     expect([...getWordsGenerator(input)]).toEqual(expected);
   });
+
+  test("iterate with next()", () => {
+    function* getLetters() {
+      yield "a";
+      yield "b";
+    }
+
+    const letters = getLetters();
+    const a = letters.next(); // { done: false, value: "a" }
+
+    expect(a.done).toBeFalsy();
+    expect(a.value).toBe("a");
+
+    const b = letters.next(); // { done: true, value: "b" }
+
+    expect(b.done).toBeFalsy();
+    expect(b.value).toBe("b");
+
+    const c = letters.next();
+
+    expect(c.done).toBeTruthy();
+    expect(c.value).toBeUndefined();
+
+    const letterArray = [...getLetters()];
+
+    expect(letterArray).toEqual(["a", "b"]);
+  });
+
+  test("empty generator", () => {
+    function* emptyIterator() {}
+
+    /**
+     * @param {Generator} iterator
+     */
+    function firstOrDefault(iterator) {
+      return iterator.next().value;
+    }
+
+    expect(firstOrDefault(emptyIterator())).toBeUndefined();
+  });
 });
