@@ -10,11 +10,11 @@ window.subtract = () => {
 };
 
 window.showAddress = async () => {
+  /**
+   * @type {crud<{id: number, firstName: string, lastName: string}>}
+   */
   const addresses = new crud("http://localhost:3000/addresses");
 
-  /**
-   * @type {{id: number}}
-   */
   const address = await addresses.get(1);
 
   console.log(address);
