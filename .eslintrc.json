@@ -13,5 +13,24 @@
   "rules": {
     "no-unused-vars": ["warn", { "vars": "all", "args": "after-used", "ignoreRestSiblings": false }],
     "no-sparse-arrays": "warn"
-  }
+  },
+  "overrides": [
+    {
+      "files": [
+        "**/*.ts", "**/*.tsx"
+      ],
+      "plugins": [
+        "@typescript-eslint"
+      ],
+      "extends": [
+        "eslint:recommended", "prettier", "plugin:@typescript-eslint/recommended"
+      ],
+      "parser": "@typescript-eslint/parser",
+      "parserOptions": {
+        "project": [
+          "./tsconfig.json"
+        ]
+      }
+    }
+  ]
 }
