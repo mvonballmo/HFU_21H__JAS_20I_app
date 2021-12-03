@@ -170,8 +170,8 @@ describe("DOM", () => {
       </div>
     `;
 
-    const [div] = document.querySelector("div");
-    const button = div.querySelectorAll("#a");
+    const div = document.querySelector("div");
+    const button = div.querySelector("#a");
 
     expect(div.childElementCount).toBe(2);
 
