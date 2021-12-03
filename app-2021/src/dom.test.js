@@ -188,4 +188,39 @@ describe("DOM", () => {
     expect(element.textContent).toBe("Test");
     expect(element.innerHTML).toBe("Test");
   });
+
+  test("removing attribute", () => {
+    document.body.innerHTML = `
+      <div>
+        <button id="a" class="primary"><span class="strong">Test</span></button>
+        <button id="b" class="secondary">Run</button>
+      </div>
+    `;
+
+    const button = document.querySelector("#a");
+
+    expect(button.attributes.length).toBe(2);
+
+    button.removeAttribute("class");
+
+    expect(button.attributes.length).toBe(1);
+  });
+
+  test("removing element itself", () => {
+    document.body.innerHTML = `
+      <div>
+        <button id="a" class="primary"><span class="strong">Test</span></button>
+        <button id="b" class="secondary">Run</button>
+      </div>
+    `;
+
+    const button = document.querySelector("#a");
+    const div = button.parentElement;
+
+    expect(div.childElementCount).toBe(2);
+
+    button.remove();
+
+    expect(div.childElementCount).toBe(1);
+  });
 });
