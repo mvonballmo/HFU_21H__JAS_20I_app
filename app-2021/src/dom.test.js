@@ -76,6 +76,48 @@ describe("DOM", () => {
     expect(button.getAttribute("id2")).toBe("42");
   });
 
+  test("set element class with setAttribute()", () => {
+    document.body.innerHTML = `<button id="a">Test</button>`;
+
+    const button = document.getElementById("a");
+
+    button.setAttribute("class", "primary");
+
+    expect(button.className).toBe("primary");
+  });
+
+  test("set element class with className", () => {
+    document.body.innerHTML = `<button id="a">Test</button>`;
+
+    const button = document.getElementById("a");
+
+    button.className = "primary";
+
+    expect(button.className).toBe("primary");
+  });
+
+  test("set element class with classList", () => {
+    document.body.innerHTML = `<button id="a">Test</button>`;
+
+    const button = document.getElementById("a");
+
+    button.classList.add("primary");
+
+    expect(button.className).toBe("primary");
+  });
+
+  test("set element class with new Attr()", () => {
+    document.body.innerHTML = `<button id="a">Test</button>`;
+
+    const button = document.getElementById("a");
+
+    const attr = document.createAttribute("class");
+    attr.value = "primary";
+    button.attributes.setNamedItem(attr);
+
+    expect(button.className).toBe("primary");
+  });
+
   test("selecting a button by id, tag, and class", () => {
     document.body.innerHTML = `<button id="a" class="primary">Test</button>`;
 
