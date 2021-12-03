@@ -161,4 +161,22 @@ describe("DOM", () => {
     expect(span.tagName).toBe("SPAN");
     expect(span.className).toBe("strong");
   });
+
+  test("removing element from child list", () => {
+    document.body.innerHTML = `
+      <div>
+        <button id="a" class="primary"><span class="strong">Test</span></button>
+        <button id="b" class="secondary">Run</button>
+      </div>
+    `;
+
+    const [div] = document.querySelector("div");
+    const button = div.querySelectorAll("#a");
+
+    expect(div.childElementCount).toBe(2);
+
+    div.removeChild(button);
+
+    expect(div.childElementCount).toBe(1);
+  });
 });
