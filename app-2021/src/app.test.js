@@ -32,7 +32,11 @@ describe("Application", () => {
 
     await app.initialize(listItems);
 
-    const [firstLink] = listItems.getElementsByTagName("a");
+    let links = listItems.getElementsByTagName("a");
+
+    expect(links.length).toBe(12);
+
+    const [firstLink] = links;
 
     firstLink.click();
 
