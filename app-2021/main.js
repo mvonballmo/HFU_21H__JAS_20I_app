@@ -3,15 +3,15 @@ import { crud } from "./src/crud.js";
 import { address } from "./src/address.js";
 import { createCarListItemsHtml } from "./src/app.js"; // Needed by VSC
 
-window.add = () => {
+document.getElementById("add").addEventListener("click", async () => {
   show(increment());
-};
+});
 
-window.subtract = () => {
+document.getElementById("subtract").addEventListener("click", async () => {
   show(decrement());
-};
+});
 
-window.showAddress = async () => {
+document.getElementById("showAddress").addEventListener("click", async () => {
   /**
    * @type {crud<address>}
    */
@@ -26,7 +26,7 @@ window.showAddress = async () => {
   const [nav] = document.getElementsByTagName("nav");
 
   nav.innerHTML = `<ul>${listItems}</ul>`;
-};
+});
 
 const log = e => {
   console.log(`${e.target.nodeName}, ${e.currentTarget.nodeName}`);
