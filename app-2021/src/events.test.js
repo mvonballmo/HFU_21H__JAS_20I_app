@@ -207,4 +207,30 @@ describe("Events", () => {
 
     expect(clicks).toEqual(["#document", "BUTTON", "DIV"]);
   });
+
+  test("events with document capture and stopPropagation()", () => {
+    document.body.innerHTML = `
+      <div>
+        <button/>
+      </div>
+    `;
+
+    const [div] = document.getElementsByTagName("div");
+    const button = div.firstElementChild;
+
+    let clicks = [];
+
+    function handleClick(e) {
+      clicks.push(e.currentTarget.nodeName);
+      e.stopPropagation();
+    }
+
+    document.addEventListener("click", handleClick, { capture: true });
+    div.addEventListener("click", handleClick);
+    button.addEventListener("click", handleClick);
+
+    button.click();
+
+    expect(clicks).toEqual(["#document"]);
+  });
 });
