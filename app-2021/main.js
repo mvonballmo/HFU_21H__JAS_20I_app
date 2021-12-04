@@ -16,6 +16,5 @@ document.getElementById("showAddress").addEventListener("click", async () => {
 const app = new application();
 
 window.addEventListener("load", async () => {
-  const listItems = document.getElementById("listItems");
-  await app.initialize(listItems);
+  await app.initialize();
 });

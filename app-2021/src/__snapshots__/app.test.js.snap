@@ -1,0 +1,3 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Application initialize 1`] = `"Peter Smith<br>Marco von Ballmoos<br>Hanseeee Maier<br>Kerim Schmitz<br>Peter Schmitz<br>Marco von Ballmoos<br>Hans Maier<br>Kerim Schmitz<br>Peter Schmitz<br>Marco von Ballmoos<br>Hans Maier<br>bob jones<br>"`;

@@ -1,14 +1,16 @@
 import { crud } from "./crud.js";
 
 export class application {
-  initialize = async container => {
+  initialize = async () => {
+    const listItems = document.getElementById("listItems");
+
     try {
-      container.innerHTML = "";
+      listItems.innerHTML = "";
       for (const address of await this.#addresses.getAll()) {
-        container.innerHTML += `${address.firstName} ${address.lastName}<br>`;
+        listItems.innerHTML += `${address.firstName} ${address.lastName}<br>`;
       }
     } catch (e) {
-      container.innerHTML = e.message;
+      listItems.innerHTML = e.message;
     }
   };
 
