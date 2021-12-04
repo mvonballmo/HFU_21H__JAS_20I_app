@@ -1,42 +1,4 @@
 {
-  "albums": [
-    {
-      "title": "First album",
-      "description": "This is an album description."
-    },
-    {
-      "title": "Second album",
-      "description": "This is an album description."
-    },
-    {
-      "title": "Third album",
-      "description": "This is an album description."
-    },
-    {
-      "title": "Fourth album",
-      "description": "This is an album description."
-    },
-    {
-      "title": "Fifth album",
-      "description": "This is an album description."
-    },
-    {
-      "title": "Sixth album",
-      "description": "This is an album description."
-    }
-  ],
-  "classes": [
-    {
-      "id": 1,
-      "pluralCaption": "Cars",
-      "baseUrl": "cars/"
-    },
-    {
-      "id": 2,
-      "pluralCaption": "Addresses",
-      "baseUrl": "addresses/"
-    }
-  ],
   "cars": [
     {
       "id": 1,
