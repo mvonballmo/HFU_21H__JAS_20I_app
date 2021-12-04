@@ -4,12 +4,17 @@ This is the app built for the 2021-2022 module.
 
 ## Environment
 
+- Node/NPM
 - Docker (optional, but handy)
 
 ## Installation
 
 - Open a terminal
 - Execute `npm i` to install all packages
+
+### Docker
+
+- Run the `./Dockerfile` with `docker run`
 
 ## Tests
 
