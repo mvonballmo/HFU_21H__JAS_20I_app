@@ -13,20 +13,6 @@ main {
   grid-template-columns: 200px 1fr;
 }
 
-header {
+header, nav {
   background-color: aliceblue;
-}
-
-nav {
-  background-color: aliceblue;
-}
-
-.buttons {
-  display: grid;
-  grid-template-columns: var(--control-width);
-  grid-gap: var(--default-spacing);
-  margin-bottom: var(--default-spacing);
-}
-textarea {
-  width: var(--control-width);
 }
