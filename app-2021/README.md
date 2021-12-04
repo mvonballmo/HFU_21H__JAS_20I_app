@@ -16,13 +16,12 @@ This is the app built for the 2021-2022 module.
 In order to run all tests, do the following:
 
 - Open a terminal in this folder
-- Execute `json-server ./src/data/tests.json --watch --port 3001`
+- Execute `npm run 2021-test-server`
 - Execute `npm run test`
 
 ### Run
 
 - Open a terminal in this folder
-- Execute `json-server ./data.json --watch --port 3000`
-- Switch to the `app-2021` folder
-- Execute `npx http-server --port 8081`
+- Execute `npm run 2021-server`
+- Execute `npm run 2021-client`
 - Browse to [http://127.0.0.1:8081](http://127.0.0.1:8081)
