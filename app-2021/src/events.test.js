@@ -88,4 +88,47 @@ describe("Events", () => {
 
     button.click();
   });
+
+  test("using 'click' event-listener with event", done => {
+    document.body.innerHTML = `<button id="button"/>`;
+
+    const button = document.getElementById("button");
+
+    button.addEventListener("click", e => {
+      try {
+        expect(e.target.id).toBe("button");
+      } finally {
+        done();
+      }
+    });
+
+    button.click();
+  });
+
+  test("using 'click' event-listener without event", done => {
+    document.body.innerHTML = `<button id="button"/>`;
+
+    const button = document.getElementById("button");
+
+    button.addEventListener("click", () => {
+      done();
+    });
+
+    button.click();
+  });
+
+  test("adding and removing event-listener", () => {
+    document.body.innerHTML = `<button id="button"/>`;
+
+    const button = document.getElementById("button");
+
+    function handleClick() {
+      throw new Error("The click-handler should not have been called.");
+    }
+
+    button.addEventListener("click", handleClick);
+    button.removeEventListener("click", handleClick);
+
+    button.click();
+  });
 });
