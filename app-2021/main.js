@@ -1,5 +1,6 @@
 import { show, decrement, increment } from "./src/basics.js";
 import { crud } from "./src/crud.js";
+import { address } from "./src/address.js"; // Needed by VSC
 
 window.add = () => {
   show(increment());
@@ -11,7 +12,7 @@ window.subtract = () => {
 
 window.showAddress = async () => {
   /**
-   * @type {crud<{id: number, firstName: string, lastName: string}>}
+   * @type {crud<address>}
    */
   const addresses = new crud("http://localhost:3000/addresses");
 
