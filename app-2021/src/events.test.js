@@ -226,12 +226,19 @@ describe("Events", () => {
     }
 
     document.addEventListener("click", handleClick, { capture: true });
-    div.addEventListener("click", handleClick);
-    button.addEventListener("click", handleClick);
+    try {
+      div.addEventListener("click", handleClick);
+      button.addEventListener("click", handleClick);
 
-    button.click();
+      button.click();
 
-    expect(clicks).toEqual(["#document"]);
+      expect(clicks).toEqual(["#document"]);
+    } finally {
+      // It doesn't matter if document event-listeners in other tests are still attached,
+      // but this one captures all events and then stops propagation, which breaks the
+      // expectation in the next text (for preventDefault())
+      document.removeEventListener("click", handleClick, { capture: true });
+    }
   });
 
   test("events with document capture and preventDefault()", () => {
