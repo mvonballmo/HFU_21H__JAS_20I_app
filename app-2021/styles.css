@@ -22,3 +22,15 @@ header, nav {
 section {
   padding: var(--default-spacing);
 }
+
+#detail {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: var(--default-spacing);
+  row-gap: var(--default-spacing);
+}
+
+#detail label {
+  align-self: center;
+  justify-self: end;
+}

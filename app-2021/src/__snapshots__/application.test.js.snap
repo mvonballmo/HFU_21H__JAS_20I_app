@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Application clicking an item loads its details 1`] = `"Peter Smith"`;
+exports[`Application clicking an item loads its details 1`] = `
+"
+      <label>First Name</label><input type=\\"text\\" value=\\"Peter\\">
+      <label>Last Name</label><input type=\\"text\\" value=\\"Smith\\">
+    "
+`;
 
 exports[`Application initialize 1`] = `"Only absolute URLs are supported"`;
 

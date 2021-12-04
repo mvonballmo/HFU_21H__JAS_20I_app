@@ -36,7 +36,10 @@ export class application {
   #showDetail(address) {
     const detail = document.getElementById("detail");
 
-    detail.innerHTML = `${address.firstName} ${address.lastName}`;
+    detail.innerHTML = `
+      <label>First Name</label><input type="text" value="${address.firstName}">
+      <label>Last Name</label><input type="text" value="${address.lastName}">
+    `;
   }
 
   /**
