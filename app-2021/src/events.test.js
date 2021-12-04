@@ -29,63 +29,63 @@ describe("Events", () => {
     expect(window.targetId).toBe("button");
   });
 
-  test("using onclick attribute with closure", () => {
+  test("using onclick attribute with closure", done => {
     document.body.innerHTML = `<button id="button" onclick="buttonClick(this)"/>`;
 
-    let targetId;
-
     window.buttonClick = btn => {
-      targetId = btn.id;
+      try {
+        expect(btn.id).toBe("button");
+      } finally {
+        done();
+      }
     };
 
     const button = document.getElementById("button");
 
     button.click();
-
-    expect(targetId).toBe("button");
   });
 
-  test("using onclick attribute with event", () => {
+  test("using onclick attribute with event", done => {
     document.body.innerHTML = `<button id="button" onclick="clicked(event)"/>`;
 
-    let targetId;
-
     window.clicked = e => {
-      targetId = e.target.id;
+      try {
+        expect(e.target.id).toBe("button");
+      } finally {
+        done();
+      }
     };
 
     const button = document.getElementById("button");
 
     button.click();
-
-    expect(targetId).toBe("button");
   });
 
-  test("using onclick event-handler with event", () => {
+  test("using onclick event-handler with event", done => {
     document.body.innerHTML = `<button id="button"/>`;
-
-    let targetId;
 
     const button = document.getElementById("button");
 
-    button.onclick = e => (targetId = e.target.id);
+    button.onclick = e => {
+      try {
+        expect(e.target.id).toBe("button");
+      } finally {
+        done();
+      }
+    };
 
     button.click();
-
-    expect(targetId).toBe("button");
   });
 
-  test("using onclick event-handler without event", () => {
+  test("using onclick event-handler without event", done => {
     document.body.innerHTML = `<button id="button"/>`;
-
-    let targetId;
 
     const button = document.getElementById("button");
 
-    button.onclick = () => (targetId = "foo");
+    button.onclick = () => {
+      done();
+    };
 
     button.click();
-
-    expect(targetId).toBe("foo");
   });
 });
