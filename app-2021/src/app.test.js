@@ -38,6 +38,8 @@ describe("Application", () => {
 
     const [firstLink] = links;
 
+    expect(firstLink.textContent).toBe("Peter Smith")
+
     firstLink.click();
 
     expect(detail.innerHTML).toMatchSnapshot();

@@ -1,8 +1,8 @@
 import { crud } from "./crud.js";
 
 export class application {
-  constructor(rootUrl){
-    this.#addresses = new crud(`${rootUrl}addresses`)
+  constructor(rootUrl) {
+    this.#addresses = new crud(`${rootUrl}addresses`);
   }
 
   initialize = async () => {
@@ -15,6 +15,7 @@ export class application {
         link.href = "#";
         const application = this;
         link.addEventListener("click", () => application.#showDetail(address));
+        link.textContent = `${address.firstName} ${address.lastName}`;
 
         const div = document.createElement("div");
         div.appendChild(link);
