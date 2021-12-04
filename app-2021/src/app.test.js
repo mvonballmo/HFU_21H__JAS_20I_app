@@ -5,6 +5,7 @@
 import { describe, expect, test } from "@jest/globals";
 import { application } from "./app";
 import "isomorphic-fetch";
+import {testingRootUrl} from "./test-library";
 
 describe("Application", () => {
   test("initialize", async () => {
@@ -25,7 +26,7 @@ describe("Application", () => {
       <div id="detail"></div>
     `;
 
-    const app = new application();
+    const app = new application(testingRootUrl);
     const listItems = document.getElementById("listItems");
     const detail = document.getElementById("detail");
 

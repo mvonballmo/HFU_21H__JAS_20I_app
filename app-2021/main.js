@@ -13,7 +13,7 @@ document.getElementById("showAddress").addEventListener("click", async () => {
   console.log(address);
 });
 
-const app = new application();
+const app = new application("http://localhost:3000/");
 
 window.addEventListener("load", async () => {
   await app.initialize();

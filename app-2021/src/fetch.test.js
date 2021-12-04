@@ -1,17 +1,10 @@
 import { describe, expect, test } from "@jest/globals";
 import "isomorphic-fetch";
 import { crud } from "./crud";
-
-/*
-  This test suite requires a server running at:
-
-  <http://localhost:3001>
-
-  See the README.md at the root of the project to instructions on how to launch the server.
-*/
+import {testingRootUrl} from "./test-library";
 
 describe("Fetch", () => {
-  const serverRoot = "http://localhost:3001/";
+  const serverRoot = testingRootUrl;
   const addressCrud = new crud(getAddressesUrl());
   const carCrud = new crud(`${serverRoot}cars`);
 

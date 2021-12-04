@@ -1,6 +1,10 @@
 import { crud } from "./crud.js";
 
 export class application {
+  constructor(rootUrl){
+    this.#addresses = new crud(`${rootUrl}addresses`)
+  }
+
   initialize = async () => {
     const listItems = document.getElementById("listItems");
 
@@ -17,5 +21,5 @@ export class application {
   /**
    * @type {crud<address>}
    */
-  #addresses = new crud("http://localhost:3000/addresses");
+  #addresses;
 }
