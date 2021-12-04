@@ -1,5 +1,6 @@
 import { crud } from "./src/crud.js";
-import { address } from "./src/address.js"; // Needed by VSC
+import { address } from "./src/address.js";
+import { application } from "./src/app.js";
 
 document.getElementById("showAddress").addEventListener("click", async () => {
   /**
@@ -12,25 +13,9 @@ document.getElementById("showAddress").addEventListener("click", async () => {
   console.log(address);
 });
 
-/**
- * @type {crud<address>}
- */
-let addresses;
-
-const listItems = document.getElementById("listItems");
+const app = new application();
 
 window.addEventListener("load", async () => {
-  /**
-   * @type {crud<address>}
-   */
-  addresses = new crud("http://localhost:3000/addresses");
-
-  try {
-    listItems.innerHTML = "";
-    for (const address of await addresses.getAll()) {
-      listItems.innerHTML += `${address.firstName} ${address.lastName}<br>`;
-    }
-  } catch (e) {
-    listItems.innerHTML = e.message;
-  }
+  const listItems = document.getElementById("listItems");
+  await app.initialize(listItems);
 });
