@@ -131,4 +131,30 @@ describe("Events", () => {
 
     button.click();
   });
+
+  test("using arrow function and 'this'", done => {
+    document.body.innerHTML = `<button id="button"/>`;
+
+    const button = document.getElementById("button");
+
+    button.addEventListener("click", () => {
+      expect(this).toBeUndefined();
+      done();
+    });
+
+    button.click();
+  });
+
+  test("using regular function and 'this'", done => {
+    document.body.innerHTML = `<button id="button"/>`;
+
+    const button = document.getElementById("button");
+
+    button.addEventListener("click", function () {
+      expect(this).toEqual(button);
+      done();
+    });
+
+    button.click();
+  });
 });
