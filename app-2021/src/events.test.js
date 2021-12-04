@@ -233,4 +233,26 @@ describe("Events", () => {
 
     expect(clicks).toEqual(["#document"]);
   });
+
+  test("events with document capture and preventDefault()", () => {
+    document.body.innerHTML = `<a href="https://duckduckgo.com" id="search">DuckDuckGo</a>`;
+
+    const wasClickCanceled = () => {
+      const mouseEvent = new MouseEvent("click", {
+        cancelable: true,
+      });
+
+      const defaultWasExecuted = duckDuckGo.dispatchEvent(mouseEvent);
+
+      return !defaultWasExecuted;
+    };
+
+    const duckDuckGo = document.getElementById("search");
+
+    expect(wasClickCanceled(duckDuckGo)).toBeFalsy();
+
+    duckDuckGo.addEventListener("click", e => e.preventDefault());
+
+    expect(wasClickCanceled(duckDuckGo)).toBeTruthy();
+  });
 });
