@@ -182,4 +182,29 @@ describe("Events", () => {
 
     expect(clicks).toEqual(["BUTTON", "DIV", "#document"]);
   });
+
+  test("events with document capture", () => {
+    document.body.innerHTML = `
+      <div>
+        <button/>
+      </div>
+    `;
+
+    const [div] = document.getElementsByTagName("div");
+    const button = div.firstElementChild;
+
+    let clicks = [];
+
+    function handleClick(e) {
+      clicks.push(e.currentTarget.nodeName);
+    }
+
+    document.addEventListener("click", handleClick, { capture: true });
+    div.addEventListener("click", handleClick);
+    button.addEventListener("click", handleClick);
+
+    button.click();
+
+    expect(clicks).toEqual(["#document", "BUTTON", "DIV"]);
+  });
 });
