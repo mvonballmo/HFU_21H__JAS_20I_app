@@ -60,4 +60,32 @@ describe("Events", () => {
 
     expect(targetId).toBe("button");
   });
+
+  test("using onclick event-handler with event", () => {
+    document.body.innerHTML = `<button id="button"/>`;
+
+    let targetId;
+
+    const button = document.getElementById("button");
+
+    button.onclick = e => (targetId = e.target.id);
+
+    button.click();
+
+    expect(targetId).toBe("button");
+  });
+
+  test("using onclick event-handler without event", () => {
+    document.body.innerHTML = `<button id="button"/>`;
+
+    let targetId;
+
+    const button = document.getElementById("button");
+
+    button.onclick = () => (targetId = "foo");
+
+    button.click();
+
+    expect(targetId).toBe("foo");
+  });
 });
