@@ -3,9 +3,9 @@
  */
 
 import { describe, expect, test } from "@jest/globals";
-import { application } from "./app";
 import "isomorphic-fetch";
-import {testingRootUrl} from "./test-library";
+import { testingRootUrl } from "./test-library";
+import { application } from "./application";
 
 describe("Application", () => {
   test("initialize", async () => {
@@ -38,7 +38,7 @@ describe("Application", () => {
 
     const [firstLink] = links;
 
-    expect(firstLink.textContent).toBe("Peter Smith")
+    expect(firstLink.textContent).toBe("Peter Smith");
 
     firstLink.click();
 

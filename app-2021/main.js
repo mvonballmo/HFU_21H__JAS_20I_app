@@ -1,4 +1,4 @@
-import { application } from "./src/app.js";
+import { application } from "./src/application.js";
 
 const app = new application("http://localhost:3000/");
 
