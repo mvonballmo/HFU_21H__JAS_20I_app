@@ -11,3 +11,26 @@ document.getElementById("showAddress").addEventListener("click", async () => {
 
   console.log(address);
 });
+
+/**
+ * @type {crud<address>}
+ */
+let addresses;
+
+const listItems = document.getElementById("listItems");
+
+window.addEventListener("load", async () => {
+  /**
+   * @type {crud<address>}
+   */
+  addresses = new crud("http://localhost:3000/addresses");
+
+  try {
+    listItems.innerHTML = "";
+    for (const address of await addresses.getAll()) {
+      listItems.innerHTML += `${address.firstName} ${address.lastName}<br>`;
+    }
+  } catch (e) {
+    listItems.innerHTML = e.message;
+  }
+});
