@@ -92,6 +92,19 @@ describe("Fetch", () => {
     }
   });
 
+  test("Call fetch with 404 in crud", async () => {
+    try {
+      await addressCrud.get(55555);
+
+      throw new Error("The call should have thrown a 404 exception ");
+    } catch (error) {
+      expect(error).toBeInstanceOf(Error);
+
+      expect(error.name).toBe("Error");
+      expect(error.message).toBe("Error: 404, Not Found");
+    }
+  });
+
   test("Call fetch with timeout in crud", async () => {
     const addresses = new crud("http://localhost:3021/addresses");
 

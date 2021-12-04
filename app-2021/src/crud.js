@@ -66,12 +66,21 @@ export class crud {
   async #execute(url, init = undefined) {
     const response = await this.#fetchWithTimeout(url, init);
 
+    if (!response.ok) {
+      throw new Error(`Error: ${response.status}, ${response.statusText}`);
+    }
+
     return response.json();
   }
 
+  /**
+   *
+   * @return {Promise<Response>}
+   */
   #fetchWithTimeout = (url, { signal, ...options } = {}) => {
     const controller = new AbortController();
     const response = fetch(url, { signal: controller.signal, ...options });
+
     if (signal) {
       signal.addEventListener("abort", () => controller.abort());
     }
