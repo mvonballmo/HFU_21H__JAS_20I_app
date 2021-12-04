@@ -10,7 +10,8 @@ export class application {
 
     try {
       listItems.innerHTML = "";
-      for (const address of await this.#addresses.getAll()) {
+      let addresses = await this.#addresses.getAll();
+      for (const address of addresses) {
         const link = document.createElement("a");
         link.href = "#";
         const application = this;
@@ -22,6 +23,8 @@ export class application {
 
         listItems.appendChild(div);
       }
+
+      this.#showDetail(addresses[0]);
     } catch (e) {
       listItems.innerHTML = e.message;
     }

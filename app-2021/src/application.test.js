@@ -9,15 +9,20 @@ import { application } from "./application";
 
 describe("Application", () => {
   test("initialize", async () => {
-    document.body.innerHTML = `<div id="listItems"></div>`;
+    document.body.innerHTML = `
+      <div id="listItems"></div>
+      <div id="detail"></div>
+    `;
 
     const listItems = document.getElementById("listItems");
+    const detail = document.getElementById("detail");
 
     const app = new application();
 
     await app.initialize(listItems);
 
     expect(listItems.innerHTML).toMatchSnapshot();
+    expect(detail.innerHTML).toMatchSnapshot();
   });
 
   test("clicking an item loads its details", async () => {
