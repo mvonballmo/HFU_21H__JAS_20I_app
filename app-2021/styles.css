@@ -2,6 +2,25 @@
   --control-width: 100px;
   --default-spacing: 5px;
 }
+
+body {
+  display: grid;
+  grid-template-rows: auto 1fr;
+}
+
+main {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+}
+
+header {
+  background-color: aliceblue;
+}
+
+nav {
+  background-color: aliceblue;
+}
+
 .buttons {
   display: grid;
   grid-template-columns: var(--control-width);
