@@ -67,7 +67,7 @@ export class crud {
     const response = await this.#fetchWithTimeout(url, init);
 
     if (!response.ok) {
-      throw new Error(`Error: ${response.status}, ${response.statusText}`);
+      throw new Error(`Error [${response.status}] accessing [${url}]: ${response.statusText}`);
     }
 
     return response.json();

@@ -1,7 +1,7 @@
 import { describe, expect, test } from "@jest/globals";
 import "isomorphic-fetch";
 import { crud } from "./crud";
-import {testingRootUrl} from "./test-library";
+import { testingRootUrl } from "./test-library";
 
 describe("Fetch", () => {
   const serverRoot = testingRootUrl;
@@ -94,7 +94,7 @@ describe("Fetch", () => {
       expect(error).toBeInstanceOf(Error);
 
       expect(error.name).toBe("Error");
-      expect(error.message).toBe("Error: 404, Not Found");
+      expect(error.message).toBe("Error [404] accessing [http://localhost:3001/addresses/55555]: Not Found");
     }
   });
 
