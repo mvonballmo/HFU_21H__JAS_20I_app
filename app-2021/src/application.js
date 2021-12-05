@@ -40,12 +40,18 @@ export class application {
 
   #configureListItem(listItem, address) {
     const application = this;
-
-    // eslint-disable-next-line no-self-assign
-    listItem.innerHTML = listItem.innerHTML;
+    this.#removeEventListeners(listItem);
 
     listItem.addEventListener("click", () => application.#showDetail(address));
     listItem.textContent = `${address.firstName} ${address.lastName}`;
+  }
+
+  #removeEventListeners(listItem) {
+    // NOTE: This is a trick that results in removing all DOM modifications,
+    // including event listeners.
+
+    // eslint-disable-next-line no-self-assign
+    listItem.innerHTML = listItem.innerHTML;
   }
 
   #getListItemId(address) {
