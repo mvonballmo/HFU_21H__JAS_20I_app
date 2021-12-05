@@ -65,7 +65,7 @@
     {
       "id": 3,
       "lastName": "Maier",
-      "firstName": "Hanseeee",
+      "firstName": "Hans",
       "salary": "3500.00 Euro",
       "birthDate": "geb. 15.03.1962"
     },
@@ -126,8 +126,8 @@
       "birthDate": "geb. 15.03.1962"
     },
     {
-      "firstName": "bob",
-      "lastName": "jones",
+      "firstName": "Bob",
+      "lastName": "Jones",
       "birthDate": "2021-03-14",
       "salary": "10000",
       "id": 14
