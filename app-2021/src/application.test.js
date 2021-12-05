@@ -64,7 +64,7 @@ describe("Application", () => {
     let links = listItems.getElementsByTagName("a");
     const [firstLink] = links;
 
-    expect(firstLink).toBeDefined();
+    expect(firstLink).toBeTruthy();
 
     firstLink.click();
 
@@ -72,9 +72,9 @@ describe("Application", () => {
     const firstName = document.getElementById("firstName");
     const lastName = document.getElementById("lastName");
 
-    expect(saveButton).toBeDefined();
-    expect(firstName).toBeDefined();
-    expect(lastName).toBeDefined();
+    expect(saveButton).toBeTruthy();
+    expect(firstName).toBeTruthy();
+    expect(lastName).toBeTruthy();
 
     const oldAddress = await app.addresses.get(1);
 
@@ -99,5 +99,23 @@ describe("Application", () => {
 
       await app.addresses.update(address);
     }
+  });
+
+  test("shows error when backend server not accessible", async () => {
+    document.body.innerHTML = `
+      <div id="listItems"></div>
+      <div id="detail"></div>
+    `;
+
+    const app = new application(testingRootUrl + "foo");
+
+    const listItems = document.getElementById("listItems");
+
+    expect(listItems).toBeTruthy();
+    expect(listItems.innerHTML).toMatchSnapshot("before initializing");
+
+    await app.initialize(listItems);
+
+    expect(listItems.innerHTML).toMatchSnapshot("with error");
   });
 });
