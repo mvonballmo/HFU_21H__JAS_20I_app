@@ -18,15 +18,13 @@ export class application {
     const listItems = document.getElementById("listItems");
 
     try {
-      const application = this;
-
       listItems.innerHTML = "";
       let addresses = await this.addresses.getAll();
       for (const address of addresses) {
         const link = document.createElement("a");
         link.href = "#";
-        link.addEventListener("click", () => application.#showDetail(address));
-        link.textContent = `${address.firstName} ${address.lastName}`;
+        link.id = this.#getListItemId(address);
+        this.#configureListItem(link, address);
 
         const div = document.createElement("div");
         div.appendChild(link);
@@ -38,6 +36,20 @@ export class application {
     } catch (e) {
       listItems.innerHTML = e.message;
     }
+  }
+
+  #configureListItem(listItem, address) {
+    const application = this;
+
+    // eslint-disable-next-line no-self-assign
+    listItem.innerHTML = listItem.innerHTML;
+
+    listItem.addEventListener("click", () => application.#showDetail(address));
+    listItem.textContent = `${address.firstName} ${address.lastName}`;
+  }
+
+  #getListItemId(address) {
+    return `list_item_${address.id}`;
   }
 
   /**
@@ -73,6 +85,11 @@ export class application {
 
     await this.addresses.update(address);
 
-    await this.#reloadList();
+    const listItem = document.getElementById(this.#getListItemId(address));
+    if (listItem) {
+      this.#configureListItem(listItem, address);
+    } else {
+      return this.#reloadList();
+    }
   }
 }
