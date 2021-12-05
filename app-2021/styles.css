@@ -34,3 +34,7 @@ section {
   align-self: center;
   justify-self: end;
 }
+
+nav a {
+  display: block;
+}
