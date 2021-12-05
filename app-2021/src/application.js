@@ -10,11 +10,16 @@ export class application {
     this.addresses = new crud(`${rootUrl}addresses`);
   }
 
-  initialize = async () => {
+  initialize = () => {
+    return this.#reloadList();
+  };
+
+  async #reloadList() {
     const listItems = document.getElementById("listItems");
-    const application = this;
 
     try {
+      const application = this;
+
       listItems.innerHTML = "";
       let addresses = await this.addresses.getAll();
       for (const address of addresses) {
@@ -33,7 +38,7 @@ export class application {
     } catch (e) {
       listItems.innerHTML = e.message;
     }
-  };
+  }
 
   /**
    * @param {address} address
@@ -50,7 +55,7 @@ export class application {
     const saveButton = document.createElement("button");
     saveButton.id = "save";
     saveButton.textContent = "Save";
-    saveButton.addEventListener("click", async () => await application.#saveDetail(address));
+    saveButton.addEventListener("click", async () => await application.saveDetail(address));
 
     detail.append(document.createElement("span")); // spacer in the first column
     detail.append(saveButton);
@@ -59,7 +64,7 @@ export class application {
   /**
    * @param {address} address
    */
-  async #saveDetail(address) {
+  async saveDetail(address) {
     const firstName = document.getElementById("firstName");
     const lastName = document.getElementById("lastName");
 
@@ -68,6 +73,6 @@ export class application {
 
     await this.addresses.update(address);
 
-    // TODO Update the item in the list
+    await this.#reloadList();
   }
 }

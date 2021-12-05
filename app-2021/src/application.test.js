@@ -50,7 +50,7 @@ describe("Application", () => {
     expect(detail.innerHTML).toMatchSnapshot();
   });
 
-  test("updating an item in the details", async () => {
+  test("updating an item by clicking save button", async () => {
     document.body.innerHTML = `
       <div id="listItems"></div>
       <div id="detail"></div>
@@ -61,7 +61,7 @@ describe("Application", () => {
 
     await app.initialize(listItems);
 
-    let links = listItems.getElementsByTagName("a");
+    const links = listItems.getElementsByTagName("a");
     const [firstLink] = links;
 
     expect(firstLink).toBeTruthy();
@@ -80,6 +80,8 @@ describe("Application", () => {
 
     expect(oldAddress.firstName).toBe("Peter");
     expect(oldAddress.lastName).toBe("Smith");
+    expect(firstLink.innerHTML).toContain("Peter");
+    expect(firstLink.innerHTML).toContain("Smith");
 
     firstName.value = "John";
     lastName.value = "Doe";
@@ -87,10 +89,76 @@ describe("Application", () => {
     try {
       saveButton.click();
 
+      // Here, we have a problem, because we can't "wait" for the "click about to finish
+      // The check that the address was stored "works" because it takes long enough that
+      // The call to fetch has completed, but... (see below)
+
       const newAddress = await app.addresses.get(oldAddress.id);
 
       expect(newAddress.firstName).toBe("John");
       expect(newAddress.lastName).toBe("Doe");
+
+      // ...the DOM has not been updated at this point, so we can't test that the list
+      // has been updated via button click
+
+      // const links = listItems.getElementsByTagName("a");
+      // const [firstLink] = links;
+      //
+      // expect(firstLink.innerHTML).toContain("John");
+      // expect(firstLink.innerHTML).toContain("Doe");
+    } finally {
+      const address = await app.addresses.get(oldAddress.id);
+
+      address.firstName = oldAddress.firstName;
+      address.lastName = oldAddress.lastName;
+
+      await app.addresses.update(address);
+    }
+  });
+
+  test("updating an item by calling 'saveDetail' ", async () => {
+    document.body.innerHTML = `
+      <div id="listItems"></div>
+      <div id="detail"></div>
+    `;
+
+    const app = new application(testingRootUrl);
+    const listItems = document.getElementById("listItems");
+
+    await app.initialize(listItems);
+
+    const oldAddress = await app.addresses.get(1);
+
+    expect(oldAddress.firstName).toBe("Peter");
+    expect(oldAddress.lastName).toBe("Smith");
+
+    const firstName = document.getElementById("firstName");
+    const lastName = document.getElementById("lastName");
+
+    expect(firstName).toBeTruthy();
+    expect(lastName).toBeTruthy();
+
+    firstName.value = "John";
+    lastName.value = "Doe";
+
+    try {
+      // Here, we call the "save button" event-listener directly so that we can wait for it to complete.
+
+      // Make a copy of the oldAddress because the object is modified by "saveDetail"
+      await app.saveDetail({ ...oldAddress });
+
+      const newAddress = await app.addresses.get(oldAddress.id);
+
+      expect(newAddress.firstName).toBe("John");
+      expect(newAddress.lastName).toBe("Doe");
+
+      // Unlike the test above, the DOM is now guaranteed to have been updated.
+
+      const links = listItems.getElementsByTagName("a");
+      const [firstLink] = links;
+
+      expect(firstLink.innerHTML).toContain("John");
+      expect(firstLink.innerHTML).toContain("Doe");
     } finally {
       const address = await app.addresses.get(oldAddress.id);
 
