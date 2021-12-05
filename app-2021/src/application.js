@@ -1,20 +1,25 @@
 import { crud } from "./crud.js";
 
 export class application {
+  /**
+   * @type {crud<address>}
+   */
+  addresses;
+
   constructor(rootUrl) {
-    this.#addresses = new crud(`${rootUrl}addresses`);
+    this.addresses = new crud(`${rootUrl}addresses`);
   }
 
   initialize = async () => {
     const listItems = document.getElementById("listItems");
+    const application = this;
 
     try {
       listItems.innerHTML = "";
-      let addresses = await this.#addresses.getAll();
+      let addresses = await this.addresses.getAll();
       for (const address of addresses) {
         const link = document.createElement("a");
         link.href = "#";
-        const application = this;
         link.addEventListener("click", () => application.#showDetail(address));
         link.textContent = `${address.firstName} ${address.lastName}`;
 
@@ -35,15 +40,34 @@ export class application {
    */
   #showDetail(address) {
     const detail = document.getElementById("detail");
+    const application = this;
 
     detail.innerHTML = `
-      <label>First Name</label><input type="text" value="${address.firstName}">
-      <label>Last Name</label><input type="text" value="${address.lastName}">
+      <label>First Name</label><input type="text" id="firstName" value="${address.firstName}">
+      <label>Last Name</label><input type="text" id="lastName" value="${address.lastName}">
     `;
+
+    const saveButton = document.createElement("button");
+    saveButton.id = "save";
+    saveButton.textContent = "Save";
+    saveButton.addEventListener("click", async () => await application.#saveDetail(address));
+
+    detail.append(document.createElement("span")); // spacer in the first column
+    detail.append(saveButton);
   }
 
   /**
-   * @type {crud<address>}
+   * @param {address} address
    */
-  #addresses;
+  async #saveDetail(address) {
+    const firstName = document.getElementById("firstName");
+    const lastName = document.getElementById("lastName");
+
+    address.firstName = firstName.value;
+    address.lastName = lastName.value;
+
+    await this.addresses.update(address);
+
+    // TODO Update the item in the list
+  }
 }

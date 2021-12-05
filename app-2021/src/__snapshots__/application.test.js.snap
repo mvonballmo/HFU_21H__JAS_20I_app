@@ -2,9 +2,9 @@
 
 exports[`Application clicking an item loads its details 1`] = `
 "
-      <label>First Name</label><input type=\\"text\\" value=\\"Peter\\">
-      <label>Last Name</label><input type=\\"text\\" value=\\"Smith\\">
-    "
+      <label>First Name</label><input type=\\"text\\" id=\\"firstName\\" value=\\"Peter\\">
+      <label>Last Name</label><input type=\\"text\\" id=\\"lastName\\" value=\\"Smith\\">
+    <span></span><button id=\\"save\\">Save</button>"
 `;
 
 exports[`Application initialize 1`] = `"Only absolute URLs are supported"`;

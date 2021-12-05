@@ -49,4 +49,55 @@ describe("Application", () => {
 
     expect(detail.innerHTML).toMatchSnapshot();
   });
+
+  test("updating an item in the details", async () => {
+    document.body.innerHTML = `
+      <div id="listItems"></div>
+      <div id="detail"></div>
+    `;
+
+    const app = new application(testingRootUrl);
+    const listItems = document.getElementById("listItems");
+
+    await app.initialize(listItems);
+
+    let links = listItems.getElementsByTagName("a");
+    const [firstLink] = links;
+
+    expect(firstLink).toBeDefined();
+
+    firstLink.click();
+
+    const saveButton = document.getElementById("save");
+    const firstName = document.getElementById("firstName");
+    const lastName = document.getElementById("lastName");
+
+    expect(saveButton).toBeDefined();
+    expect(firstName).toBeDefined();
+    expect(lastName).toBeDefined();
+
+    const oldAddress = await app.addresses.get(1);
+
+    expect(oldAddress.firstName).toBe("Peter");
+    expect(oldAddress.lastName).toBe("Smith");
+
+    firstName.value = "John";
+    lastName.value = "Doe";
+
+    try {
+      saveButton.click();
+
+      const newAddress = await app.addresses.get(oldAddress.id);
+
+      expect(newAddress.firstName).toBe("John");
+      expect(newAddress.lastName).toBe("Doe");
+    } finally {
+      const address = await app.addresses.get(oldAddress.id);
+
+      address.firstName = oldAddress.firstName;
+      address.lastName = oldAddress.lastName;
+
+      await app.addresses.update(address);
+    }
+  });
 });
