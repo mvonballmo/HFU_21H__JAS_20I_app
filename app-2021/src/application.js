@@ -66,8 +66,10 @@ export class application {
     const application = this;
 
     detail.innerHTML = `
-      <label>First Name</label><input type="text" id="firstName" value="${address.firstName}">
-      <label>Last Name</label><input type="text" id="lastName" value="${address.lastName}">
+      <form>
+        <label>First Name</label><input placeholder="First Name" required type="text" id="firstName" value="${address.firstName}">
+        <label>Last Name</label><input placeholder="Last Name" required type="text" id="lastName" value="${address.lastName}">
+      </form>
     `;
 
     const saveButton = document.createElement("button");
@@ -75,8 +77,10 @@ export class application {
     saveButton.textContent = "Save";
     saveButton.addEventListener("click", async () => await application.saveDetail(address));
 
-    detail.append(document.createElement("span")); // spacer in the first column
-    detail.append(saveButton);
+    const [form] = detail.getElementsByTagName("form");
+
+    form.append(document.createElement("span")); // spacer in the first column
+    form.append(saveButton);
   }
 
   /**

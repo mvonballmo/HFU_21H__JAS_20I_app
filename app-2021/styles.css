@@ -23,16 +23,21 @@ section {
   padding: var(--default-spacing);
 }
 
-#detail {
+#detail form {
   display: grid;
   grid-template-columns: auto 1fr;
   gap: var(--default-spacing);
   row-gap: var(--default-spacing);
 }
 
-#detail label {
+#detail form label {
   align-self: center;
   justify-self: end;
+}
+
+input:invalid {
+  outline: 1px dotted red;
+  background-color: mistyrose;
 }
 
 nav a {
