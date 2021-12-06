@@ -1,6 +1,7 @@
 import { show, decrement, increment } from "./src/basics.js";
 import { crud } from "./src/crud.js";
-import { address } from "./src/address.js"; // Needed by VSC
+import { address } from "./src/address.js";
+import { createCarListItemsHtml } from "./src/app.js"; // Needed by VSC
 
 window.add = () => {
   show(increment());
@@ -20,4 +21,9 @@ window.showAddress = async () => {
 
   console.log(address);
   show(address.firstName);
+
+  const listItems = await createCarListItemsHtml();
+  const [nav] = document.getElementsByTagName("nav");
+
+  nav.innerHTML = `<ul>${listItems}</ul>`;
 };

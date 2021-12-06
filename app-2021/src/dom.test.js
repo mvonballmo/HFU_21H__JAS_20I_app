@@ -3,6 +3,8 @@
  */
 
 import { describe, expect, test } from "@jest/globals";
+import "isomorphic-fetch";
+import { createCarListItemsHtml } from "./app";
 
 describe("DOM", () => {
   test("get element properties", () => {
@@ -246,5 +248,11 @@ describe("DOM", () => {
     expect(values).toEqual(expectedValues);
     expect(element.dataset.data).toBe("c");
     expect(element.dataset.test).toBe("b");
+  });
+
+  test("fetch data and add to document", async () => {
+    const listItemsHtml = await createCarListItemsHtml();
+
+    expect(listItemsHtml).toBe(`<li>Volkswagen</li><li>Opel</li>`);
   });
 });
