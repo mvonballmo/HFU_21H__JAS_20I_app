@@ -232,6 +232,15 @@ describe("DOM", () => {
     expect("data" in element.dataset).toBeTruthy();
     expect("test" in element.dataset).toBeTruthy();
 
+    const values = [];
+
+    for (const propertyName in element.dataset) {
+      values.push(element.dataset[propertyName]);
+    }
+
+    const expectedValues = ["b", "c"];
+
+    expect(values).toEqual(expectedValues);
     expect(element.dataset.data).toBe("c");
     expect(element.dataset.test).toBe("b");
   });
