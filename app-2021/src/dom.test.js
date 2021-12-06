@@ -167,17 +167,20 @@ describe("DOM", () => {
       <div>
         <button id="a" class="primary"><span class="strong">Test</span></button>
         <button id="b" class="secondary">Run</button>
+        <button id="c" class="secondary">Run</button>
       </div>
     `;
 
     const div = document.querySelector("div");
-    const button = div.querySelector("#a");
+    const button = div.firstElementChild;
 
-    expect(div.childElementCount).toBe(2);
+    expect(button).toBeTruthy();
 
-    div.removeChild(button);
+    const originalElementCount = div.childElementCount;
 
-    expect(div.childElementCount).toBe(1);
+    button.parentElement.removeChild(button);
+
+    expect(div.childElementCount).toBe(originalElementCount - 1);
   });
 
   test("textContent", () => {
