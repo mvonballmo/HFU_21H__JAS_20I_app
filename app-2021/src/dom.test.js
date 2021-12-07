@@ -4,7 +4,6 @@
 
 import { describe, expect, test } from "@jest/globals";
 import "isomorphic-fetch";
-import { createCarListItemsHtml } from "./app";
 
 describe("DOM", () => {
   test("get element properties", () => {
