@@ -120,6 +120,35 @@ describe("DOM", () => {
     expect(button.className).toBe("primary");
   });
 
+  test("set element style and get cssStyle", () => {
+    document.body.innerHTML = `<button id="a">Test</button>`;
+
+    const button = document.getElementById("a");
+    const style = button.style;
+
+    style.fontSize = "12px";
+    style.textDecoration = "underline";
+    style.textOverflow = "ellipsis";
+
+    expect(style.length).toBe(3);
+
+    expect(style.cssText).toMatchSnapshot();
+  });
+
+  test("set element style and getComputedStyle()", () => {
+    document.body.innerHTML = `<button id="a">Test</button>`;
+
+    const button = document.getElementById("a");
+
+    button.style.fontSize = "12px";
+    button.style.textDecoration = "underline";
+    button.style.textOverflow = "ellipsis";
+
+    const style = window.getComputedStyle(button);
+
+    expect(style.cssText).toMatchSnapshot();
+  });
+
   test("selecting a button by id, tag, and class", () => {
     document.body.innerHTML = `<button id="a" class="primary">Test</button>`;
 

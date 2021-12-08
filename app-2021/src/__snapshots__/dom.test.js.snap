@@ -1,0 +1,5 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DOM set element style and get cssStyle 1`] = `"font-size: 12px; text-decoration: underline; text-overflow: ellipsis;"`;
+
+exports[`DOM set element style and getComputedStyle() 1`] = `"font: -webkit-small-control; text-rendering: auto; letter-spacing: normal; word-spacing: normal; line-height: normal; text-transform: none; text-indent: 0; text-shadow: none; display: inline-block; text-align: center; align-items: flex-start; cursor: default; color: ButtonText; padding: 2px 6px 3px 6px; border: 2px outset buttonface; background-color: ButtonFace; box-sizing: border-box; visibility: visible; font-size: 12px; text-decoration: underline; text-overflow: ellipsis;"`;
