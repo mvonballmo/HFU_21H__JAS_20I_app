@@ -2,10 +2,18 @@ import { describe, expect, test } from "@jest/globals";
 import "isomorphic-fetch";
 import { crud } from "./crud";
 import { testingRootUrl } from "./test-library";
+import { address } from "./address";
+import { car } from "./car";
 
 describe("Fetch", () => {
   const serverRoot = testingRootUrl;
+  /**
+   * @type {crud<address>}
+   */
   const addressCrud = new crud(getAddressesUrl());
+  /**
+   * @type {crud<car>}
+   */
   const carCrud = new crud(`${serverRoot}cars`);
 
   function getAddressesUrl() {
@@ -99,6 +107,9 @@ describe("Fetch", () => {
   });
 
   test("Call fetch with timeout in crud", async () => {
+    /**
+     * @type {crud<address>}
+     */
     const addresses = new crud("http://localhost:3021/addresses");
 
     addresses.timeOutInMilliseconds = 1;
@@ -136,18 +147,27 @@ describe("Fetch", () => {
   });
 
   test("Insert address", async () => {
+    /**
+     * @type {crud<address>}
+     */
     const addressCrud = new crud(getAddressesUrl());
 
     let addresses = await addressCrud.getAll();
 
     expect(addresses.length).toBe(12);
 
-    const address = await addressCrud.insert({
+    /**
+     *
+     * @type {address}
+     */
+    const newAddress = {
       firstName: "test",
       lastName: "tester",
       birthDate: "2021-03-31",
       salary: "20050",
-    });
+    };
+
+    const address = await addressCrud.insert(newAddress);
 
     try {
       addresses = await addressCrud.getAll();
@@ -159,7 +179,6 @@ describe("Fetch", () => {
   });
 
   test("Update address", async () => {
-    const addressCrud = new crud(getAddressesUrl());
     let address = await addressCrud.get(1);
 
     expect(address.firstName).toBe("Peter");

@@ -16,45 +16,22 @@ export class crud {
 
   timeOutInMilliseconds = 5000;
 
-  /**
-   * Gets all entities from the database.
-   */
   getAll() {
     return this.#execute(this.#_rootUrl);
   }
 
-  /**
-   * Gets the entity with the given `id` from the database.
-   *
-   * @param {number} id The unique identifier for the requested entity.
-   */
   get(id) {
     return this.#execute(`${this.#_rootUrl}/${id}`);
   }
 
-  /**
-   * Inserts the given `entity` into the database.
-   *
-   * @param {{}} entity The object to insert.
-   */
   insert(entity) {
     return this.#insertOrUpdate(`${this.#_rootUrl}/`, entity, "POST");
   }
 
-  /**
-   * Updates the given `entity` in the database.
-   *
-   * @param {{ id: number }} entity The object to update.
-   */
   update(entity) {
     return this.#insertOrUpdate(`${this.#_rootUrl}/${entity.id}`, entity, "PUT");
   }
 
-  /**
-   * Deletes the given `entity` from the database.
-   *
-   * @param {{ id: number }} entity The object to delete.
-   */
   delete(entity) {
     return this.#execute(`${this.#_rootUrl}/${entity.id}`, { method: "DELETE" });
   }
@@ -74,7 +51,6 @@ export class crud {
   }
 
   /**
-   *
    * @return {Promise<Response>}
    */
   #fetchWithTimeout = (url, { signal, ...options } = {}) => {
@@ -104,5 +80,8 @@ export class crud {
     });
   }
 
+  /**
+   * @type {string}
+   */
   #_rootUrl;
 }
