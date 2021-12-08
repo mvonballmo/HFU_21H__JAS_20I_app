@@ -11,7 +11,18 @@ body {
 
 main {
   display: grid;
-  grid-template-columns: 200px 1fr;
+  grid-template-rows: 200px 1fr;
+}
+
+@media (min-width: 600px) {
+  main {
+    grid-template-rows: auto;
+    grid-template-columns: 200px 1fr;
+  }
+}
+
+nav {
+  overflow: auto;
 }
 
 header, nav {
