@@ -4,6 +4,9 @@
   "description": "A demo app",
   "scripts": {
     "test": "jest",
+    "ci": "npm run ci-test-server && npm test",
+    "postci": "pkill -f json-server",
+    "ci-test-server": "npx json-server ./app-2021/src/data/tests.json --watch --port 3001 &",
     "2021-test-server": "npx json-server app-2021/tests/tests.json --watch --port 3001",
     "2021-server": "npx json-server ./app-2021/data.json --watch --port 3000",
     "2021-client": "npx http-server ./app-2021 --port 8081",
