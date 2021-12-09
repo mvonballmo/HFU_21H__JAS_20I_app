@@ -30,4 +30,6 @@ jobs:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
     - run: |
-        npm ci
+        npm ci-test-server
+        npm test
+        npm stop-ci-test-server
