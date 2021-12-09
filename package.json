@@ -4,8 +4,8 @@
   "description": "A demo app",
   "scripts": {
     "test": "jest",
-    "2021-test-server": "json-server app-2021/tests/tests.json --watch --port 3001",
-    "2021-server": "json-server ./app-2021/data.json --watch --port 3000",
+    "2021-test-server": "npx json-server app-2021/tests/tests.json --watch --port 3001",
+    "2021-server": "npx json-server ./app-2021/data.json --watch --port 3000",
     "2021-client": "npx http-server ./app-2021 --port 8081",
     "2021-js-vite-react": "pushd app-2021/vite-react-js && npm run dev && popd",
     "2021-ts-vite-react": "pushd app-2021/vite-react-ts && npm run dev && popd"
