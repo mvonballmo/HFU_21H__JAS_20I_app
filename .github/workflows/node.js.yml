@@ -29,6 +29,6 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
-      run: |
+    - run: |
         npm run 2021-test-server
         npm test
