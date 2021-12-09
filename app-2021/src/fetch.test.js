@@ -53,44 +53,6 @@ describe("Fetch", () => {
     expect(response.status).toBe(404);
   });
 
-  test("Call fetch with timeout via AbortController", async () => {
-    const controller = new AbortController();
-    const promise = fetch("http://localhost:3020/addresses", {
-      signal: controller.signal,
-    });
-
-    // Start the timer
-    // NOTE: we use a VERY LOW timeout so that the abort occurs before the connection is refused
-    const timeoutId = setTimeout(() => controller.abort(), 1);
-
-    try {
-      await expect(promise).rejects.toThrow("The user aborted a request.");
-    } finally {
-      clearTimeout(timeoutId);
-    }
-  });
-
-  test("Call fetch with timeout via AbortController with try/catch", async () => {
-    const controller = new AbortController();
-
-    // Start the timer
-    // NOTE: we use a VERY LOW timeout so that the abort occurs before the connection is refused
-    const timeoutId = setTimeout(() => controller.abort(), 1);
-
-    try {
-      await fetch("http://localhost:3021/addresses", {
-        signal: controller.signal,
-      });
-    } catch (error) {
-      expect(error).toBeInstanceOf(Error);
-
-      expect(error.name).toBe("AbortError");
-      expect(error.message).toBe("The user aborted a request.");
-    } finally {
-      clearTimeout(timeoutId);
-    }
-  });
-
   test("Call fetch with 404 in crud", async () => {
     try {
       await addressCrud.get(55555);
@@ -101,24 +63,6 @@ describe("Fetch", () => {
 
       expect(error.name).toBe("Error");
       expect(error.message).toBe("Error [404] accessing [http://localhost:3001/addresses/55555]: Not Found");
-    }
-  });
-
-  test("Call fetch with timeout in crud", async () => {
-    /**
-     * @type {crud<address>}
-     */
-    const addresses = new crud("http://localhost:3021/addresses");
-
-    addresses.timeOutInMilliseconds = 1;
-
-    try {
-      await addresses.getAll();
-    } catch (error) {
-      expect(error).toBeInstanceOf(Error);
-
-      expect(error.name).toBe("AbortError");
-      expect(error.message).toBe("The user aborted a request.");
     }
   });
 
