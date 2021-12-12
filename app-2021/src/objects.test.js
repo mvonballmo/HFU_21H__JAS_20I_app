@@ -79,4 +79,33 @@ describe("Basic functions and operators", () => {
 
     expect(obj.add()).toBe(2);
   });
+
+  test("instanceof with object", () => {
+    function person(firstName, lastName) {
+      this.firstName = firstName;
+      this.lastName = lastName;
+    }
+    const bob = new person("John", "Doe");
+
+    expect(bob instanceof person).toBeTruthy();
+    expect(bob instanceof Object).toBeTruthy();
+    expect(bob instanceof Number).toBeFalsy();
+  });
+
+  test("instanceof with class", () => {
+    class person {
+      constructor(firstName, lastName) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+      }
+    }
+    class employee extends person {}
+
+    const bob = new employee("John", "Doe");
+
+    expect(bob instanceof employee).toBeTruthy();
+    expect(bob instanceof person).toBeTruthy();
+    expect(bob instanceof Object).toBeTruthy();
+    expect(bob instanceof Number).toBeFalsy();
+  });
 });
