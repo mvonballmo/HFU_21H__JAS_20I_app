@@ -3,7 +3,7 @@
  */
 
 import { describe, expect, test } from "@jest/globals";
-import { counter, increment, decrement } from "./basics.js";
+import { counter, increment, decrement, show } from "./basics.js";
 
 describe("Library Functions", () => {
   test("counter is initialized to 1", () => {
@@ -20,5 +20,18 @@ describe("Library Functions", () => {
     const currentCounter = counter();
 
     expect(decrement()).toBe(currentCounter - 1);
+  });
+
+  test("show writes to output", () => {
+    document.body.innerHTML = `
+    <div id="output"></div>
+    `;
+
+    show("Test");
+    show("Test");
+
+    const output = document.getElementById("output");
+
+    expect(output.innerHTML).toMatchSnapshot();
   });
 });
