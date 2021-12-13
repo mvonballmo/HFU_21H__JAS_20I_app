@@ -12,3 +12,7 @@ exports[`Application clicking an item loads its details 1`] = `
 exports[`Application initialize 1`] = `"Only absolute URLs are supported"`;
 
 exports[`Application initialize 2`] = `""`;
+
+exports[`Application shows error when backend server not accessible: before initializing 1`] = `""`;
+
+exports[`Application shows error when backend server not accessible: with error 1`] = `"Error [404] accessing [http://localhost:3001/fooaddresses]: Not Found"`;
