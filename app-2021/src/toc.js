@@ -10,15 +10,14 @@ export class tocBuilder {
     let listStarted = false;
     let toc = "<ul>";
     /** @type Element */
-    let current = undefined;
-    let currentLevel = minLevel;
+    let currentLevel = undefined;
 
     const getLevel = n => n[1];
 
     for (const heading of headings) {
       const headingLevel = getLevel(heading.tagName);
 
-      if (current) {
+      if (currentLevel) {
         if (currentLevel === headingLevel) {
           if (listStarted) {
             toc += "</ul>\n";
@@ -41,7 +40,6 @@ export class tocBuilder {
 
       toc += `<li><a href="#${heading.id}">${heading.textContent}</a></li>\n`;
 
-      current = heading;
       currentLevel = headingLevel;
     }
 
