@@ -7,7 +7,6 @@ export class tocBuilder {
 
     const headings = document.querySelectorAll(headingSelectors);
 
-    let listStarted = false;
     let toc = "<ul>";
     /** @type Element */
     let currentLevel = undefined;
@@ -18,16 +17,9 @@ export class tocBuilder {
       const headingLevel = getLevel(heading.tagName);
 
       if (currentLevel) {
-        if (currentLevel === headingLevel) {
-          if (listStarted) {
-            toc += "</ul>\n";
-            listStarted = false;
-          }
-        } else if (currentLevel < headingLevel) {
-          if (!listStarted) {
-            toc += "<ul>\n";
-          }
-        } else {
+        if (currentLevel < headingLevel) {
+          toc += "<ul>\n";
+        } else if (currentLevel > headingLevel) {
           for (let index = 0; index < currentLevel; index++) {
             toc += "</ul>\n";
           }
