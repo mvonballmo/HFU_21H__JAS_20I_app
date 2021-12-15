@@ -21,7 +21,7 @@ describe("TOC Builder", () => {
       <nav id="toc"></nav>
     `;
 
-    new tocBuilder().applyToc();
+    new tocBuilder().applyToc(2, 4);
 
     expect(document.body.innerHTML).toMatchSnapshot();
   });

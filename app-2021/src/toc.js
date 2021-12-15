@@ -1,12 +1,17 @@
 export class tocBuilder {
-  applyToc() {
-    const headings = document.querySelectorAll("h2,h3,h4");
+  applyToc(minLevel = 1, maxLevel = 6) {
+    const allLevels = [...Array(7).keys()];
+    const levels = allLevels.slice(minLevel, maxLevel + 1);
+    const headingLevels = levels.map(l => `h${l}`);
+    const headingSelectors = headingLevels.join();
+
+    const headings = document.querySelectorAll(headingSelectors);
 
     let listStarted = false;
     let toc = "<ul>";
     /** @type Element */
     let current = undefined;
-    let currentLevel = 2;
+    let currentLevel = minLevel;
 
     const getLevel = n => n[1];
 
