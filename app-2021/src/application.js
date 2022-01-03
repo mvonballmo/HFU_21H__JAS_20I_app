@@ -79,6 +79,14 @@ export class application {
 
     const [form] = detail.getElementsByTagName("form");
 
+    const inputs = form.getElementsByTagName("input");
+
+    for (const input of inputs) {
+      input.addEventListener("input", e => {
+        saveButton.disabled = !e.target.checkValidity();
+      });
+    }
+
     form.append(document.createElement("span")); // spacer in the first column
     form.append(saveButton);
   }
