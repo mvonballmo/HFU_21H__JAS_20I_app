@@ -5,13 +5,25 @@
 import { describe, expect, test } from "@jest/globals";
 import "./web-component";
 
-describe("Application", () => {
+describe("Web Component", () => {
   test("initialize", async () => {
     document.body.innerHTML = `
       <my-element></my-element>
     `;
 
     const [myElement] = document.getElementsByTagName("my-element");
+
+    expect(myElement.innerHTML).toMatchSnapshot();
+  });
+
+  test("set attribute", async () => {
+    document.body.innerHTML = `
+      <my-element></my-element>
+    `;
+
+    const [myElement] = document.getElementsByTagName("my-element");
+
+    myElement.setAttribute("a", "b");
 
     expect(myElement.innerHTML).toMatchSnapshot();
   });
