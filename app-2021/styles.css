@@ -6,7 +6,8 @@
 body {
   display: grid;
   grid-template-rows: auto 1fr;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue",
+    sans-serif;
 }
 
 main {
@@ -25,12 +26,14 @@ nav {
   overflow: auto;
 }
 
-header, nav {
+header,
+nav {
   background-color: aliceblue;
   padding: var(--default-spacing);
 }
 
-section {
+section,
+article {
   padding: var(--default-spacing);
 }
 
