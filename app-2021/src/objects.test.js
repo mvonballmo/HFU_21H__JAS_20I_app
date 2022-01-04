@@ -108,4 +108,52 @@ describe("Objects", () => {
     expect(bob instanceof Object).toBeTruthy();
     expect(bob instanceof Number).toBeFalsy();
   });
+
+  test("default toString()", () => {
+    class person {
+      constructor(firstName, lastName) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+      }
+    }
+    class employee extends person {}
+
+    const teacher = {
+      firstName: "Bob",
+      lastName: "Johnson",
+    };
+
+    const bob = new employee("John", "Doe");
+
+    expect(bob.toString()).toBe("[object Object]");
+    expect(teacher.toString()).toBe("[object Object]");
+  });
+
+  test("custom toString()", () => {
+    class person {
+      constructor(firstName, lastName) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+      }
+
+      toString() {
+        return `${this.firstName} ${this.lastName}`;
+      }
+    }
+    class employee extends person {}
+
+    const teacher = {
+      firstName: "Bob",
+      lastName: "Johnson",
+
+      toString() {
+        return `${this.firstName} ${this.lastName}`;
+      },
+    };
+
+    const bob = new employee("John", "Doe");
+
+    expect(bob.toString()).toBe("John Doe");
+    expect(teacher.toString()).toBe("Bob Johnson");
+  });
 });
