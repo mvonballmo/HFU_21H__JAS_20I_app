@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Animation Demo</title>
+  <script src="animation-main.js" type="module"></script>
+  <link rel="stylesheet" href="reset.css">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    nav div, section div {
+      display: grid;
+      grid-template-rows: 1fr;
+      gap: 1rem;
+    }
+
+  </style>
+</head>
+<body>
+<header>
+  <h1>Animation Demo</h1>
+</header>
+<main>
+  <nav>
+    <h2>Controls</h2>
+    <div>
+      <button id="naive">Naive</button>
+      <button id="requestAnimationFrame">Request Animation Frame</button>
+    </div>
+  </nav>
+  <section>
+    <h2>Sandbox</h2>
+    <div>
+      <p id="naiveBlock" style="height: 100px; background-color: darkseagreen"></p>
+      <p id="requestAnimationFrameBlock" style="height: 100px; background-color: darkseagreen"></p>
+    </div>
+  </section>
+</main>
+</body>
+</html>
