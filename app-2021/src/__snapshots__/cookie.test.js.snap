@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Cookies get key/value pairs 1`] = `
+Array [
+  Object {
+    "key": "lastUsername",
+    "value": "John",
+  },
+  Object {
+    "key": "expertMode",
+    "value": "true",
+  },
+]
+`;
+
+exports[`Cookies get values in object 1`] = `
+Object {
+  "expertMode": "true",
+  "lastUsername": "John",
+}
+`;
