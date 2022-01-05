@@ -19,3 +19,5 @@ Object {
   "lastUsername": "John",
 }
 `;
+
+exports[`Cookies get values in object 2`] = `"person={\\"first\\":\\"Bob\\",\\"last\\":\\"Hoffman\\",\\"age\\":34,\\"company\\":{\\"name\\":\\"Apple\\"}}"`;

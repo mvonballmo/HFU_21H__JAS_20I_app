@@ -2,9 +2,24 @@
  * @jest-environment jsdom
  */
 
-import { describe, expect, test } from "@jest/globals";
+import { beforeEach, describe, expect, test } from "@jest/globals";
 
 describe("WebStorage", () => {
+  function getLocalStorageAsObject() {
+    const local = {};
+
+    for (let i = 0; i < localStorage.length; i++) {
+      const key = localStorage.key(i);
+      local[key] = localStorage.getItem(key);
+    }
+
+    return local;
+  }
+
+  beforeEach(() => {
+    localStorage.clear();
+  });
+
   test("get key/value pairs", () => {
     localStorage.setItem("lastUsername", "John");
     localStorage.setItem("expertMode", "true");
@@ -25,13 +40,26 @@ describe("WebStorage", () => {
     localStorage.setItem("lastUsername", "John");
     localStorage.setItem("expertMode", "true");
 
-    const local = {};
+    expect(getLocalStorageAsObject()).toMatchSnapshot();
+  });
 
-    for (let i = 0; i < localStorage.length; i++) {
-      const key = localStorage.key(i);
-      local[key] = localStorage.getItem(key);
-    }
+  test("store and load JSON", () => {
+    const person = {
+      first: "Bob",
+      last: "Hoffman",
+      age: 34,
+      company: {
+        name: "Apple",
+      },
+    };
 
-    expect(local).toMatchSnapshot();
+    localStorage.setItem("person", JSON.stringify(person));
+
+    const loadedPerson = JSON.parse(getLocalStorageAsObject()["person"]);
+
+    expect(loadedPerson.first).toBe("Bob");
+    expect(loadedPerson.last).toBe("Hoffman");
+    expect(loadedPerson.age).toBe(34);
+    expect(loadedPerson.company.name).toBe("Apple");
   });
 });
