@@ -21,3 +21,5 @@ Object {
 `;
 
 exports[`Cookies get values in object 2`] = `"person={\\"first\\":\\"Bob\\",\\"last\\":\\"Hoffman\\",\\"age\\":34,\\"company\\":{\\"name\\":\\"Apple\\"}}"`;
+
+exports[`Cookies store and load JSON 1`] = `"person={\\"first\\":\\"Bob\\",\\"last\\":\\"Hoffman\\",\\"age\\":34,\\"company\\":{\\"name\\":\\"Apple\\"}}"`;
