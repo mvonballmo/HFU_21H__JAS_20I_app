@@ -14,6 +14,31 @@
       gap: 1rem;
     }
 
+    section div p {
+      background-color: darkseagreen;
+      height: 100px;
+    }
+
+    #cssTransitionBlock {
+      transition: opacity 1s;
+    }
+
+    #cssAnimationBlock {
+      animation-name: fadeOut;
+      animation-duration: 1s;
+      animation-fill-mode: forwards;
+      animation-play-state: paused;
+    }
+
+    @keyframes fadeOut {
+      0% { opacity: 1 }
+      100% { opacity: .3 }
+    }
+
+    @keyframes fadeIn {
+      0% { opacity: .3 }
+      100% { opacity: 1 }
+    }
   </style>
 </head>
 <body>
@@ -26,13 +51,19 @@
     <div>
       <button id="naive">Naive</button>
       <button id="requestAnimationFrame">Request Animation Frame</button>
+      <button id="cssTransitions">CSS Transitions</button>
+      <button id="cssAnimations">CSS Animations</button>
+      <button id="webAnimations">Web Animation API</button>
     </div>
   </nav>
   <section>
     <h2>Sandbox</h2>
     <div>
-      <p id="naiveBlock" style="height: 100px; background-color: darkseagreen"></p>
-      <p id="requestAnimationFrameBlock" style="height: 100px; background-color: darkseagreen"></p>
+      <p id="naiveBlock"></p>
+      <p id="requestAnimationFrameBlock"></p>
+      <p id="cssTransitionBlock"></p>
+      <p id="cssAnimationBlock"></p>
+      <p id="webAnimationBlock"></p>
     </div>
   </section>
 </main>
