@@ -5,17 +5,6 @@
 import { beforeEach, describe, expect, test } from "@jest/globals";
 
 describe("WebStorage", () => {
-  function getLocalStorageAsObject() {
-    const local = {};
-
-    for (let i = 0; i < localStorage.length; i++) {
-      const key = localStorage.key(i);
-      local[key] = localStorage.getItem(key);
-    }
-
-    return local;
-  }
-
   beforeEach(() => {
     localStorage.clear();
   });
@@ -40,6 +29,17 @@ describe("WebStorage", () => {
     localStorage.setItem("lastUsername", "John");
     localStorage.setItem("expertMode", "true");
 
+    function getLocalStorageAsObject() {
+      const local = {};
+
+      for (let i = 0; i < localStorage.length; i++) {
+        const key = localStorage.key(i);
+        local[key] = localStorage.getItem(key);
+      }
+
+      return local;
+    }
+
     expect(getLocalStorageAsObject()).toMatchSnapshot();
   });
 
@@ -55,7 +55,7 @@ describe("WebStorage", () => {
 
     localStorage.setItem("person", JSON.stringify(person));
 
-    const loadedPerson = JSON.parse(getLocalStorageAsObject()["person"]);
+    const loadedPerson = JSON.parse(localStorage.getItem("person"));
 
     expect(loadedPerson.first).toBe("Bob");
     expect(loadedPerson.last).toBe("Hoffman");
