@@ -1,13 +1,32 @@
 import { crud } from "./crud.js";
 
-export class application {
+export class Application extends HTMLElement {
   /**
    * @type {crud<address>}
    */
   addresses;
 
-  constructor(rootUrl) {
+  async connectedCallback() {
+    const rootUrl = this.getAttribute("rootUrl");
+
+    if (!rootUrl) {
+      throw new Error("Application tag must include a 'rootUrl'.");
+    }
+
     this.addresses = new crud(`${rootUrl}addresses`);
+
+    this.innerHTML = `
+      <nav>
+        <h2>List</h2>
+        <div id="listItems"></div>
+      </nav>
+      <article>
+        <h2>Detail</h2>
+        <div id="detail"></div>
+      </article>
+    `;
+
+    await this.#reloadList();
   }
 
   initialize = () => {
@@ -114,3 +133,5 @@ export class application {
     }
   }
 }
+
+customElements.define("master-detail", Application);

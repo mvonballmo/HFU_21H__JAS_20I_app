@@ -1,26 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Demo</title>
-  <script src="main.js" type="module"></script>
+  <script src="src/application.js" type="module"></script>
   <link rel="stylesheet" href="reset.css">
   <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
-<header>
-  <h1>Addresses</h1>
-</header>
-<main>
-  <nav>
-    <h2>List</h2>
-    <div id="listItems"></div>
-  </nav>
-  <article>
-    <h2>Detail</h2>
-    <div id="detail"></div>
-  </article>
-</main>
+  <header>
+    <h1>Addresses</h1>
+  </header>
+  <main>
+    <master-detail rootUrl="http://localhost:3000/"></master-detail>
+  </main>
 </body>
+
 </html>

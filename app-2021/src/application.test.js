@@ -5,21 +5,27 @@
 import { describe, expect, test } from "@jest/globals";
 import "isomorphic-fetch";
 import { testingRootUrl } from "./test-library";
-import { application } from "./application";
+import "./application";
 
 describe("Application", () => {
-  test("initialize", async () => {
+  async function setUpMasterDetail(url = testingRootUrl) {
     document.body.innerHTML = `
-      <div id="listItems"></div>
-      <div id="detail"></div>
+      <master-detail rootUrl="${url}"></master-detail>
     `;
+
+    const [masterDetail] = document.getElementsByTagName("master-detail");
+
+    // Call this method manually.
+    await masterDetail.connectedCallback();
 
     const listItems = document.getElementById("listItems");
     const detail = document.getElementById("detail");
 
-    const app = new application(testingRootUrl);
+    return { listItems, detail, masterDetail };
+  }
 
-    await app.initialize(listItems);
+  test("initialize", async () => {
+    const { listItems, detail } = await setUpMasterDetail();
 
     expect(listItems.innerHTML).toMatchSnapshot();
     expect(detail.innerHTML).toMatchSnapshot();
@@ -31,11 +37,7 @@ describe("Application", () => {
       <div id="detail"></div>
     `;
 
-    const app = new application(testingRootUrl);
-    const listItems = document.getElementById("listItems");
-    const detail = document.getElementById("detail");
-
-    await app.initialize(listItems);
+    const { listItems, detail } = await setUpMasterDetail();
 
     let links = listItems.getElementsByTagName("a");
 
@@ -51,15 +53,7 @@ describe("Application", () => {
   });
 
   test("updating an item by clicking save button", async () => {
-    document.body.innerHTML = `
-      <div id="listItems"></div>
-      <div id="detail"></div>
-    `;
-
-    const app = new application(testingRootUrl);
-    const listItems = document.getElementById("listItems");
-
-    await app.initialize(listItems);
+    const { listItems, _, masterDetail } = await setUpMasterDetail();
 
     const links = listItems.getElementsByTagName("a");
     const [firstLink] = links;
@@ -76,7 +70,8 @@ describe("Application", () => {
     expect(firstName).toBeTruthy();
     expect(lastName).toBeTruthy();
 
-    const oldAddress = await app.addresses.get(1);
+    const addresses = masterDetail.addresses;
+    const oldAddress = await addresses.get(1);
 
     expect(oldAddress.firstName).toBe("Peter");
     expect(oldAddress.lastName).toBe("Smith");
@@ -93,7 +88,7 @@ describe("Application", () => {
       // The check that the address was stored "works" because it takes long enough that
       // The call to fetch has completed, but... (see below)
 
-      const newAddress = await app.addresses.get(oldAddress.id);
+      const newAddress = await addresses.get(oldAddress.id);
 
       expect(newAddress.firstName).toBe("John");
       expect(newAddress.lastName).toBe("Doe");
@@ -107,27 +102,20 @@ describe("Application", () => {
       // expect(firstLink.innerHTML).toContain("John");
       // expect(firstLink.innerHTML).toContain("Doe");
     } finally {
-      const address = await app.addresses.get(oldAddress.id);
+      const address = await addresses.get(oldAddress.id);
 
       address.firstName = oldAddress.firstName;
       address.lastName = oldAddress.lastName;
 
-      await app.addresses.update(address);
+      await addresses.update(address);
     }
   });
 
   test("updating an item by calling 'saveDetail' ", async () => {
-    document.body.innerHTML = `
-      <div id="listItems"></div>
-      <div id="detail"></div>
-    `;
+    const { listItems, _, masterDetail } = await setUpMasterDetail();
 
-    const app = new application(testingRootUrl);
-    const listItems = document.getElementById("listItems");
-
-    await app.initialize(listItems);
-
-    const oldAddress = await app.addresses.get(1);
+    const addresses = masterDetail.addresses;
+    const oldAddress = await addresses.get(1);
 
     expect(oldAddress.firstName).toBe("Peter");
     expect(oldAddress.lastName).toBe("Smith");
@@ -145,9 +133,9 @@ describe("Application", () => {
       // Here, we call the "save button" event-listener directly so that we can wait for it to complete.
 
       // Make a copy of the oldAddress because the object is modified by "saveDetail"
-      await app.saveDetail({ ...oldAddress });
+      await masterDetail.saveDetail({ ...oldAddress });
 
-      const newAddress = await app.addresses.get(oldAddress.id);
+      const newAddress = await addresses.get(oldAddress.id);
 
       expect(newAddress.firstName).toBe("John");
       expect(newAddress.lastName).toBe("Doe");
@@ -160,30 +148,19 @@ describe("Application", () => {
       expect(firstLink.innerHTML).toContain("John");
       expect(firstLink.innerHTML).toContain("Doe");
     } finally {
-      const address = await app.addresses.get(oldAddress.id);
+      const address = await addresses.get(oldAddress.id);
 
       address.firstName = oldAddress.firstName;
       address.lastName = oldAddress.lastName;
 
-      await app.addresses.update(address);
+      await addresses.update(address);
     }
   });
 
   test("shows error when backend server not accessible", async () => {
-    document.body.innerHTML = `
-      <div id="listItems"></div>
-      <div id="detail"></div>
-    `;
-
-    const app = new application(testingRootUrl + "foo");
-
-    const listItems = document.getElementById("listItems");
+    const { listItems } = await setUpMasterDetail(testingRootUrl + "foo");
 
     expect(listItems).toBeTruthy();
-    expect(listItems.innerHTML).toMatchSnapshot("before initializing");
-
-    await app.initialize(listItems);
-
     expect(listItems.innerHTML).toMatchSnapshot("with error");
   });
 });

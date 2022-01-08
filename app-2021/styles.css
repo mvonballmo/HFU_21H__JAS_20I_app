@@ -22,6 +22,10 @@ main {
   }
 }
 
+master-detail {
+  display: contents;
+}
+
 nav {
   overflow: auto;
 }
