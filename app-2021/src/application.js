@@ -75,7 +75,10 @@ export class application {
     const saveButton = document.createElement("button");
     saveButton.id = "save";
     saveButton.textContent = "Save";
-    saveButton.addEventListener("click", async () => await application.saveDetail(address));
+    saveButton.addEventListener("click", async e => {
+      await application.saveDetail(address);
+      e.preventDefault();
+    });
 
     const [form] = detail.getElementsByTagName("form");
 
