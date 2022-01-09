@@ -22,7 +22,7 @@ main {
   }
 }
 
-master-detail {
+app-master-detail, app-detail, app-list {
   display: contents;
 }
 
@@ -41,14 +41,14 @@ article {
   padding: var(--default-spacing);
 }
 
-#detail form {
+app-detail form {
   display: grid;
   grid-template-columns: auto 1fr;
   gap: var(--default-spacing);
   row-gap: var(--default-spacing);
 }
 
-#detail form label {
+app-detail form label {
   align-self: center;
   justify-self: end;
 }

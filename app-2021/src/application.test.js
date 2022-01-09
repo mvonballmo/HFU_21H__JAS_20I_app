@@ -10,16 +10,16 @@ import "./application";
 describe("Application", () => {
   async function setUpMasterDetail(url = testingRootUrl) {
     document.body.innerHTML = `
-      <master-detail rootUrl="${url}"></master-detail>
+      <app-master-detail rootUrl="${url}"></app-master-detail>
     `;
 
-    const [masterDetail] = document.getElementsByTagName("master-detail");
+    const [masterDetail] = document.getElementsByTagName("app-master-detail");
 
     // Call this method manually.
     await masterDetail.connectedCallback();
 
-    const listItems = document.getElementById("listItems");
-    const detail = document.getElementById("detail");
+    const [listItems] = document.getElementsByTagName("app-list");
+    const [detail] = document.getElementsByTagName("app-detail");
 
     return { listItems, detail, masterDetail };
   }
@@ -112,7 +112,7 @@ describe("Application", () => {
   });
 
   test("updating an item by calling 'saveDetail' ", async () => {
-    const { listItems, _, masterDetail } = await setUpMasterDetail();
+    const { listItems, detail, masterDetail } = await setUpMasterDetail();
 
     const addresses = masterDetail.addresses;
     const oldAddress = await addresses.get(1);
@@ -133,7 +133,7 @@ describe("Application", () => {
       // Here, we call the "save button" event-listener directly so that we can wait for it to complete.
 
       // Make a copy of the oldAddress because the object is modified by "saveDetail"
-      await masterDetail.saveDetail({ ...oldAddress });
+      await detail.saveDetail({ ...oldAddress });
 
       const newAddress = await addresses.get(oldAddress.id);
 
