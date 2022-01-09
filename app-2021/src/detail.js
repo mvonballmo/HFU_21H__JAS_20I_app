@@ -34,6 +34,9 @@ class Detail extends HTMLElement {
     buttonContainer.append(saveButton);
     buttonContainer.append(deleteButton);
     form.append(buttonContainer);
+
+    saveButton.disabled = !form.checkValidity();
+    deleteButton.disabled = value.id === undefined;
   }
 
   /**
@@ -55,7 +58,7 @@ class Detail extends HTMLElement {
 
     for (const input of inputs) {
       input.addEventListener("input", e => {
-        button.disabled = !e.target.checkValidity();
+        button.disabled = !e.target.form.checkValidity();
       });
     }
     return button;
