@@ -90,7 +90,7 @@ class List extends HTMLElement {
     listItem.addEventListener("click", function () {
       self.master.select(entity);
     });
-    listItem.textContent = `${entity.firstName} ${entity.lastName}`;
+    listItem.textContent = this.master.metadata.getTitle(entity);
   }
 
   #removeEventListeners(listItem) {

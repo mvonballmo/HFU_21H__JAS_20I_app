@@ -4,7 +4,7 @@ import "./detail.js";
 
 class MasterDetail extends HTMLElement {
   /**
-   * @type {crud<address>}
+   * @type {#crud<address>}
    */
   crud;
 
@@ -14,6 +14,9 @@ class MasterDetail extends HTMLElement {
   /** @type List */
   #list;
 
+  /** @type ClassMetadata */
+  #metadata;
+
   async connectedCallback() {
     const rootUrl = this.getAttribute("rootUrl");
 
@@ -21,7 +24,39 @@ class MasterDetail extends HTMLElement {
       throw new Error("Application tag must include a 'rootUrl'.");
     }
 
-    this.crud = new crud(`${rootUrl}addresses`);
+    /** @type ClassMetadata */
+    const metadata = {
+      rootUrl: `${rootUrl}addresses`,
+      getTitle: a => `${a.firstName} ${a.lastName}`,
+      createNew: () => ({ firstName: "", lastName: "" }),
+      properties: [
+        {
+          name: "firstName",
+          type: "text",
+          caption: "First Name",
+        },
+        {
+          name: "lastName",
+          type: "text",
+          caption: "Last Name",
+        },
+      ],
+    };
+
+    await this.setMetadata(metadata);
+  }
+
+  get metadata() {
+    return this.#metadata;
+  }
+
+  /**
+   * @param {ClassMetadata} value
+   */
+  async setMetadata(value) {
+    this.#metadata = value;
+
+    this.crud = new crud(this.#metadata.rootUrl);
 
     this.innerHTML = `
       <nav>
@@ -44,10 +79,8 @@ class MasterDetail extends HTMLElement {
     const createNewButton = document.getElementById("createNew");
 
     createNewButton.addEventListener("click", () => {
-      const entity = {
-        firstName: "",
-        lastName: "",
-      };
+      const entity = this.#metadata.createNew();
+
       this.#list.addNew(entity);
       this.#detail.entity = entity;
     });

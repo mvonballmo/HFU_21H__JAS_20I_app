@@ -11,14 +11,20 @@ class Detail extends HTMLElement {
   set entity(value) {
     this.#entity = value;
 
-    this.innerHTML = `
-      <form>
-        <label>First Name</label><input placeholder="First Name" required type="text" id="firstName" value="${value.firstName}">
-        <label>Last Name</label><input placeholder="Last Name" required type="text" id="lastName" value="${value.lastName}">
-      </form>
-    `;
+    const form = document.createElement("form");
 
-    const [form] = this.getElementsByTagName("form");
+    for (const property of this.master.metadata.properties) {
+      const label = document.createElement("label");
+      label.textContent = property.caption;
+      const input = document.createElement("input");
+      input.id = property.name;
+      input.type = property.type;
+      input.required = true;
+      input.placeholder = property.caption;
+      input.value = value[property.name];
+
+      form.append(label, input);
+    }
 
     const saveButton = this.#createSaveButton(form);
     const deleteButton = this.#createDeleteButton();
@@ -32,6 +38,9 @@ class Detail extends HTMLElement {
 
     saveButton.disabled = !form.checkValidity();
     deleteButton.disabled = value.id === undefined;
+
+    this.innerHTML = "";
+    this.append(form);
   }
 
   /**
@@ -73,11 +82,10 @@ class Detail extends HTMLElement {
   }
 
   async save() {
-    const firstName = document.getElementById("firstName");
-    const lastName = document.getElementById("lastName");
-
-    this.#entity.firstName = firstName.value;
-    this.#entity.lastName = lastName.value;
+    for (const property of this.master.metadata.properties) {
+      const name = property.name;
+      this.#entity[name] = document.getElementById(name).value;
+    }
 
     return this.master.update(this.#entity);
   }

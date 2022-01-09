@@ -1,23 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Application clicking an item loads its details 1`] = `
-"
-      <form>
-        <label>First Name</label><input placeholder=\\"First Name\\" required=\\"\\" type=\\"text\\" id=\\"firstName\\" value=\\"Peter\\">
-        <label>Last Name</label><input placeholder=\\"Last Name\\" required=\\"\\" type=\\"text\\" id=\\"lastName\\" value=\\"Smith\\">
-      <span></span><span><button id=\\"save\\">Save</button><button id=\\"delete\\">Delete</button></span></form>
-    "
-`;
+exports[`Application clicking an item loads its details 1`] = `"<form><label>First Name</label><input id=\\"firstName\\" type=\\"text\\" required=\\"\\" placeholder=\\"First Name\\"><label>Last Name</label><input id=\\"lastName\\" type=\\"text\\" required=\\"\\" placeholder=\\"Last Name\\"><span></span><span><button id=\\"save\\">Save</button><button id=\\"delete\\">Delete</button></span></form>"`;
 
 exports[`Application initialize 1`] = `"<div><a href=\\"#\\" id=\\"list_item_1\\">Peter Smith</a></div><div><a href=\\"#\\" id=\\"list_item_2\\">Marco von Ballmoos</a></div><div><a href=\\"#\\" id=\\"list_item_3\\">Hanseeee Maier</a></div><div><a href=\\"#\\" id=\\"list_item_4\\">Kerim Schmitz</a></div><div><a href=\\"#\\" id=\\"list_item_5\\">Peter Schmitz</a></div><div><a href=\\"#\\" id=\\"list_item_6\\">Marco von Ballmoos</a></div><div><a href=\\"#\\" id=\\"list_item_7\\">Hans Maier</a></div><div><a href=\\"#\\" id=\\"list_item_8\\">Kerim Schmitz</a></div><div><a href=\\"#\\" id=\\"list_item_9\\">Peter Schmitz</a></div><div><a href=\\"#\\" id=\\"list_item_10\\">Marco von Ballmoos</a></div><div><a href=\\"#\\" id=\\"list_item_11\\">Hans Maier</a></div><div><a href=\\"#\\" id=\\"list_item_14\\">bob jones</a></div>"`;
 
-exports[`Application initialize 2`] = `
-"
-      <form>
-        <label>First Name</label><input placeholder=\\"First Name\\" required=\\"\\" type=\\"text\\" id=\\"firstName\\" value=\\"Peter\\">
-        <label>Last Name</label><input placeholder=\\"Last Name\\" required=\\"\\" type=\\"text\\" id=\\"lastName\\" value=\\"Smith\\">
-      <span></span><span><button id=\\"save\\">Save</button><button id=\\"delete\\">Delete</button></span></form>
-    "
-`;
+exports[`Application initialize 2`] = `"<form><label>First Name</label><input id=\\"firstName\\" type=\\"text\\" required=\\"\\" placeholder=\\"First Name\\"><label>Last Name</label><input id=\\"lastName\\" type=\\"text\\" required=\\"\\" placeholder=\\"Last Name\\"><span></span><span><button id=\\"save\\">Save</button><button id=\\"delete\\">Delete</button></span></form>"`;
 
 exports[`Application shows error when backend server not accessible: with error 1`] = `"Error [404] accessing [http://localhost:3001/fooaddresses]: Not Found"`;
