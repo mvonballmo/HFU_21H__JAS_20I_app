@@ -9,10 +9,10 @@ class MasterDetail extends HTMLElement {
   crud;
 
   /** @type Detail */
-  detail;
+  #detail;
 
   /** @type List */
-  list;
+  #list;
 
   async connectedCallback() {
     const rootUrl = this.getAttribute("rootUrl");
@@ -35,33 +35,33 @@ class MasterDetail extends HTMLElement {
       </article>
     `;
 
-    [this.list] = this.getElementsByTagName("app-list");
-    [this.detail] = this.getElementsByTagName("app-detail");
+    [this.#list] = this.getElementsByTagName("app-list");
+    [this.#detail] = this.getElementsByTagName("app-detail");
 
-    this.detail.master = this;
-    this.list.master = this;
+    this.#detail.master = this;
+    this.#list.master = this;
 
     const createNewButton = document.getElementById("createNew");
 
     createNewButton.addEventListener("click", () => {
-      const address = {
+      const entity = {
         firstName: "",
         lastName: "",
       };
-      this.list.addNew(address);
-      this.detail.entity = address;
+      this.#list.addNew(entity);
+      this.#detail.entity = entity;
     });
 
     let entities;
     try {
       entities = await this.crud.getAll();
     } catch (e) {
-      this.list.innerHTML = e.message;
+      this.#list.innerHTML = e.message;
       createNewButton.disabled = true;
     }
 
     if (entities) {
-      this.list.entities = entities;
+      this.#list.entities = entities;
     }
   }
 
@@ -70,36 +70,36 @@ class MasterDetail extends HTMLElement {
 
     data.id = saved.id;
 
-    this.list.selected = saved;
+    this.#list.selected = saved;
   }
 
   async delete(data) {
     await this.crud.delete(data);
 
-    this.list.delete(data);
+    this.#list.delete(data);
 
-    const addresses = this.list.entities;
-    const itemToDelete = addresses.find(i => i.id === data.id);
+    const entities = this.#list.entities;
+    const itemToDelete = entities.find(i => i.id === data.id);
     if (itemToDelete) {
-      const index = addresses.indexOf(itemToDelete);
+      const index = entities.indexOf(itemToDelete);
       if (index < 0) {
         // Do nothing; itemToDelete is not in list
       } else {
         let itemToSelect;
         if (index > 0) {
-          itemToSelect = addresses[index - 1];
+          itemToSelect = entities[index - 1];
         } else {
-          itemToSelect = addresses[index + 1];
+          itemToSelect = entities[index + 1];
         }
 
-        this.list.selected = itemToSelect;
-        this.detail.entity = itemToSelect;
+        this.#list.selected = itemToSelect;
+        this.#detail.entity = itemToSelect;
       }
     }
   }
 
   select(data) {
-    this.detail.entity = data;
+    this.#detail.entity = data;
   }
 }
 
