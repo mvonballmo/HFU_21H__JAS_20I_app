@@ -10,6 +10,11 @@ class List extends HTMLElement {
     return this.#entities;
   }
 
+  set entities(value) {
+    this.#entities = value;
+    this.#reloadList();
+  }
+
   get selected() {
     return this.#selected;
   }
@@ -23,11 +28,6 @@ class List extends HTMLElement {
     } else {
       this.#reloadList();
     }
-  }
-
-  set entities(value) {
-    this.#entities = value;
-    this.#reloadList();
   }
 
   addNew(value) {
