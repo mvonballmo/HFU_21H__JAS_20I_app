@@ -31,6 +31,11 @@ export function createAddressMetadata(rootUrl) {
         type: "text",
         caption: "Last Name",
       },
+      {
+        name: "salary",
+        type: "text",
+        caption: "Salary",
+      },
     ],
   };
 }
