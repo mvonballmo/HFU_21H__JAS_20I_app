@@ -26,6 +26,7 @@ class MasterDetail extends HTMLElement {
     this.innerHTML = `
       <nav>
         <h2>List</h2>
+        <button id="createNew">New...</button>
         <app-list></app-list>
       </nav>
       <article>
@@ -40,17 +41,36 @@ class MasterDetail extends HTMLElement {
     this.detail.master = this;
     this.list.master = this;
 
+    const createNewButton = document.getElementById("createNew");
+
+    createNewButton.addEventListener("click", () => {
+      const address = {
+        firstName: "",
+        lastName: "",
+      };
+      this.list.addNew(address);
+      this.detail.data = address;
+    });
+
+    let entities;
     try {
-      this.list.data = await this.crud.getAll();
+      entities = await this.crud.getAll();
     } catch (e) {
       this.list.innerHTML = e.message;
+      createNewButton.disabled = true;
+    }
+
+    if (entities) {
+      this.list.data = entities;
     }
   }
 
   async update(data) {
-    await this.crud.update(data);
+    const saved = await this.crud.save(data);
 
-    this.list.selected = data;
+    data.id = saved.id;
+
+    this.list.selected = saved;
   }
 
   async delete(data) {

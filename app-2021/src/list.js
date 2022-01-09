@@ -36,6 +36,11 @@ class List extends HTMLElement {
     this.#reloadList();
   }
 
+  addNew(value) {
+    this.addresses.push(value);
+    this.#addItem(value);
+  }
+
   delete(value) {
     const row = this.querySelector(`#${this.#getListItemId(value)}`);
     if (row != null) {
@@ -47,18 +52,31 @@ class List extends HTMLElement {
   #reloadList() {
     this.innerHTML = "";
     for (const address of this.addresses) {
-      const listItem = document.createElement("a");
-      listItem.href = "#";
-      listItem.id = this.#getListItemId(address);
-      this.#configureListItem(listItem, address);
-
-      const div = document.createElement("div");
-      div.appendChild(listItem);
-
-      this.appendChild(div);
+      this.#addItem(address);
     }
 
-    this.master.select(this.addresses[0]);
+    if (this.selected) {
+      const listItem = document.getElementById(this.#getListItemId(this.selected));
+      if (!listItem) {
+        this.#selected = this.addresses[0];
+      }
+    } else {
+      this.#selected = this.addresses[0];
+    }
+
+    this.master.select(this.#selected);
+  }
+
+  #addItem(value) {
+    const listItem = document.createElement("a");
+    listItem.href = "#";
+    listItem.id = this.#getListItemId(value);
+    this.#configureListItem(listItem, value);
+
+    const div = document.createElement("div");
+    div.appendChild(listItem);
+
+    this.appendChild(div);
   }
 
   #getListItemId(address) {
