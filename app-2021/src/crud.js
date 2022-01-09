@@ -36,6 +36,14 @@ export class crud {
     return this.#execute(`${this.#_rootUrl}/${entity.id}`, { method: "DELETE" });
   }
 
+  save(entity) {
+    if (entity.id) {
+      return this.update(entity);
+    }
+
+    return this.insert(entity);
+  }
+
   /**
    * @param {string} url
    * @param {RequestInit} init
