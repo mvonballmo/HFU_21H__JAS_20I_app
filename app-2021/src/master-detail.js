@@ -69,41 +69,40 @@ class MasterDetail extends HTMLElement {
     }
   }
 
-  async update(data) {
-    const saved = await this.crud.save(data);
+  async update(entity) {
+    const saved = await this.crud.save(entity);
 
-    data.id = saved.id;
+    entity.id = saved.id;
 
     this.#list.selected = saved;
   }
 
-  async delete(data) {
-    await this.crud.delete(data);
-
-    this.#list.delete(data);
-
+  async delete(entity) {
     const entities = this.#list.entities;
-    const itemToDelete = entities.find(i => i.id === data.id);
-    if (itemToDelete) {
-      const index = entities.indexOf(itemToDelete);
-      if (index < 0) {
-        // Do nothing; itemToDelete is not in list
-      } else {
-        let itemToSelect;
-        if (index > 0) {
-          itemToSelect = entities[index - 1];
-        } else {
-          itemToSelect = entities[index + 1];
-        }
+    const itemToDelete = entities.find(i => i.id === entity.id);
+    const index = entities.indexOf(itemToDelete);
 
-        this.#list.selected = itemToSelect;
-        this.#detail.entity = itemToSelect;
+    await this.crud.delete(entity);
+    this.#list.delete(entity);
+
+    if (index < 0) {
+      // Do nothing; itemToDelete is not in list
+    } else {
+      let itemToSelect;
+      if (index > 0) {
+        itemToSelect = entities[index - 1];
+      } else {
+        itemToSelect = entities[index + 1];
       }
+
+      this.#list.selected = itemToSelect;
+      this.#detail.entity = itemToSelect;
     }
   }
 
-  select(data) {
-    this.#detail.entity = data;
+  select(entity) {
+    this.#list.selected = entity;
+    this.#detail.entity = entity;
   }
 }
 

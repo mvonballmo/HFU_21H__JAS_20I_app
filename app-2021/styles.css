@@ -66,6 +66,10 @@ nav a {
   animation: fadeOut 1s;
 }
 
+.selected {
+  font-weight: bold;
+}
+
 @keyframes fadeOut {
   0% {
     opacity: 1;

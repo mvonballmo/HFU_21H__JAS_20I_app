@@ -20,14 +20,24 @@ class List extends HTMLElement {
   }
 
   set selected(value) {
+    const currentlySelected = this.#getListItem(this.#selected);
+    if (currentlySelected) {
+      currentlySelected.className = "";
+    }
+
     this.#selected = value;
 
-    const listItem = document.getElementById(this.#getListItemId(value));
+    const listItem = this.#getListItem(value);
     if (listItem) {
       this.#configureListItem(listItem, value);
+      listItem.className = "selected";
     } else {
       this.#reloadList();
     }
+  }
+
+  #getListItem(value) {
+    return document.getElementById(this.#getListItemId(value));
   }
 
   addNew(value) {
@@ -36,10 +46,19 @@ class List extends HTMLElement {
   }
 
   delete(value) {
-    const index = this.#entities.indexOf(value);
+    const itemInList = this.#entities.find(e => e.id === value.id);
+    const index = this.#entities.indexOf(itemInList);
 
     if (index) {
       this.#entities.splice(index, 1);
+    }
+
+    if (this.#selected && this.#selected.id === itemInList.id) {
+      if (index < this.#entities.length - 1) {
+        this.selected = this.#entities[index + 1];
+      } else if (index > 0) {
+        this.selected = this.#entities[index - 1];
+      }
     }
 
     const row = this.querySelector(`#${this.#getListItemId(value)}`);
