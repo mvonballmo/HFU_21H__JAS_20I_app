@@ -8,17 +8,16 @@
   <link rel="stylesheet" href="reset.css">
   <link rel="stylesheet" href="styles.css">
   <script type="module">
-    import { createAddressMetadata, createCarMetadata } from "./src/application.js";
+    import { createMetadata } from "./src/application.js";
 
     window.addEventListener("load", () => {
       const rootUrl="http://localhost:3000/";
-      const addressMetadata = createAddressMetadata(rootUrl);
-      const carMetadata = createCarMetadata(rootUrl);
+      const metadata = createMetadata(rootUrl);
       const [header] = document.getElementsByTagName("app-header");
       const [masterDetail] = document.getElementsByTagName("app-master-detail");
 
-      header.setMetadata(carMetadata);
-      masterDetail.setMetadata(carMetadata);
+      header.masterDetail = masterDetail;
+      header.setMetadata(metadata);
     })
   </script>
 </head>

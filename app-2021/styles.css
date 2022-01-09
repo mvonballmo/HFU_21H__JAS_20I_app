@@ -36,6 +36,24 @@ nav {
   padding: var(--default-spacing);
 }
 
+header {
+  display: grid;
+  grid-template-columns: auto 1fr;
+}
+
+header ul {
+  list-style: none;
+  align-self: center;
+}
+
+header ul li {
+  display: inline;
+}
+
+header ul li:not(:first-child):before {
+  content: " | ";
+}
+
 section,
 article {
   padding: var(--default-spacing);
