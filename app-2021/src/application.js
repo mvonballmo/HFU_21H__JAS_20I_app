@@ -6,6 +6,8 @@ import "./master-detail.js";
  */
 export function createAddressMetadata(rootUrl) {
   return {
+    caption: "Address",
+    pluralCaption: "Addresses",
     rootUrl: `${rootUrl}addresses`,
     getTitle: a => `${a.firstName} ${a.lastName}`,
     createNew: () => ({ firstName: "", lastName: "" }),
@@ -30,6 +32,8 @@ export function createAddressMetadata(rootUrl) {
  */
 export function createCarMetadata(rootUrl) {
   return {
+    caption: "Car",
+    pluralCaption: "Cars",
     rootUrl: `${rootUrl}cars`,
     getTitle: c => `${c.make} ${c.model}`,
     createNew: () => ({ make: "", model: "" }),

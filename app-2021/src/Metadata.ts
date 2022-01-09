@@ -17,12 +17,23 @@ class PropertyMetadata {
 }
 
 class ClassMetadata {
+  caption: string;
+  pluralCaption: string;
   rootUrl: string;
   properties: PropertyMetadata[];
   getTitle: TitleGetter;
   createNew: EntityCreator;
 
-  constructor(rootUrl: string, fields: PropertyMetadata[], getTitle: TitleGetter, createNew: EntityCreator) {
+  constructor(
+    caption: string,
+    pluralCaption: string,
+    rootUrl: string,
+    fields: PropertyMetadata[],
+    getTitle: TitleGetter,
+    createNew: EntityCreator,
+  ) {
+    this.caption = caption;
+    this.pluralCaption = pluralCaption;
     this.rootUrl = rootUrl;
     this.properties = fields;
     this.getTitle = getTitle;
