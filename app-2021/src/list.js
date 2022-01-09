@@ -36,6 +36,12 @@ class List extends HTMLElement {
   }
 
   delete(value) {
+    const index = this.#entities.indexOf(value);
+
+    if (index) {
+      this.#entities.splice(index, 1);
+    }
+
     const row = this.querySelector(`#${this.#getListItemId(value)}`);
     if (row != null) {
       row.onanimationend = () => row.parentElement.removeChild(row);
