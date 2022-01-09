@@ -6,7 +6,7 @@ import "./header.js";
  * @param rootUrl {string}
  */
 export function createMetadata(rootUrl) {
-  return [createAddressMetadata(rootUrl), createCarMetadata(rootUrl)];
+  return [createAddressMetadata(rootUrl), createCarMetadata(rootUrl), createAlbumMetadata(rootUrl)];
 }
 
 /**
@@ -61,6 +61,31 @@ export function createCarMetadata(rootUrl) {
         name: "model",
         type: "text",
         caption: "Model",
+      },
+    ],
+  };
+}
+/**
+ * @return ClassMetadata
+ * @param rootUrl {string}
+ */
+export function createAlbumMetadata(rootUrl) {
+  return {
+    caption: "Album",
+    pluralCaption: "Albums",
+    rootUrl: `${rootUrl}albums`,
+    getTitle: c => `${c.title}`,
+    createNew: () => ({ title: "", description: "" }),
+    properties: [
+      {
+        name: "title",
+        type: "text",
+        caption: "Title",
+      },
+      {
+        name: "description",
+        type: "text",
+        caption: "Description",
       },
     ],
   };
