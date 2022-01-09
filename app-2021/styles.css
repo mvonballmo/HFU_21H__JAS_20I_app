@@ -22,7 +22,7 @@ main {
   }
 }
 
-app-master-detail, app-detail, app-list {
+app-header, app-master-detail, app-detail, app-list {
   display: contents;
 }
 

@@ -31,12 +31,10 @@ class MasterDetail extends HTMLElement {
 
     this.innerHTML = `
       <nav>
-        <h2>${this.#metadata.pluralCaption}</h2>
         <button id="createNew">New...</button>
         <app-list></app-list>
       </nav>
       <article>
-        <h2>${this.#metadata.caption}</h2>
         <app-detail></app-detail>
       </article>
     `;

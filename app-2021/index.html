@@ -14,8 +14,10 @@
       const rootUrl="http://localhost:3000/";
       const addressMetadata = createAddressMetadata(rootUrl);
       const carMetadata = createCarMetadata(rootUrl);
+      const [header] = document.getElementsByTagName("app-header");
       const [masterDetail] = document.getElementsByTagName("app-master-detail");
 
+      header.setMetadata(carMetadata);
       masterDetail.setMetadata(carMetadata);
     })
   </script>
@@ -23,7 +25,7 @@
 
 <body>
   <header>
-    <h1>Addresses</h1>
+    <app-header></app-header>
   </header>
   <main>
     <app-master-detail></app-master-detail>
