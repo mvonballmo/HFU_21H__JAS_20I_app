@@ -8,14 +8,15 @@
   <link rel="stylesheet" href="reset.css">
   <link rel="stylesheet" href="styles.css">
   <script type="module">
-    import { createAddressMetadata } from "./src/application.js";
+    import { createAddressMetadata, createCarMetadata } from "./src/application.js";
 
     window.addEventListener("load", () => {
       const rootUrl="http://localhost:3000/";
-      const metadata = createAddressMetadata(rootUrl);
+      const addressMetadata = createAddressMetadata(rootUrl);
+      const carMetadata = createCarMetadata(rootUrl);
       const [masterDetail] = document.getElementsByTagName("app-master-detail");
 
-      masterDetail.setMetadata(metadata);
+      masterDetail.setMetadata(carMetadata);
     })
   </script>
 </head>

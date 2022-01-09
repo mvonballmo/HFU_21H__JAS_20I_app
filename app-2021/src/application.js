@@ -23,3 +23,27 @@ export function createAddressMetadata(rootUrl) {
     ],
   };
 }
+
+/**
+ * @return ClassMetadata
+ * @param rootUrl {string}
+ */
+export function createCarMetadata(rootUrl) {
+  return {
+    rootUrl: `${rootUrl}cars`,
+    getTitle: c => `${c.make} ${c.model}`,
+    createNew: () => ({ make: "", model: "" }),
+    properties: [
+      {
+        name: "make",
+        type: "text",
+        caption: "Make",
+      },
+      {
+        name: "model",
+        type: "text",
+        caption: "Model",
+      },
+    ],
+  };
+}
