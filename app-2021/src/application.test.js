@@ -6,6 +6,7 @@ import { describe, expect, test } from "@jest/globals";
 import "isomorphic-fetch";
 import { testingRootUrl } from "./test-library";
 import "./application";
+import { createAddressMetadata } from "./application";
 
 describe("Application", () => {
   /**
@@ -17,10 +18,12 @@ describe("Application", () => {
       <app-master-detail rootUrl="${url}"></app-master-detail>
     `;
 
+    /** @type MasterDetail */
     const [masterDetail] = document.getElementsByTagName("app-master-detail");
+    const addressMetadata = createAddressMetadata(url);
 
     // Call this method manually.
-    await masterDetail.connectedCallback();
+    await masterDetail.setMetadata(addressMetadata);
 
     const [listItems] = document.getElementsByTagName("app-list");
     const [detail] = document.getElementsByTagName("app-detail");

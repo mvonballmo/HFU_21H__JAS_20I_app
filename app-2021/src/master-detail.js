@@ -17,35 +17,6 @@ class MasterDetail extends HTMLElement {
   /** @type ClassMetadata */
   #metadata;
 
-  async connectedCallback() {
-    const rootUrl = this.getAttribute("rootUrl");
-
-    if (!rootUrl) {
-      throw new Error("Application tag must include a 'rootUrl'.");
-    }
-
-    /** @type ClassMetadata */
-    const metadata = {
-      rootUrl: `${rootUrl}addresses`,
-      getTitle: a => `${a.firstName} ${a.lastName}`,
-      createNew: () => ({ firstName: "", lastName: "" }),
-      properties: [
-        {
-          name: "firstName",
-          type: "text",
-          caption: "First Name",
-        },
-        {
-          name: "lastName",
-          type: "text",
-          caption: "Last Name",
-        },
-      ],
-    };
-
-    await this.setMetadata(metadata);
-  }
-
   get metadata() {
     return this.#metadata;
   }
