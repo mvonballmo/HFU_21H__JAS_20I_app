@@ -5,7 +5,7 @@ exports[`Application clicking an item loads its details 1`] = `
       <form>
         <label>First Name</label><input placeholder=\\"First Name\\" required=\\"\\" type=\\"text\\" id=\\"firstName\\" value=\\"Peter\\">
         <label>Last Name</label><input placeholder=\\"Last Name\\" required=\\"\\" type=\\"text\\" id=\\"lastName\\" value=\\"Smith\\">
-      <span></span><button id=\\"save\\">Save</button></form>
+      <span></span><span><button id=\\"save\\">Save</button><button id=\\"delete\\">Delete</button></span></form>
     "
 `;
 
@@ -16,7 +16,7 @@ exports[`Application initialize 2`] = `
       <form>
         <label>First Name</label><input placeholder=\\"First Name\\" required=\\"\\" type=\\"text\\" id=\\"firstName\\" value=\\"Peter\\">
         <label>Last Name</label><input placeholder=\\"Last Name\\" required=\\"\\" type=\\"text\\" id=\\"lastName\\" value=\\"Smith\\">
-      <span></span><button id=\\"save\\">Save</button></form>
+      <span></span><span><button id=\\"save\\">Save</button><button id=\\"delete\\">Delete</button></span></form>
     "
 `;
 

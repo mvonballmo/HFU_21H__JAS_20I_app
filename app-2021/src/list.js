@@ -1,6 +1,6 @@
 class List extends HTMLElement {
-  /** @type Detail */
-  detail;
+  /** @type MasterDetail */
+  master;
 
   /** @type address[] */
   addresses;
@@ -36,6 +36,14 @@ class List extends HTMLElement {
     this.#reloadList();
   }
 
+  delete(value) {
+    const row = this.querySelector(`#${this.#getListItemId(value)}`);
+    if (row != null) {
+      row.onanimationend = () => row.parentElement.removeChild(row);
+      row.classList.add("removed");
+    }
+  }
+
   #reloadList() {
     this.innerHTML = "";
     for (const address of this.addresses) {
@@ -50,7 +58,7 @@ class List extends HTMLElement {
       this.appendChild(div);
     }
 
-    this.detail.data = this.addresses[0];
+    this.master.select(this.addresses[0]);
   }
 
   #getListItemId(address) {
@@ -62,7 +70,7 @@ class List extends HTMLElement {
     this.#removeEventListeners(listItem);
 
     listItem.addEventListener("click", function () {
-      self.detail.data = address;
+      self.master.select(address);
     });
     listItem.textContent = `${address.firstName} ${address.lastName}`;
   }

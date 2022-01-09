@@ -1,9 +1,6 @@
 class Detail extends HTMLElement {
-  /** @type List */
-  list;
-
-  /** @type crud<address> */
-  crud;
+  /** @type MasterDetail */
+  master;
 
   /** @type address */
   #data;
@@ -29,9 +26,14 @@ class Detail extends HTMLElement {
     const [form] = this.getElementsByTagName("form");
 
     const saveButton = this.#createSaveButton(value, form);
+    const deleteButton = this.#createDeleteButton();
 
     form.append(document.createElement("span")); // spacer in the first column
-    form.append(saveButton);
+
+    const buttonContainer = document.createElement("span");
+    buttonContainer.append(saveButton);
+    buttonContainer.append(deleteButton);
+    form.append(buttonContainer);
   }
 
   /**
@@ -59,6 +61,20 @@ class Detail extends HTMLElement {
     return button;
   }
 
+  #createDeleteButton() {
+    const button = document.createElement("button");
+    button.id = "delete";
+    button.textContent = "Delete";
+
+    const self = this;
+    button.addEventListener("click", async e => {
+      await self.delete();
+      e.preventDefault();
+    });
+
+    return button;
+  }
+
   async save() {
     const firstName = document.getElementById("firstName");
     const lastName = document.getElementById("lastName");
@@ -66,9 +82,11 @@ class Detail extends HTMLElement {
     this.#data.firstName = firstName.value;
     this.#data.lastName = lastName.value;
 
-    await this.crud.update(this.#data);
+    return this.master.update(this.#data);
+  }
 
-    this.list.selected = this.#data;
+  async delete() {
+    return this.master.delete(this.#data);
   }
 }
 

@@ -61,3 +61,19 @@ input:invalid {
 nav a {
   display: block;
 }
+
+.removed {
+  animation: fadeOut 1s;
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+    height: auto;
+  }
+
+  100% {
+    opacity: 0;
+    height: 0;
+  }
+}

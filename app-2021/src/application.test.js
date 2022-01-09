@@ -8,6 +8,10 @@ import { testingRootUrl } from "./test-library";
 import "./application";
 
 describe("Application", () => {
+  /**
+   * @param {string} url
+   * @return { listItems: List, detail: Detail, masterDetail: MasterDetail }
+   */
   async function setUpMasterDetail(url = testingRootUrl) {
     document.body.innerHTML = `
       <app-master-detail rootUrl="${url}"></app-master-detail>
@@ -70,8 +74,8 @@ describe("Application", () => {
     expect(firstName).toBeTruthy();
     expect(lastName).toBeTruthy();
 
-    const addresses = masterDetail.addresses;
-    const oldAddress = await addresses.get(1);
+    const crud = masterDetail.crud;
+    const oldAddress = await crud.get(1);
 
     expect(oldAddress.firstName).toBe("Peter");
     expect(oldAddress.lastName).toBe("Smith");
@@ -88,7 +92,7 @@ describe("Application", () => {
       // The check that the address was stored "works" because it takes long enough that
       // The call to fetch has completed, but... (see below)
 
-      const newAddress = await addresses.get(oldAddress.id);
+      const newAddress = await crud.get(oldAddress.id);
 
       expect(newAddress.firstName).toBe("John");
       expect(newAddress.lastName).toBe("Doe");
@@ -102,20 +106,20 @@ describe("Application", () => {
       // expect(firstLink.innerHTML).toContain("John");
       // expect(firstLink.innerHTML).toContain("Doe");
     } finally {
-      const address = await addresses.get(oldAddress.id);
+      const address = await crud.get(oldAddress.id);
 
       address.firstName = oldAddress.firstName;
       address.lastName = oldAddress.lastName;
 
-      await addresses.update(address);
+      await crud.update(address);
     }
   });
 
-  test("updating an item by calling 'saveDetail' ", async () => {
+  test("updating an item by calling 'save' ", async () => {
     const { listItems, detail, masterDetail } = await setUpMasterDetail();
 
-    const addresses = masterDetail.addresses;
-    const oldAddress = await addresses.get(1);
+    const crud = masterDetail.crud;
+    const oldAddress = await crud.get(1);
 
     expect(oldAddress.firstName).toBe("Peter");
     expect(oldAddress.lastName).toBe("Smith");
@@ -132,10 +136,10 @@ describe("Application", () => {
     try {
       // Here, we call the "save button" event-listener directly so that we can wait for it to complete.
 
-      // Make a copy of the oldAddress because the object is modified by "saveDetail"
+      // Make a copy of the oldAddress because the object is modified by "save"
       await detail.save({ ...oldAddress });
 
-      const newAddress = await addresses.get(oldAddress.id);
+      const newAddress = await crud.get(oldAddress.id);
 
       expect(newAddress.firstName).toBe("John");
       expect(newAddress.lastName).toBe("Doe");
@@ -148,12 +152,34 @@ describe("Application", () => {
       expect(firstLink.innerHTML).toContain("John");
       expect(firstLink.innerHTML).toContain("Doe");
     } finally {
-      const address = await addresses.get(oldAddress.id);
+      const address = await crud.get(oldAddress.id);
 
       address.firstName = oldAddress.firstName;
       address.lastName = oldAddress.lastName;
 
-      await addresses.update(address);
+      await crud.update(address);
+    }
+  });
+
+  test.skip("deleting an item by calling 'delete' ", async () => {
+    const { listItems, detail, masterDetail } = await setUpMasterDetail();
+
+    const crud = masterDetail.crud;
+    const oldAddress = await crud.get(1);
+
+    try {
+      await masterDetail.delete(oldAddress);
+
+      const allAddresses = await crud.getAll();
+
+      expect(allAddresses.length).toBe(11);
+
+      const links = listItems.getElementsByTagName("a");
+
+      // TODO Fix this assertion; the animation doesn't finish running to remove the item
+      // expect(links.length).toBe(11);
+    } finally {
+      await crud.insert(oldAddress);
     }
   });
 
