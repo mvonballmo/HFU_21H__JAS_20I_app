@@ -133,7 +133,7 @@ describe("Application", () => {
       // Here, we call the "save button" event-listener directly so that we can wait for it to complete.
 
       // Make a copy of the oldAddress because the object is modified by "saveDetail"
-      await detail.saveDetail({ ...oldAddress });
+      await detail.save({ ...oldAddress });
 
       const newAddress = await addresses.get(oldAddress.id);
 

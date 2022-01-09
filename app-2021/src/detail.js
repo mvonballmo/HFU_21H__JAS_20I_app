@@ -39,13 +39,13 @@ class Detail extends HTMLElement {
    * @param {HTMLFormElement} form
    */
   #createSaveButton(value, form) {
-    const saveButton = document.createElement("button");
-    saveButton.id = "save";
-    saveButton.textContent = "Save";
+    const button = document.createElement("button");
+    button.id = "save";
+    button.textContent = "Save";
 
     const self = this;
-    saveButton.addEventListener("click", async e => {
-      await self.saveDetail(value);
+    button.addEventListener("click", async e => {
+      await self.save();
       e.preventDefault();
     });
 
@@ -53,25 +53,22 @@ class Detail extends HTMLElement {
 
     for (const input of inputs) {
       input.addEventListener("input", e => {
-        saveButton.disabled = !e.target.checkValidity();
+        button.disabled = !e.target.checkValidity();
       });
     }
-    return saveButton;
+    return button;
   }
 
-  /**
-   * @param {address} address
-   */
-  async saveDetail(address) {
+  async save() {
     const firstName = document.getElementById("firstName");
     const lastName = document.getElementById("lastName");
 
-    address.firstName = firstName.value;
-    address.lastName = lastName.value;
+    this.#data.firstName = firstName.value;
+    this.#data.lastName = lastName.value;
 
-    await this.crud.update(address);
+    await this.crud.update(this.#data);
 
-    this.list.selected = address;
+    this.list.selected = this.#data;
   }
 }
 
