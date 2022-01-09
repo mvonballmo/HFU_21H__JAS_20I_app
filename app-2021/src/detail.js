@@ -2,19 +2,14 @@ class Detail extends HTMLElement {
   /** @type MasterDetail */
   master;
 
-  /** @type address */
-  #data;
+  #entity;
 
-  /** @return address */
-  get data() {
-    return this.#data;
+  get entity() {
+    return this.#entity;
   }
 
-  /**
-   * @param {address} value
-   */
-  set data(value) {
-    this.#data = value;
+  set entity(value) {
+    this.#entity = value;
 
     this.innerHTML = `
       <form>
@@ -25,7 +20,7 @@ class Detail extends HTMLElement {
 
     const [form] = this.getElementsByTagName("form");
 
-    const saveButton = this.#createSaveButton(value, form);
+    const saveButton = this.#createSaveButton(form);
     const deleteButton = this.#createDeleteButton();
 
     form.append(document.createElement("span")); // spacer in the first column
@@ -40,10 +35,9 @@ class Detail extends HTMLElement {
   }
 
   /**
-   * @param {address} value
    * @param {HTMLFormElement} form
    */
-  #createSaveButton(value, form) {
+  #createSaveButton(form) {
     const button = document.createElement("button");
     button.id = "save";
     button.textContent = "Save";
@@ -82,14 +76,14 @@ class Detail extends HTMLElement {
     const firstName = document.getElementById("firstName");
     const lastName = document.getElementById("lastName");
 
-    this.#data.firstName = firstName.value;
-    this.#data.lastName = lastName.value;
+    this.#entity.firstName = firstName.value;
+    this.#entity.lastName = lastName.value;
 
-    return this.master.update(this.#data);
+    return this.master.update(this.#entity);
   }
 
   async delete() {
-    return this.master.delete(this.#data);
+    return this.master.delete(this.#entity);
   }
 }
 

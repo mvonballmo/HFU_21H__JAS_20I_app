@@ -2,15 +2,12 @@ class List extends HTMLElement {
   /** @type MasterDetail */
   master;
 
-  /** @type address[] */
-  addresses;
+  #entities;
 
-  /** @type address */
   #selected;
 
-  /** @type address[] */
-  get data() {
-    return this.addresses;
+  get entities() {
+    return this.#entities;
   }
 
   get selected() {
@@ -28,16 +25,13 @@ class List extends HTMLElement {
     }
   }
 
-  /**
-   * @param {address[]} value
-   */
-  set data(value) {
-    this.addresses = value;
+  set entities(value) {
+    this.#entities = value;
     this.#reloadList();
   }
 
   addNew(value) {
-    this.addresses.push(value);
+    this.#entities.push(value);
     this.#addItem(value);
   }
 
@@ -51,17 +45,17 @@ class List extends HTMLElement {
 
   #reloadList() {
     this.innerHTML = "";
-    for (const address of this.addresses) {
-      this.#addItem(address);
+    for (const entity of this.#entities) {
+      this.#addItem(entity);
     }
 
     if (this.selected) {
       const listItem = document.getElementById(this.#getListItemId(this.selected));
       if (!listItem) {
-        this.#selected = this.addresses[0];
+        this.#selected = this.#entities[0];
       }
     } else {
-      this.#selected = this.addresses[0];
+      this.#selected = this.#entities[0];
     }
 
     this.master.select(this.#selected);
@@ -79,18 +73,18 @@ class List extends HTMLElement {
     this.appendChild(div);
   }
 
-  #getListItemId(address) {
-    return `list_item_${address.id}`;
+  #getListItemId(entity) {
+    return `list_item_${entity.id}`;
   }
 
-  #configureListItem(listItem, address) {
+  #configureListItem(listItem, entity) {
     const self = this;
     this.#removeEventListeners(listItem);
 
     listItem.addEventListener("click", function () {
-      self.master.select(address);
+      self.master.select(entity);
     });
-    listItem.textContent = `${address.firstName} ${address.lastName}`;
+    listItem.textContent = `${entity.firstName} ${entity.lastName}`;
   }
 
   #removeEventListeners(listItem) {

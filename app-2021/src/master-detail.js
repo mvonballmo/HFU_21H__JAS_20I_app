@@ -49,7 +49,7 @@ class MasterDetail extends HTMLElement {
         lastName: "",
       };
       this.list.addNew(address);
-      this.detail.data = address;
+      this.detail.entity = address;
     });
 
     let entities;
@@ -61,7 +61,7 @@ class MasterDetail extends HTMLElement {
     }
 
     if (entities) {
-      this.list.data = entities;
+      this.list.entities = entities;
     }
   }
 
@@ -78,7 +78,7 @@ class MasterDetail extends HTMLElement {
 
     this.list.delete(data);
 
-    const addresses = this.list.data;
+    const addresses = this.list.entities;
     const itemToDelete = addresses.find(i => i.id === data.id);
     if (itemToDelete) {
       const index = addresses.indexOf(itemToDelete);
@@ -93,13 +93,13 @@ class MasterDetail extends HTMLElement {
         }
 
         this.list.selected = itemToSelect;
-        this.detail.data = itemToSelect;
+        this.detail.entity = itemToSelect;
       }
     }
   }
 
   select(data) {
-    this.detail.data = data;
+    this.detail.entity = data;
   }
 }
 
