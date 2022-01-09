@@ -19,8 +19,6 @@ class Detail extends HTMLElement {
   set data(value) {
     this.#data = value;
 
-    const self = this;
-
     this.innerHTML = `
       <form>
         <label>First Name</label><input placeholder="First Name" required type="text" id="firstName" value="${value.firstName}">
@@ -28,15 +26,28 @@ class Detail extends HTMLElement {
       </form>
     `;
 
+    const [form] = this.getElementsByTagName("form");
+
+    const saveButton = this.#createSaveButton(value, form);
+
+    form.append(document.createElement("span")); // spacer in the first column
+    form.append(saveButton);
+  }
+
+  /**
+   * @param {address} value
+   * @param {HTMLFormElement} form
+   */
+  #createSaveButton(value, form) {
     const saveButton = document.createElement("button");
     saveButton.id = "save";
     saveButton.textContent = "Save";
+
+    const self = this;
     saveButton.addEventListener("click", async e => {
       await self.saveDetail(value);
       e.preventDefault();
     });
-
-    const [form] = this.getElementsByTagName("form");
 
     const inputs = form.getElementsByTagName("input");
 
@@ -45,9 +56,7 @@ class Detail extends HTMLElement {
         saveButton.disabled = !e.target.checkValidity();
       });
     }
-
-    form.append(document.createElement("span")); // spacer in the first column
-    form.append(saveButton);
+    return saveButton;
   }
 
   /**
