@@ -17,7 +17,7 @@ describe("Application", () => {
     const listItems = document.getElementById("listItems");
     const detail = document.getElementById("detail");
 
-    const app = new application();
+    const app = new application(testingRootUrl);
 
     await app.initialize(listItems);
 
