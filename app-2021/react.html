@@ -12,14 +12,16 @@
     <script type="text/babel" data-type="module">
       import { createMetadata } from "./src/application.js";
 
-      function AppHeader({ allMetadata, classMetadata }) {
+      function AppHeader({ allMetadata, classMetadata, setClassMetadata }) {
         return (
           <>
             <h1>{classMetadata.pluralCaption}</h1>
             <ul>
               {allMetadata.map(m => (
                 <li key={m.caption}>
-                  <a href="#">{m.pluralCaption}</a>
+                  <a href="#" onClick={() => setClassMetadata(m)}>
+                    {m.pluralCaption}
+                  </a>
                 </li>
               ))}
             </ul>
@@ -34,12 +36,12 @@
       function App() {
         const rootUrl = "http://localhost:3000/";
         const allMetadata = createMetadata(rootUrl);
-        const classMetadata = allMetadata[0];
+        const [classMetadata, setClassMetadata] = React.useState(allMetadata[0]);
 
         return (
           <>
             <header>
-              <AppHeader allMetadata={allMetadata} classMetadata={classMetadata} />
+              <AppHeader allMetadata={allMetadata} classMetadata={classMetadata} setClassMetadata={setClassMetadata} />
             </header>
             <main>
               <AppMasterDetail classMetadata={classMetadata} />
