@@ -12,12 +12,12 @@
     <script type="text/babel" data-type="module">
       import { createMetadata } from "./src/application.js";
 
-      function AppHeader({ metadata, selected }) {
+      function AppHeader({ allMetadata, classMetadata }) {
         return (
           <>
-            <h1>{selected.pluralCaption}</h1>
+            <h1>{classMetadata.pluralCaption}</h1>
             <ul>
-              {metadata.map(m => (
+              {allMetadata.map(m => (
                 <li key={m.caption}>
                   <a href="#">{m.pluralCaption}</a>
                 </li>
@@ -33,16 +33,16 @@
 
       function App() {
         const rootUrl = "http://localhost:3000/";
-        const metadata = createMetadata(rootUrl);
-        const selected = metadata[0];
+        const allMetadata = createMetadata(rootUrl);
+        const classMetadata = allMetadata[0];
 
         return (
           <>
             <header>
-              <AppHeader metadata={metadata} selected={selected} />
+              <AppHeader allMetadata={allMetadata} classMetadata={classMetadata} />
             </header>
             <main>
-              <AppMasterDetail classMetadata={selected} />
+              <AppMasterDetail classMetadata={classMetadata} />
             </main>
           </>
         );
