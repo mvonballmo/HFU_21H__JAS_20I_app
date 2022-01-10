@@ -14,6 +14,7 @@
       import { Crud } from "./src/crud.js";
 
       const MetadataContext = React.createContext(null);
+      const EntityContext = React.createContext(null);
 
       function AppHeader() {
         const { allMetadata, classMetadata, setClassMetadata } = React.useContext(MetadataContext);
@@ -34,8 +35,9 @@
         );
       }
 
-      function List({ entity, setEntity }) {
+      function List() {
         const { classMetadata } = React.useContext(MetadataContext);
+        const { entity, setEntity } = React.useContext(EntityContext);
         const [loading, setLoading] = React.useState(false);
         const [entities, setEntities] = React.useState([]);
 
@@ -65,8 +67,10 @@
         );
       }
 
-      function Detail({ entity }) {
+      function Detail() {
         const { classMetadata } = React.useContext(MetadataContext);
+        const { entity } = React.useContext(EntityContext);
+
         return (
           <form>
             {classMetadata.properties.map(p => (
@@ -92,15 +96,15 @@
         const [entity, setEntity] = React.useState({});
 
         return (
-          <>
+          <EntityContext.Provider value={{ entity, setEntity }}>
             <nav>
               <button id="createNew">New...</button>
               <List entity={entity} setEntity={setEntity} />
             </nav>
             <article>
-              <Detail entity={entity} />
+              <Detail />
             </article>
-          </>
+          </EntityContext.Provider>
         );
       }
 
