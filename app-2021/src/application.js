@@ -19,7 +19,7 @@ export function createAddressMetadata(rootUrl) {
     pluralCaption: "Addresses",
     rootUrl: `${rootUrl}addresses`,
     getTitle: a => `${a.firstName} ${a.lastName}`,
-    createNew: () => ({ firstName: "", lastName: "" }),
+    createNew: () => ({ firstName: "", lastName: "", salary: "" }),
     properties: [
       {
         name: "firstName",
