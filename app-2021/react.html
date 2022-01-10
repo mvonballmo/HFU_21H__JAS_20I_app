@@ -13,7 +13,11 @@
       import { createMetadata } from "./src/application.js";
       import { Crud } from "./src/crud.js";
 
-      function AppHeader({ allMetadata, classMetadata, setClassMetadata }) {
+      const MetadataContext = React.createContext(null);
+
+      function AppHeader() {
+        const { allMetadata, classMetadata, setClassMetadata } = React.useContext(MetadataContext);
+
         return (
           <>
             <h1>{classMetadata.pluralCaption}</h1>
@@ -30,7 +34,8 @@
         );
       }
 
-      function List({ classMetadata, entity, setEntity }) {
+      function List({ entity, setEntity }) {
+        const { classMetadata } = React.useContext(MetadataContext);
         const [loading, setLoading] = React.useState(false);
         const [entities, setEntities] = React.useState([]);
 
@@ -60,7 +65,8 @@
         );
       }
 
-      function Detail({ classMetadata, entity }) {
+      function Detail({ entity }) {
+        const { classMetadata } = React.useContext(MetadataContext);
         return (
           <form>
             {classMetadata.properties.map(p => (
@@ -82,17 +88,18 @@
         );
       }
 
-      function MasterDetail({ classMetadata }) {
+      function MasterDetail() {
+        const { classMetadata } = React.useContext(MetadataContext);
         const [entity, setEntity] = React.useState({});
 
         return (
           <>
             <nav>
               <button id="createNew">New...</button>
-              <List classMetadata={classMetadata} entity={entity} setEntity={setEntity} />
+              <List entity={entity} setEntity={setEntity} />
             </nav>
             <article>
-              <Detail classMetadata={classMetadata} entity={entity} />
+              <Detail entity={entity} />
             </article>
           </>
         );
@@ -104,14 +111,14 @@
         const [classMetadata, setClassMetadata] = React.useState(allMetadata[0]);
 
         return (
-          <>
+          <MetadataContext.Provider value={{ allMetadata, classMetadata, setClassMetadata }}>
             <header>
-              <AppHeader allMetadata={allMetadata} classMetadata={classMetadata} setClassMetadata={setClassMetadata} />
+              <AppHeader />
             </header>
             <main>
-              <MasterDetail classMetadata={classMetadata} />
+              <MasterDetail />
             </main>
-          </>
+          </MetadataContext.Provider>
         );
       }
 
