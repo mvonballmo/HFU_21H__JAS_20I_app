@@ -11,6 +11,7 @@
     <script src="./src/lib/babel.min.js"></script>
     <script type="text/babel" data-type="module">
       import { createMetadata } from "./src/application.js";
+      import { Crud } from "./src/crud.js";
 
       function AppHeader({ allMetadata, classMetadata, setClassMetadata }) {
         return (
@@ -29,8 +30,36 @@
         );
       }
 
+      function List({ classMetadata }) {
+        const [loading, setLoading] = React.useState(false);
+        const [items, setItems] = React.useState([]);
+
+        React.useEffect(async () => {
+          setLoading(true);
+          const crud = new Crud(classMetadata.rootUrl);
+          setItems(await crud.getAll());
+          setLoading(false);
+        }, [classMetadata]);
+
+        return <>{loading ? "Loading..." : items.map(i => <div>{classMetadata.getTitle(i)}</div>)}</>;
+      }
+
+      function Detail() {
+        return null;
+      }
+
       function AppMasterDetail({ classMetadata }) {
-        return <h1>{classMetadata.pluralCaption}</h1>;
+        return (
+          <>
+            <nav>
+              <button id="createNew">New...</button>
+              <List classMetadata={classMetadata} />
+            </nav>
+            <article>
+              <Detail classMetadata={classMetadata} />
+            </article>
+          </>
+        );
       }
 
       function App() {
