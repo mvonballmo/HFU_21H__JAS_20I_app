@@ -74,19 +74,10 @@
         return (
           <form>
             {classMetadata.properties.map(p => (
-              <>
-                <label htmlFor={p.name} key={"label" + p.id}>
-                  {p.caption}
-                </label>
-                <input
-                  key={"input" + p.id}
-                  type={p.type}
-                  id={p.name}
-                  required
-                  placeholder={p.caption}
-                  value={entity[p.name]}
-                />
-              </>
+              <div key={p.name}>
+                <label htmlFor={p.name}>{p.caption}</label>
+                <input type={p.type} id={p.name} required placeholder={p.caption} defaultValue={entity[p.name]} />
+              </div>
             ))}
           </form>
         );

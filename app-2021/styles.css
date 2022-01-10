@@ -66,6 +66,10 @@ article form {
   row-gap: var(--default-spacing);
 }
 
+article form div {
+  display: contents;
+}
+
 article form label {
   align-self: center;
   justify-self: end;
