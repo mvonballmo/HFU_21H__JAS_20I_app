@@ -12,10 +12,6 @@
     <script type="text/babel" data-type="module">
       import { createMetadata } from "./src/application.js";
 
-      const rootUrl = "http://localhost:3000/";
-      const metadata = createMetadata(rootUrl);
-      const selected = metadata[0];
-
       function AppHeader({ metadata, selected }) {
         return (
           <>
@@ -35,22 +31,27 @@
         return null;
       }
 
-      const root = document.getElementById("root");
+      function App() {
+        const rootUrl = "http://localhost:3000/";
+        const metadata = createMetadata(rootUrl);
+        const selected = metadata[0];
 
-      ReactDOM.render(
-        <>
-          <header>
-            <AppHeader metadata={metadata} selected={selected} />
-          </header>
-          <main>
-            <AppMasterDetail classMetadata={selected} />
-          </main>
-        </>,
-        root
-      );
-  </script>
-</head>
-<body>
-  <div id="root"></div>
-</body>
+        return (
+          <>
+            <header>
+              <AppHeader metadata={metadata} selected={selected} />
+            </header>
+            <main>
+              <AppMasterDetail classMetadata={selected} />
+            </main>
+          </>
+        );
+      }
+
+      ReactDOM.render(<App />, document.getElementById("root"));
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
 </html>
