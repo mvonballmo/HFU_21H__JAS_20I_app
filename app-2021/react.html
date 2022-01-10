@@ -37,7 +37,11 @@
         React.useEffect(async () => {
           setLoading(true);
           const crud = new Crud(classMetadata.rootUrl);
-          setEntities(await crud.getAll());
+          const data = await crud.getAll();
+          setEntities(data);
+          if (data.length > 0) {
+            setEntity(data[0]);
+          }
           setLoading(false);
         }, [classMetadata]);
 
