@@ -30,14 +30,14 @@
         );
       }
 
-      function List({ classMetadata }) {
+      function List({ classMetadata, entity, setEntity }) {
         const [loading, setLoading] = React.useState(false);
-        const [items, setItems] = React.useState([]);
+        const [entities, setEntities] = React.useState([]);
 
         React.useEffect(async () => {
           setLoading(true);
           const crud = new Crud(classMetadata.rootUrl);
-          setItems(await crud.getAll());
+          setEntities(await crud.getAll());
           setLoading(false);
         }, [classMetadata]);
 
@@ -45,28 +45,32 @@
           <>
             {loading
               ? "Loading..."
-              : items.map(i => (
-                  <div key={i.id}>
-                    <a href="#">{classMetadata.getTitle(i)}</a>
+              : entities.map(e => (
+                  <div key={e.id}>
+                    <a className={e === entity ? "selected" : ""} href="#" onClick={() => setEntity(e)}>
+                      {classMetadata.getTitle(e)}
+                    </a>
                   </div>
                 ))}
           </>
         );
       }
 
-      function Detail() {
+      function Detail({ classMetadata, entity }) {
         return null;
       }
 
       function MasterDetail({ classMetadata }) {
+        const [entity, setEntity] = React.useState({});
+
         return (
           <>
             <nav>
               <button id="createNew">New...</button>
-              <List classMetadata={classMetadata} />
+              <List classMetadata={classMetadata} entity={entity} setEntity={setEntity} />
             </nav>
             <article>
-              <Detail classMetadata={classMetadata} />
+              <Detail classMetadata={classMetadata} entity={entity} />
             </article>
           </>
         );
