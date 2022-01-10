@@ -29,8 +29,8 @@ describe("Fetch", () => {
   });
 
   test("call fetch with async/await", async () => {
-    const promise = await fetch(getAddressesUrl());
-    const addresses = await promise.json();
+    const response = await fetch(getAddressesUrl());
+    const addresses = await response.json();
 
     expect(addresses.length).toBe(12);
   });
