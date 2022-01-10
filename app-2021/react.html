@@ -41,7 +41,7 @@
           setLoading(false);
         }, [classMetadata]);
 
-        return <>{loading ? "Loading..." : items.map(i => <div>{classMetadata.getTitle(i)}</div>)}</>;
+        return <>{loading ? "Loading..." : items.map(i => <div key={i.id}>{classMetadata.getTitle(i)}</div>)}</>;
       }
 
       function Detail() {
