@@ -41,14 +41,24 @@
           setLoading(false);
         }, [classMetadata]);
 
-        return <>{loading ? "Loading..." : items.map(i => <div key={i.id}>{classMetadata.getTitle(i)}</div>)}</>;
+        return (
+          <>
+            {loading
+              ? "Loading..."
+              : items.map(i => (
+                  <div key={i.id}>
+                    <a href="#">{classMetadata.getTitle(i)}</a>
+                  </div>
+                ))}
+          </>
+        );
       }
 
       function Detail() {
         return null;
       }
 
-      function AppMasterDetail({ classMetadata }) {
+      function MasterDetail({ classMetadata }) {
         return (
           <>
             <nav>
@@ -73,7 +83,7 @@
               <AppHeader allMetadata={allMetadata} classMetadata={classMetadata} setClassMetadata={setClassMetadata} />
             </header>
             <main>
-              <AppMasterDetail classMetadata={classMetadata} />
+              <MasterDetail classMetadata={classMetadata} />
             </main>
           </>
         );
