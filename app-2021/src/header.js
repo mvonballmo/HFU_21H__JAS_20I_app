@@ -16,6 +16,7 @@ class Header extends HTMLElement {
 
     const title = document.createElement("h1");
     title.textContent = this.#selected.pluralCaption;
+    const self = this;
 
     const list = document.createElement("ul");
     for (const metaDatum of this.#metadata) {
@@ -23,7 +24,9 @@ class Header extends HTMLElement {
       link.href = "#";
       link.textContent = metaDatum.pluralCaption;
       link.addEventListener("click", () => {
+        this.#selected = metaDatum;
         this.masterDetail.setMetadata(metaDatum);
+        title.textContent = metaDatum.pluralCaption;
       });
       const item = document.createElement("li");
       item.append(link);
