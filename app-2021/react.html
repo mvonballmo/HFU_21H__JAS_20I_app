@@ -9,16 +9,42 @@
   <script src="./src/lib/react.development.js"></script>
   <script src="./src/lib/react-dom.development.js"></script>
   <script src="./src/lib/babel.min.js"></script>
-  <script type="text/babel">
-    const [root] = document.getElementsByTagName("main");
+  <script type="text/babel" data-type="module">
+    import {createMetadata} from "./src/application.js";
+
+    const rootUrl="http://localhost:3000/";
+    const metadata = createMetadata(rootUrl);
+    const selected = metadata[0];
+
+    function AppHeader({metadata, selected}) {
+
+      return <>
+        <h1>{selected.pluralCaption}</h1>
+        <ul>
+          {metadata.map(m => <li key={m.caption}><a href="#">{m.pluralCaption}</a></li>)}
+        </ul>
+      </>;
+    }
+
+    function AppMasterDetail({classMetadata}) {
+      return null;
+    }
+
+    const [root] = document.getElementsByTagName("body");
 
     ReactDOM.render(
-      <h1>Hello, world!</h1>,
+      <>
+        <header>
+          <AppHeader metadata={metadata} selected={selected} />
+        </header>
+        <main>
+          <AppMasterDetail classMetadata={selected} />
+        </main>
+      </>,
       root
     );
   </script>
 </head>
 <body>
-  <main></main>
 </body>
 </html>
