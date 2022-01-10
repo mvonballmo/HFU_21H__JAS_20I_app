@@ -4,7 +4,7 @@
 /**
  * Describes an object that performs CRUD for a given entity.
  */
-export class crud {
+export class Crud {
   /**
    * Creates a new object for the given `rootUrl`.
    *

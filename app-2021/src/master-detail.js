@@ -1,10 +1,10 @@
-import { crud } from "./crud.js";
+import { Crud } from "./crud.js";
 import "./list.js";
 import "./detail.js";
 
 class MasterDetail extends HTMLElement {
   /**
-   * @type {#crud<address>}
+   * @type {Crud<address>}
    */
   crud;
 
@@ -27,7 +27,7 @@ class MasterDetail extends HTMLElement {
   async setMetadata(value) {
     this.#metadata = value;
 
-    this.crud = new crud(this.#metadata.rootUrl);
+    this.crud = new Crud(this.#metadata.rootUrl);
 
     this.innerHTML = `
       <nav>
