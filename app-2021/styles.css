@@ -59,14 +59,14 @@ article {
   padding: var(--default-spacing);
 }
 
-app-detail form {
+article form {
   display: grid;
   grid-template-columns: auto 1fr;
   gap: var(--default-spacing);
   row-gap: var(--default-spacing);
 }
 
-app-detail form label {
+article form label {
   align-self: center;
   justify-self: end;
 }
