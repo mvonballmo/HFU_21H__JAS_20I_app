@@ -37,32 +37,17 @@
 
       function List() {
         const { classMetadata } = React.useContext(MetadataContext);
-        const { entity, setEntity } = React.useContext(EntityContext);
-        const [loading, setLoading] = React.useState(false);
-        const [entities, setEntities] = React.useState([]);
-
-        React.useEffect(async () => {
-          setLoading(true);
-          const crud = new Crud(classMetadata.rootUrl);
-          const data = await crud.getAll();
-          setEntities(data);
-          if (data.length > 0) {
-            setEntity(data[0]);
-          }
-          setLoading(false);
-        }, [classMetadata]);
+        const { entities, entity, setEntity } = React.useContext(EntityContext);
 
         return (
           <>
-            {loading
-              ? "Loading..."
-              : entities.map(e => (
-                  <div key={e.id}>
-                    <a className={e === entity ? "selected" : ""} href="#" onClick={() => setEntity(e)}>
-                      {classMetadata.getTitle(e)}
-                    </a>
-                  </div>
-                ))}
+            {entities.map(e => (
+              <div key={e.id}>
+                <a className={e === entity ? "selected" : ""} href="#" onClick={() => setEntity(e)}>
+                  {classMetadata.getTitle(e)}
+                </a>
+              </div>
+            ))}
           </>
         );
       }
@@ -105,10 +90,26 @@
       }
 
       function MasterDetail() {
+        const { classMetadata } = React.useContext(MetadataContext);
+        const crud = new Crud(classMetadata.rootUrl);
         const [entity, setEntity] = React.useState({});
+        const [loading, setLoading] = React.useState(false);
+        const [entities, setEntities] = React.useState([]);
 
-        return (
-          <EntityContext.Provider value={{ entity, setEntity }}>
+        React.useEffect(async () => {
+          setLoading(true);
+          const data = await crud.getAll();
+          setEntities(data);
+          if (data.length > 0) {
+            setEntity(data[0]);
+          }
+          setLoading(false);
+        }, [classMetadata]);
+
+        return loading ? (
+          <div>loading...</div>
+        ) : (
+          <EntityContext.Provider value={{ entities, entity, setEntity }}>
             <nav>
               <button id="createNew">New...</button>
               <List entity={entity} setEntity={setEntity} />
