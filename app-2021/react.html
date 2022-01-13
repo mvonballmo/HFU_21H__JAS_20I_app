@@ -43,7 +43,7 @@
           <>
             {entities.map(e => (
               <div key={e.id}>
-                <a className={e === entity ? "selected" : ""} href="#" onClick={() => setEntity(e)}>
+                <a className={e.id === entity.id ? "selected" : ""} href="#" onClick={() => setEntity(e)}>
                   {classMetadata.getTitle(e)}
                 </a>
               </div>
@@ -54,7 +54,7 @@
 
       function Detail() {
         const { classMetadata } = React.useContext(MetadataContext);
-        const { entity } = React.useContext(EntityContext);
+        const { entity, setEntity } = React.useContext(EntityContext);
 
         const save = async () => {
           // TODO
@@ -62,6 +62,13 @@
 
         const inputChange = e => {
           const saveButton = document.getElementById("save");
+
+          const newEntity = {
+            ...entity,
+            [e.target.id]: e.target.value,
+          };
+
+          setEntity(newEntity);
 
           saveButton.disabled = !e.target.form.checkValidity();
         };
@@ -76,7 +83,7 @@
                   id={p.name}
                   required
                   placeholder={p.caption}
-                  defaultValue={entity[p.name]}
+                  value={entity[p.name]}
                   onInput={inputChange}
                 />
               </div>
