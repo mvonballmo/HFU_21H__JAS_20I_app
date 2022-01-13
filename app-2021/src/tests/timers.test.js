@@ -2,9 +2,8 @@
  * @jest-environment jsdom
  */
 
-import { describe, expect, test } from "@jest/globals";
+import { describe, test } from "@jest/globals";
 import "isomorphic-fetch";
-import { crud } from "./crud";
 
 describe("Timers", () => {
   test("set timeout of 1/4 second", done => {

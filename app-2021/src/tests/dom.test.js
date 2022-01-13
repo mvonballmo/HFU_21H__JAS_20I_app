@@ -4,7 +4,7 @@
 
 import { describe, expect, test } from "@jest/globals";
 import "isomorphic-fetch";
-import { crud } from "./crud";
+import { Crud } from "../utils/crud.js";
 
 describe("DOM", () => {
   test("get element properties", () => {
@@ -282,9 +282,9 @@ describe("DOM", () => {
   test("fetch data and add to document", async () => {
     async function createCarListItemsHtml() {
       /**
-       * @type {crud<car>}
+       * @type {Crud<car>}
        */
-      const cars = new crud("http://localhost:3001/cars");
+      const cars = new Crud("http://localhost:3001/cars");
       const allCars = await cars.getAll();
 
       const createListItem = car => {

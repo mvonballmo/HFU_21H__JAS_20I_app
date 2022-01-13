@@ -1,6 +1,3 @@
-import "./master-detail.js";
-import "./header.js";
-
 /**
  * @return ClassMetadata[]
  * @param rootUrl {string}

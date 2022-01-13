@@ -1,4 +1,4 @@
-export class crud<T extends { id: number }> {
+export class Crud<T extends { id: number }> {
   /**
    * Creates a new crud object for type `T`
    * @param rootUrl The URL to use to retrieve data.

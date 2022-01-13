@@ -10,8 +10,8 @@
     <script src="./src/lib/react-dom.development.js"></script>
     <script src="./src/lib/babel.min.js"></script>
     <script type="text/babel" data-type="module">
-      import { createMetadata } from "./src/application.js";
-      import { Crud } from "./src/crud.js";
+      import { createMetadata } from "./src/metadataFactory.js";
+      import { Crud } from "./src/utils/crud.js";
 
       const AppContext = React.createContext(null);
 

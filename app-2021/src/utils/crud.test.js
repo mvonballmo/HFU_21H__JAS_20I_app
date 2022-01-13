@@ -1,57 +1,22 @@
 import { describe, expect, test } from "@jest/globals";
 import "isomorphic-fetch";
-import { crud } from "./crud";
-import { testingRootUrl } from "./test-library";
+import { Crud } from "../utils/crud.js";
+import { testingRootUrl } from "../test-library.js";
 
-describe("Fetch", () => {
+describe("crud", () => {
   const serverRoot = testingRootUrl;
   /**
-   * @type {crud<address>}
+   * @type {Crud<address>}
    */
-  const addressCrud = new crud(getAddressesUrl());
+  const addressCrud = new Crud(getAddressesUrl());
   /**
-   * @type {crud<car>}
+   * @type {Crud<car>}
    */
-  const carCrud = new crud(`${serverRoot}cars`);
+  const carCrud = new Crud(`${serverRoot}cars`);
 
   function getAddressesUrl() {
     return `${serverRoot}addresses`;
   }
-
-  test("call fetch gets addresses with done", done => {
-    fetch(getAddressesUrl())
-      .then(data => data.json())
-      .then(addresses => {
-        expect(addresses.length).toBe(12);
-        done();
-      })
-      .catch(error => done(error));
-  });
-
-  test("call fetch with async/await", async () => {
-    const response = await fetch(getAddressesUrl());
-    const addresses = await response.json();
-
-    expect(addresses.length).toBe(12);
-  });
-
-  test("call fetch with async/await and JSON.parse()", async () => {
-    const response = await fetch(getAddressesUrl());
-
-    expect(response.ok).toBeTruthy();
-    expect(response.status).toBe(200);
-
-    const addresses = JSON.parse(await response.text());
-
-    expect(addresses.length).toBe(12);
-  });
-
-  test("call fetch with async/await and 404", async () => {
-    const response = await fetch(getAddressesUrl() + "ssss");
-
-    expect(response.ok).toBeFalsy();
-    expect(response.status).toBe(404);
-  });
 
   test("Call fetch with 404 in crud", async () => {
     try {
@@ -63,18 +28,6 @@ describe("Fetch", () => {
 
       expect(error.name).toBe("Error");
       expect(error.message).toBe("Error [404] accessing [http://localhost:3001/addresses/55555]: Not Found");
-    }
-  });
-
-  test("call fetch with caught error", async () => {
-    try {
-      const promise = await fetch("foo" + getAddressesUrl());
-      return await promise.json();
-    } catch (error) {
-      const e = error; // Für Debugging
-      // Error wird ignoriert
-    } finally {
-      // Wird immer ausgeführt (cleanup, logging, usw.)
     }
   });
 
@@ -90,9 +43,9 @@ describe("Fetch", () => {
 
   test("Insert address", async () => {
     /**
-     * @type {crud<address>}
+     * @type {Crud<address>}
      */
-    const addressCrud = new crud(getAddressesUrl());
+    const addressCrud = new Crud(getAddressesUrl());
 
     let addresses = await addressCrud.getAll();
 

@@ -4,9 +4,9 @@
 
 import { describe, expect, test } from "@jest/globals";
 import "isomorphic-fetch";
-import { testingRootUrl } from "./test-library";
-import "./application";
-import { createAddressMetadata } from "./application";
+import { testingRootUrl } from "../test-library";
+import "./web-components";
+import { createAddressMetadata } from "../metadataFactory.js";
 
 describe("Application", () => {
   /**

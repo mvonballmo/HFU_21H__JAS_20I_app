@@ -1,5 +1,5 @@
-import { jest, describe, expect, test } from "@jest/globals";
-import { crud } from "./crud";
+import { describe, expect, test } from "@jest/globals";
+import { Crud } from "../utils/crud";
 
 describe("Fetch Timeout", () => {
   const fetchRequestDurationInMilliseconds = 1000;
@@ -61,9 +61,9 @@ describe("Fetch Timeout", () => {
 
   test("Call fetch with timeout in crud", async () => {
     /**
-     * @type {crud<address>}
+     * @type {Crud<address>}
      */
-    const addresses = new crud("http://localhost:3021/addresses");
+    const addresses = new Crud("http://localhost:3021/addresses");
 
     addresses.timeOutInMilliseconds = fetchTimeoutInMilliseconds;
 

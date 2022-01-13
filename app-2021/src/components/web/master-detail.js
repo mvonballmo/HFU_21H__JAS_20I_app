@@ -1,4 +1,4 @@
-import { Crud } from "./crud.js";
+import { Crud } from "../../utils/crud.js";
 import "./list.js";
 import "./detail.js";
 
