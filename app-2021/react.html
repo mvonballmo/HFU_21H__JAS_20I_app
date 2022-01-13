@@ -43,7 +43,7 @@
           <>
             {entities.map(e => (
               <div key={e.id}>
-                <a className={e.id === entity.id ? "selected" : ""} href="#" onClick={() => setEntity(e)}>
+                <a className={e.id === entity?.id ? "selected" : ""} href="#" onClick={() => setEntity(e)}>
                   {classMetadata.getTitle(e)}
                 </a>
               </div>
@@ -68,7 +68,9 @@
           saveButton.current.disabled = !e.target.form.checkValidity();
         };
 
-        return (
+        return !entity ? (
+          <div>Nothing selected</div>
+        ) : (
           <form>
             {classMetadata.properties.map(p => (
               <div key={p.name}>
