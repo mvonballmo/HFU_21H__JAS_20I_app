@@ -42,7 +42,7 @@
         return (
           <>
             {entities.map(e => (
-              <div key={e.id}>
+              <div key={e.id ?? 0}>
                 <a className={e.id === entity?.id ? "selected" : ""} href="#" onClick={() => setEntity(e)}>
                   {classMetadata.getTitle(e)}
                 </a>
@@ -120,9 +120,11 @@
           }
 
           const savedEntity = await crud.save(entityToSave);
-          const newEntities = entities.map(e => (savedEntity.id === e.id ? entityToSave : e));
-
-          setEntity(entityToSave);
+          const newEntities = entities.filter(e => e.id).map(e => (savedEntity.id === e.id ? savedEntity : e));
+          if (newEntities.indexOf(savedEntity) === -1) {
+            newEntities.push(savedEntity);
+          }
+          setEntity(savedEntity);
           setEntities(newEntities);
         };
 
@@ -145,12 +147,18 @@
           setEntities(newEntities);
         };
 
+        const createEntity = () => {
+          const newEntity = classMetadata.createNew();
+          setEntity(newEntity);
+          setEntities([...entities, newEntity]);
+        };
+
         return loading ? (
           <div>loading...</div>
         ) : (
           <EntityContext.Provider value={{ entities, entity, setEntity, saveEntity, deleteEntity }}>
             <nav>
-              <button id="createNew">New...</button>
+              <button onClick={createEntity}>New...</button>
               <List entity={entity} setEntity={setEntity} />
             </nav>
             <article>
