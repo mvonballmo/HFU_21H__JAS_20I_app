@@ -54,7 +54,7 @@
 
       function Detail() {
         const { classMetadata } = React.useContext(MetadataContext);
-        const { entity, setEntity, saveEntity } = React.useContext(EntityContext);
+        const { entity, setEntity, saveEntity, deleteEntity } = React.useContext(EntityContext);
         const saveButton = React.useRef(null);
 
         const inputChange = e => {
@@ -86,9 +86,14 @@
               </div>
             ))}
             <span>&nbsp;</span>
-            <button ref={saveButton} onClick={() => saveEntity(entity)}>
-              Save
-            </button>
+            <span>
+              <button ref={saveButton} onClick={() => saveEntity(entity)}>
+                Save
+              </button>
+              <button disabled={!entity.id} onClick={() => deleteEntity(entity)}>
+                Delete
+              </button>
+            </span>
           </form>
         );
       }
@@ -121,10 +126,29 @@
           setEntities(newEntities);
         };
 
+        const deleteEntity = async entityToDelete => {
+          await crud.delete(entityToDelete);
+
+          if (entityToDelete.id === entity.id) {
+            const index = entities.indexOf(entityToDelete);
+            if (index < 0) {
+              // Do nothing; entityToDelete is not in list
+            } else {
+              const itemToSelect = index > 0 ? entities[index - 1] : entities[index + 1];
+
+              setEntity(itemToSelect);
+            }
+          }
+
+          const newEntities = entities.filter(e => e.id !== entityToDelete.id);
+
+          setEntities(newEntities);
+        };
+
         return loading ? (
           <div>loading...</div>
         ) : (
-          <EntityContext.Provider value={{ entities, entity, setEntity, saveEntity }}>
+          <EntityContext.Provider value={{ entities, entity, setEntity, saveEntity, deleteEntity }}>
             <nav>
               <button id="createNew">New...</button>
               <List entity={entity} setEntity={setEntity} />
