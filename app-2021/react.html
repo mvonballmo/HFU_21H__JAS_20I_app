@@ -108,16 +108,16 @@
           setLoading(false);
         }, [classMetadata]);
 
-        const saveEntity = async e => {
+        const saveEntity = async entityToSave => {
           for (const property of classMetadata.properties) {
             const name = property.name;
-            e[name] = document.getElementById(name).value;
+            entityToSave[name] = document.getElementById(name).value;
           }
 
-          const saved = await crud.save(e);
-          const newEntities = entities.map(e => (saved.id === e.id ? saved : e));
+          const savedEntity = await crud.save(entityToSave);
+          const newEntities = entities.map(e => (savedEntity.id === e.id ? entityToSave : e));
 
-          setEntity(saved);
+          setEntity(entityToSave);
           setEntities(newEntities);
         };
 
