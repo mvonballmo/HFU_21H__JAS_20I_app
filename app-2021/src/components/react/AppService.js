@@ -11,12 +11,22 @@ export class AppService {
     this.dispatch({ type: "setEntity", entity });
   }
 
-  saveEntity(entity) {
+  async saveEntity(state) {
+    let entity = state.entity;
+    for (const property of state.classMetadata.properties) {
+      const name = property.name;
+      entity[name] = document.getElementById(name).value;
+    }
+
+    entity = await state.crud.save(entity);
+
     this.dispatch({ type: "saveEntity", entity });
   }
 
-  deleteEntity(entity) {
-    this.dispatch({ type: "deleteEntity", entity });
+  async deleteEntity(state) {
+    await state.crud.delete(state.entity);
+
+    this.dispatch({ type: "deleteEntity", entity: state.entity });
   }
 
   createEntity() {

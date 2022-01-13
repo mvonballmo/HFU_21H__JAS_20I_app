@@ -69,23 +69,12 @@
         };
 
         const saveEntity = async e => {
-          for (const property of classMetadata.properties) {
-            const name = property.name;
-            entity[name] = document.getElementById(name).value;
-          }
-
-          const savedEntity = await state.crud.save(entity);
-
-          service.saveEntity(savedEntity);
-
+          await service.saveEntity(state);
           e.preventDefault();
         };
 
         const deleteEntity = async e => {
-          await state.crud.delete(entity);
-
-          service.deleteEntity(entity);
-
+          await service.deleteEntity(state);
           e.preventDefault();
         };
 
