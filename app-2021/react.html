@@ -54,11 +54,7 @@
 
       function Detail() {
         const { classMetadata } = React.useContext(MetadataContext);
-        const { entity, setEntity } = React.useContext(EntityContext);
-
-        const save = async () => {
-          // TODO
-        };
+        const { entity, setEntity, saveEntity } = React.useContext(EntityContext);
 
         const inputChange = e => {
           const saveButton = document.getElementById("save");
@@ -89,7 +85,7 @@
               </div>
             ))}
             <span>&nbsp;</span>
-            <button id="save" onClick={save}>
+            <button id="save" onClick={() => saveEntity(entity)}>
               Save
             </button>
           </form>
@@ -113,10 +109,23 @@
           setLoading(false);
         }, [classMetadata]);
 
+        const saveEntity = async e => {
+          for (const property of classMetadata.properties) {
+            const name = property.name;
+            e[name] = document.getElementById(name).value;
+          }
+
+          const saved = await crud.save(e);
+          const newEntities = entities.map(e => (saved.id === e.id ? saved : e));
+
+          setEntity(saved);
+          setEntities(newEntities);
+        };
+
         return loading ? (
           <div>loading...</div>
         ) : (
-          <EntityContext.Provider value={{ entities, entity, setEntity }}>
+          <EntityContext.Provider value={{ entities, entity, setEntity, saveEntity }}>
             <nav>
               <button id="createNew">New...</button>
               <List entity={entity} setEntity={setEntity} />
