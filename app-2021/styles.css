@@ -1,6 +1,7 @@
 :root {
   --control-width: 100px;
   --default-spacing: 5px;
+  --nav-column-size: 200px;
 }
 
 body {
@@ -12,13 +13,13 @@ body {
 
 main {
   display: grid;
-  grid-template-rows: 200px 1fr;
+  grid-template-rows: var(--nav-column-size) 1fr;
 }
 
 @media (min-width: 600px) {
   main {
     grid-template-rows: auto;
-    grid-template-columns: 200px 1fr;
+    grid-template-columns: var(--nav-column-size) 1fr;
   }
 }
 
@@ -38,12 +39,13 @@ nav {
 
 header {
   display: grid;
-  grid-template-columns: auto 1fr;
+  grid-template-columns: var(--nav-column-size) 1fr;
 }
 
 header ul {
   list-style: none;
   align-self: center;
+  padding-inline-start: 0;
 }
 
 header ul li {
