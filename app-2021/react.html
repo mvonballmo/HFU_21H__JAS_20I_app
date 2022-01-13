@@ -16,7 +16,7 @@
       const AppContext = React.createContext(null);
 
       function AppHeader() {
-        const { state, dispatch } = React.useContext(AppContext);
+        const { state, service } = React.useContext(AppContext);
         const { allMetadata, classMetadata } = state;
 
         return (
@@ -25,7 +25,7 @@
             <ul>
               {allMetadata.map(m => (
                 <li key={m.caption}>
-                  <a href="#" onClick={() => dispatch({ type: "setMetadata", classMetadata: m })}>
+                  <a href="#" onClick={() => service.setMetadata(m)}>
                     {m.pluralCaption}
                   </a>
                 </li>
@@ -36,18 +36,14 @@
       }
 
       function List() {
-        const { state, dispatch } = React.useContext(AppContext);
+        const { state, service } = React.useContext(AppContext);
         const { classMetadata, entities, entity } = state;
 
         return (
           <>
             {entities.map(e => (
               <div key={e.id ?? 0}>
-                <a
-                  className={e.id === entity?.id ? "selected" : ""}
-                  href="#"
-                  onClick={() => dispatch({ type: "setEntity", entity: e })}
-                >
+                <a className={e.id === entity?.id ? "selected" : ""} href="#" onClick={() => service.setEntity(e)}>
                   {classMetadata.getTitle(e)}
                 </a>
               </div>
@@ -57,7 +53,7 @@
       }
 
       function Detail() {
-        const { state, dispatch } = React.useContext(AppContext);
+        const { state, service } = React.useContext(AppContext);
         const { classMetadata, entity } = state;
         const saveButton = React.useRef(null);
 
@@ -67,7 +63,7 @@
             [e.target.id]: e.target.value,
           };
 
-          dispatch({ type: "changeEntityData", entity: newEntity });
+          service.changeEntityData(newEntity);
 
           saveButton.current.disabled = !e.target.form.checkValidity();
         };
@@ -80,7 +76,7 @@
 
           const savedEntity = await state.crud.save(entity);
 
-          dispatch({ type: "saveEntity", entity: savedEntity });
+          service.saveEntity(savedEntity);
 
           e.preventDefault();
         };
@@ -88,7 +84,7 @@
         const deleteEntity = async e => {
           await state.crud.delete(entity);
 
-          dispatch({ type: "deleteEntity", entity });
+          service.deleteEntity(entity);
 
           e.preventDefault();
         };
@@ -124,14 +120,14 @@
       }
 
       function MasterDetail() {
-        const { state, dispatch } = React.useContext(AppContext);
+        const { state, service } = React.useContext(AppContext);
         const { classMetadata } = state;
         const [loading, setLoading] = React.useState(true);
 
         React.useEffect(async () => {
           setLoading(true);
           const data = await state.crud.getAll();
-          dispatch({ type: "setEntities", entities: data });
+          service.setEntities(data);
           setLoading(false);
         }, [classMetadata]);
 
@@ -140,7 +136,7 @@
         ) : (
           <>
             <nav>
-              <button onClick={() => dispatch({ type: "createEntity" })}>New...</button>
+              <button onClick={() => service.createEntity()}>New...</button>
               <List />
             </nav>
             <article>
@@ -207,6 +203,40 @@
         }
       }
 
+      class AppService {
+        constructor(dispatch) {
+          this.dispatch = dispatch;
+        }
+
+        setMetadata(classMetadata) {
+          this.dispatch({ type: "setMetadata", classMetadata });
+        }
+
+        setEntity(entity) {
+          this.dispatch({ type: "setEntity", entity });
+        }
+
+        saveEntity(entity) {
+          this.dispatch({ type: "saveEntity", entity });
+        }
+
+        deleteEntity(entity) {
+          this.dispatch({ type: "deleteEntity", entity });
+        }
+
+        createEntity() {
+          this.dispatch({ type: "createEntity" });
+        }
+
+        changeEntityData(entity) {
+          this.dispatch({ type: "changeEntityData", entity });
+        }
+
+        setEntities(entities) {
+          this.dispatch({ type: "setEntities", entities });
+        }
+      }
+
       const createInitialState = () => {
         const rootUrl = "http://localhost:3000/";
         const allMetadata = createMetadata(rootUrl);
@@ -217,9 +247,10 @@
 
       function App() {
         const [state, dispatch] = React.useReducer(reducer, createInitialState());
+        const service = new AppService(dispatch);
 
         return (
-          <AppContext.Provider value={{ state, dispatch }}>
+          <AppContext.Provider value={{ state, service }}>
             <header>
               <AppHeader />
             </header>
