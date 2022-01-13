@@ -10,8 +10,8 @@
     <script src="./src/lib/react-dom.development.js"></script>
     <script src="./src/lib/babel.min.js"></script>
     <script type="text/babel" data-type="module">
-      import { createMetadata } from "./src/metadataFactory.js";
-      import { Crud } from "./src/utils/crud.js";
+      import { AppService } from "./src/components/react/AppService.js";
+      import { createInitialState, reducer } from "./src/components/react/appFunctions.js";
 
       const AppContext = React.createContext(null);
 
@@ -69,7 +69,7 @@
         };
 
         const saveEntity = async e => {
-          for (const property of state.classMetadata.properties) {
+          for (const property of classMetadata.properties) {
             const name = property.name;
             entity[name] = document.getElementById(name).value;
           }
@@ -145,105 +145,6 @@
           </>
         );
       }
-
-      function resetState(state, classMetadata) {
-        return {
-          ...state,
-          classMetadata,
-          crud: new Crud(classMetadata.rootUrl),
-        };
-      }
-
-      function reducer(state, action) {
-        switch (action.type) {
-          case "setMetadata":
-            return resetState(state, action.classMetadata);
-          case "setEntity":
-            return { ...state, entity: action.entity };
-          case "saveEntity": {
-            const savedEntity = action.entity;
-            const newEntities = state.entities.filter(e => e.id).map(e => (savedEntity.id === e.id ? savedEntity : e));
-            if (newEntities.indexOf(savedEntity) === -1) {
-              newEntities.push(savedEntity);
-            }
-
-            return { ...state, entity: savedEntity, entities: newEntities };
-          }
-          case "deleteEntity": {
-            const entityToDelete = action.entity;
-            const entities = state.entities;
-
-            let entityToSelect = state.entity;
-            if (entityToDelete.id === state.entity.id) {
-              const index = entities.indexOf(entityToDelete);
-              if (index < 0) {
-                // Do nothing; entityToDelete is not in list
-              } else {
-                entityToSelect = index > 0 ? entities[index - 1] : entities[index + 1];
-              }
-            }
-
-            const newEntities = entities.filter(e => e.id !== entityToDelete.id);
-
-            return { ...state, entity: entityToSelect, entities: newEntities };
-          }
-          case "createEntity":
-            const newEntity = state.classMetadata.createNew();
-            return { ...state, entity: newEntity, entities: [...state.entities, newEntity] };
-          case "changeEntityData":
-            return { ...state, entity: action.entity };
-          case "setEntities":
-            return {
-              ...state,
-              entities: action.entities,
-              entity: action.entities.length > 0 ? action.entities[0] : null,
-            };
-          default:
-            throw new Error(`Unknown action [${action.type}]`);
-        }
-      }
-
-      class AppService {
-        constructor(dispatch) {
-          this.dispatch = dispatch;
-        }
-
-        setMetadata(classMetadata) {
-          this.dispatch({ type: "setMetadata", classMetadata });
-        }
-
-        setEntity(entity) {
-          this.dispatch({ type: "setEntity", entity });
-        }
-
-        saveEntity(entity) {
-          this.dispatch({ type: "saveEntity", entity });
-        }
-
-        deleteEntity(entity) {
-          this.dispatch({ type: "deleteEntity", entity });
-        }
-
-        createEntity() {
-          this.dispatch({ type: "createEntity" });
-        }
-
-        changeEntityData(entity) {
-          this.dispatch({ type: "changeEntityData", entity });
-        }
-
-        setEntities(entities) {
-          this.dispatch({ type: "setEntities", entities });
-        }
-      }
-
-      const createInitialState = () => {
-        const rootUrl = "http://localhost:3000/";
-        const allMetadata = createMetadata(rootUrl);
-        const classMetadata = allMetadata[0];
-
-        return resetState({ allMetadata }, classMetadata);
-      };
 
       function App() {
         const [state, dispatch] = React.useReducer(reducer, createInitialState());
