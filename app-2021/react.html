@@ -55,10 +55,9 @@
       function Detail() {
         const { classMetadata } = React.useContext(MetadataContext);
         const { entity, setEntity, saveEntity } = React.useContext(EntityContext);
+        const saveButton = React.useRef(null);
 
         const inputChange = e => {
-          const saveButton = document.getElementById("save");
-
           const newEntity = {
             ...entity,
             [e.target.id]: e.target.value,
@@ -66,7 +65,7 @@
 
           setEntity(newEntity);
 
-          saveButton.disabled = !e.target.form.checkValidity();
+          saveButton.current.disabled = !e.target.form.checkValidity();
         };
 
         return (
@@ -85,7 +84,7 @@
               </div>
             ))}
             <span>&nbsp;</span>
-            <button id="save" onClick={() => saveEntity(entity)}>
+            <button ref={saveButton} onClick={() => saveEntity(entity)}>
               Save
             </button>
           </form>
