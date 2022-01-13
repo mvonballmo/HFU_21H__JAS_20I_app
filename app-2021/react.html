@@ -71,14 +71,35 @@
         const { classMetadata } = React.useContext(MetadataContext);
         const { entity } = React.useContext(EntityContext);
 
+        const save = async () => {
+          // TODO
+        };
+
+        const inputChange = e => {
+          const saveButton = document.getElementById("save");
+
+          saveButton.disabled = !e.target.form.checkValidity();
+        };
+
         return (
           <form>
             {classMetadata.properties.map(p => (
               <div key={p.name}>
                 <label htmlFor={p.name}>{p.caption}</label>
-                <input type={p.type} id={p.name} required placeholder={p.caption} defaultValue={entity[p.name]} />
+                <input
+                  type={p.type}
+                  id={p.name}
+                  required
+                  placeholder={p.caption}
+                  defaultValue={entity[p.name]}
+                  onInput={inputChange}
+                />
               </div>
             ))}
+            <span>&nbsp;</span>
+            <button id="save" onClick={save}>
+              Save
+            </button>
           </form>
         );
       }
