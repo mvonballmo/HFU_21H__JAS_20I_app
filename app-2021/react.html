@@ -75,7 +75,7 @@
           e => {
             service.changeEntityData(e.target.id, e.target.value);
 
-            validate(e);
+            validate(e.target);
           },
           [validate],
         );
@@ -112,7 +112,11 @@
           saveButton.current.form.reportValidity();
         };
 
-        const validate = React.useCallback(e => (saveButton.current.disabled = !e.target.form.checkValidity()), []);
+        const validate = React.useCallback(input => (saveButton.current.disabled = !input.form.checkValidity()), []);
+
+        React.useEffect(() => {
+          validate(saveButton.current);
+        }, [entity]);
 
         return !entity ? (
           <div>Nothing selected</div>
