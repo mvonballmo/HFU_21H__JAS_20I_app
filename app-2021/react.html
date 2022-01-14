@@ -67,27 +67,30 @@
         return entities.map(e => <Item key={e.id ?? 0} entity={e} log={logClick} />);
       }
 
-      function InputRow({ p, saveButton }) {
+      function InputRow({ p, validate }) {
         const { state, service } = React.useContext(AppContext);
         const { entity } = state;
 
-        const inputChange = e => {
-          service.changeEntityData(e.target.id, e.target.value);
+        const inputChange = React.useCallback(
+          e => {
+            service.changeEntityData(e.target.id, e.target.value);
 
-          saveButton.current.disabled = !e.target.form.checkValidity();
-        };
+            validate(e);
+          },
+          [validate],
+        );
 
         const value = entity[p.name];
 
-        return React.useMemo(
-          () => (
+        return React.useMemo(() => {
+          console.log("input");
+          return (
             <>
               <label htmlFor={p.name}>{p.caption}</label>
               <input type={p.type} id={p.name} required placeholder={p.caption} value={value} onInput={inputChange} />
             </>
-          ),
-          [value, p],
-        );
+          );
+        }, [value, p, inputChange]);
       }
 
       function Detail() {
@@ -109,12 +112,14 @@
           saveButton.current.form.reportValidity();
         };
 
+        const validate = React.useCallback(e => (saveButton.current.disabled = !e.target.form.checkValidity()), []);
+
         return !entity ? (
           <div>Nothing selected</div>
         ) : (
           <form>
             {classMetadata.properties.map(p => (
-              <InputRow key={p.name} p={p} saveButton={saveButton} />
+              <InputRow key={p.name} p={p} validate={validate} />
             ))}
             <span>&nbsp;</span>
             <span>
