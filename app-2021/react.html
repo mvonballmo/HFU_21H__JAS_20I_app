@@ -48,11 +48,11 @@
 
         return React.useMemo(
           () => (
-            <>
+            <li>
               <a className={isSelected ? "selected" : ""} href="#" onClick={onClick}>
                 {classMetadata.getTitle(entity)}
               </a>
-            </>
+            </li>
           ),
           [isSelected, entity, classMetadata, onClick],
         );
@@ -64,7 +64,13 @@
 
         const logClick = React.useCallback(() => console.log("selection changed"), []);
 
-        return entities.map(e => <Item key={e.id ?? 0} entity={e} log={logClick} />);
+        return (
+          <ul>
+            {entities.map(e => (
+              <Item key={e.id ?? 0} entity={e} log={logClick} />
+            ))}
+          </ul>
+        );
       }
 
       function InputRow({ p, validate }) {

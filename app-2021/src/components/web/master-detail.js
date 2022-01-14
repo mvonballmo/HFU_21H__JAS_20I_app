@@ -32,7 +32,9 @@ class MasterDetail extends HTMLElement {
     this.innerHTML = `
       <nav>
         <button id="createNew">New...</button>
+        <ul>
         <app-list></app-list>
+        </ul>
       </nav>
       <article>
         <app-detail></app-detail>
