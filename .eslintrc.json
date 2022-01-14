@@ -6,9 +6,13 @@
     "node": true
   },
   "extends": ["eslint:recommended", "prettier"],
+  "parser": "@babel/eslint-parser",
   "parserOptions": {
     "ecmaVersion": 13,
-    "sourceType": "module"
+    "sourceType": "module",
+    "babelOptions": {
+      "presets": ["@babel/preset-react"]
+    }
   },
   "rules": {
     "no-unused-vars": ["warn", { "vars": "all", "args": "after-used", "ignoreRestSiblings": false }],
