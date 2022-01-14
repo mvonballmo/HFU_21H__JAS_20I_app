@@ -70,18 +70,16 @@
           saveButton.current.disabled = !e.target.form.checkValidity();
         };
 
-        return (
-          <>
-            <label htmlFor={p.name}>{p.caption}</label>
-            <input
-              type={p.type}
-              id={p.name}
-              required
-              placeholder={p.caption}
-              value={entity[p.name]}
-              onInput={inputChange}
-            />
-          </>
+        const value = entity[p.name];
+
+        return React.useMemo(
+          () => (
+            <>
+              <label htmlFor={p.name}>{p.caption}</label>
+              <input type={p.type} id={p.name} required placeholder={p.caption} value={value} onInput={inputChange} />
+            </>
+          ),
+          [value, p],
         );
       }
 
