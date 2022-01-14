@@ -62,7 +62,7 @@
         const { state } = React.useContext(AppContext);
         const { entities } = state;
 
-        const logClick = () => console.log("selection changed");
+        const logClick = React.useCallback(() => console.log("selection changed"));
 
         return entities.map(e => <Item key={e.id ?? 0} entity={e} log={logClick} />);
       }
