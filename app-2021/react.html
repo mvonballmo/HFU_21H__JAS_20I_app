@@ -39,16 +39,17 @@
         const { state, service } = React.useContext(AppContext);
         const { classMetadata, entity: selectedEntity } = state;
 
-        return (
-          <>
-            <a
-              className={entity.id === selectedEntity?.id ? "selected" : ""}
-              href="#"
-              onClick={() => service.setEntity(entity)}
-            >
-              {classMetadata.getTitle(entity)}
-            </a>
-          </>
+        const isSelected = entity.id === selectedEntity?.id;
+
+        return React.useMemo(
+          () => (
+            <>
+              <a className={isSelected ? "selected" : ""} href="#" onClick={() => service.setEntity(entity)}>
+                {classMetadata.getTitle(entity)}
+              </a>
+            </>
+          ),
+          [isSelected, entity, classMetadata],
         );
       }
 
