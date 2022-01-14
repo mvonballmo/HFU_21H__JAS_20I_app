@@ -35,7 +35,7 @@
         );
       }
 
-      function Item({ entity }) {
+      function Item({ entity, log }) {
         const { state, service } = React.useContext(AppContext);
         const { classMetadata, entity: selectedEntity } = state;
 
@@ -44,12 +44,19 @@
         return React.useMemo(
           () => (
             <>
-              <a className={isSelected ? "selected" : ""} href="#" onClick={() => service.setEntity(entity)}>
+              <a
+                className={isSelected ? "selected" : ""}
+                href="#"
+                onClick={() => {
+                  log();
+                  service.setEntity(entity);
+                }}
+              >
                 {classMetadata.getTitle(entity)}
               </a>
             </>
           ),
-          [isSelected, entity, classMetadata],
+          [isSelected, entity, classMetadata, log],
         );
       }
 
@@ -57,7 +64,9 @@
         const { state } = React.useContext(AppContext);
         const { entities } = state;
 
-        return entities.map(e => <Item key={e.id ?? 0} entity={e} />);
+        const logClick = () => console.log("selection changed");
+
+        return entities.map(e => <Item key={e.id ?? 0} entity={e} log={logClick} />);
       }
 
       function InputRow({ p, saveButton }) {
