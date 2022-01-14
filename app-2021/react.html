@@ -39,17 +39,17 @@
         const { state, service } = React.useContext(AppContext);
         const { classMetadata, entities, entity } = state;
 
-        return (
-          <>
-            {entities.map(e => (
-              <div key={e.id ?? 0}>
-                <a className={e.id === entity?.id ? "selected" : ""} href="#" onClick={() => service.setEntity(e)}>
-                  {classMetadata.getTitle(e)}
-                </a>
-              </div>
-            ))}
-          </>
-        );
+        function Item({ e }) {
+          return (
+            <>
+              <a className={e.id === entity?.id ? "selected" : ""} href="#" onClick={() => service.setEntity(e)}>
+                {classMetadata.getTitle(e)}
+              </a>
+            </>
+          );
+        }
+
+        return entities.map(e => <Item key={e.id ?? 0} e={e} />);
       }
 
       function Detail() {
@@ -78,22 +78,28 @@
           e.preventDefault();
         };
 
+        function InputRow({ p }) {
+          return (
+            <>
+              <label htmlFor={p.name}>{p.caption}</label>
+              <input
+                type={p.type}
+                id={p.name}
+                required
+                placeholder={p.caption}
+                value={entity[p.name]}
+                onInput={inputChange}
+              />
+            </>
+          );
+        }
+
         return !entity ? (
           <div>Nothing selected</div>
         ) : (
           <form>
             {classMetadata.properties.map(p => (
-              <div key={p.name}>
-                <label htmlFor={p.name}>{p.caption}</label>
-                <input
-                  type={p.type}
-                  id={p.name}
-                  required
-                  placeholder={p.caption}
-                  value={entity[p.name]}
-                  onInput={inputChange}
-                />
-              </div>
+              <InputRow key={p.name} p={p} />
             ))}
             <span>&nbsp;</span>
             <span>
