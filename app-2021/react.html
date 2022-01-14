@@ -41,23 +41,21 @@
 
         const isSelected = entity.id === selectedEntity?.id;
 
-        return React.useMemo(
-          () => (
+        const onClick = React.useCallback(() => {
+          log();
+          service.setEntity(entity);
+        }, [log]);
+
+        return React.useMemo(() => {
+          console.log("render item");
+          return (
             <>
-              <a
-                className={isSelected ? "selected" : ""}
-                href="#"
-                onClick={() => {
-                  log();
-                  service.setEntity(entity);
-                }}
-              >
+              <a className={isSelected ? "selected" : ""} href="#" onClick={onClick}>
                 {classMetadata.getTitle(entity)}
               </a>
             </>
-          ),
-          [isSelected, entity, classMetadata, log],
-        );
+          );
+        }, [isSelected, entity, classMetadata, onClick]);
       }
 
       function List() {
