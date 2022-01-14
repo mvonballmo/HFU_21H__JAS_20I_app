@@ -12,6 +12,7 @@ class Detail extends HTMLElement {
     this.#entity = value;
 
     const form = document.createElement("form");
+    form.onsubmit = () => false;
 
     for (const property of this.master.metadata.properties) {
       const label = document.createElement("label");
