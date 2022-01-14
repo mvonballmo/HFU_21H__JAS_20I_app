@@ -98,6 +98,10 @@
           e.preventDefault();
         };
 
+        const checkValidity = () => {
+          saveButton.current.form.reportValidity();
+        };
+
         return !entity ? (
           <div>Nothing selected</div>
         ) : (
@@ -113,6 +117,7 @@
               <button disabled={!entity.id} onClick={deleteEntity}>
                 Delete
               </button>
+              <button onClick={checkValidity}>Check</button>
             </span>
           </form>
         );
