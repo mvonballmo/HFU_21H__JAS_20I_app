@@ -3,7 +3,12 @@
  * @param rootUrl {string}
  */
 export function createMetadata(rootUrl) {
-  return [createAddressMetadata(rootUrl), createCarMetadata(rootUrl), createAlbumMetadata(rootUrl)];
+  return [
+    createAddressMetadata(rootUrl),
+    createCarMetadata(rootUrl),
+    createAlbumMetadata(rootUrl),
+    createNoteMetadata(rootUrl),
+  ];
 }
 
 /**
@@ -62,6 +67,7 @@ export function createCarMetadata(rootUrl) {
     ],
   };
 }
+
 /**
  * @return ClassMetadata
  * @param rootUrl {string}
@@ -71,6 +77,32 @@ export function createAlbumMetadata(rootUrl) {
     caption: "Album",
     pluralCaption: "Albums",
     rootUrl: `${rootUrl}albums`,
+    getTitle: c => `${c.title}`,
+    createNew: () => ({ title: "", description: "" }),
+    properties: [
+      {
+        name: "title",
+        type: "text",
+        caption: "Title",
+      },
+      {
+        name: "description",
+        type: "text",
+        caption: "Description",
+      },
+    ],
+  };
+}
+
+/**
+ * @return ClassMetadata
+ * @param rootUrl {string}
+ */
+export function createNoteMetadata(rootUrl) {
+  return {
+    caption: "Note",
+    pluralCaption: "Notes",
+    rootUrl: `${rootUrl}notes`,
     getTitle: c => `${c.title}`,
     createNew: () => ({ title: "", description: "" }),
     properties: [
