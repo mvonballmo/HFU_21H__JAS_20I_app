@@ -46,16 +46,16 @@
           service.setEntity(entity);
         }, [log]);
 
-        return React.useMemo(() => {
-          console.log("render item");
-          return (
+        return React.useMemo(
+          () => (
             <>
               <a className={isSelected ? "selected" : ""} href="#" onClick={onClick}>
                 {classMetadata.getTitle(entity)}
               </a>
             </>
-          );
-        }, [isSelected, entity, classMetadata, onClick]);
+          ),
+          [isSelected, entity, classMetadata, onClick],
+        );
       }
 
       function List() {
