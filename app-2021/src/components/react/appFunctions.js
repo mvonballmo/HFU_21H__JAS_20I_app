@@ -38,8 +38,16 @@ export function reducer(state, action) {
       const newEntity = state.classMetadata.createNew();
       return { ...state, entity: newEntity, entities: [...state.entities, newEntity] };
     }
-    case "changeEntityData":
-      return { ...state, entity: action.entity };
+    case "changeEntityData": {
+      const { entity } = state;
+      const { name, value } = action;
+      const newEntity = {
+        ...entity,
+        [name]: value,
+      };
+
+      return { ...state, entity: newEntity };
+    }
     case "setEntities":
       return {
         ...state,

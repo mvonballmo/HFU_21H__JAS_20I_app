@@ -64,12 +64,7 @@
         const { entity } = state;
 
         const inputChange = e => {
-          const newEntity = {
-            ...entity,
-            [e.target.id]: e.target.value,
-          };
-
-          service.changeEntityData(newEntity);
+          service.changeEntityData(e.target.id, e.target.value);
 
           saveButton.current.disabled = !e.target.form.checkValidity();
         };

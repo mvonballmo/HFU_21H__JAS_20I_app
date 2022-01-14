@@ -33,8 +33,8 @@ export class AppService {
     this.dispatch({ type: "createEntity" });
   }
 
-  changeEntityData(entity) {
-    this.dispatch({ type: "changeEntityData", entity });
+  changeEntityData(name, value) {
+    this.dispatch({ type: "changeEntityData", name, value });
   }
 
   setEntities(entities) {
