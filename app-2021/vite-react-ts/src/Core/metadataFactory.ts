@@ -1,7 +1,3 @@
-/**
- * @return ClassMetadata[]
- * @param rootUrl {string}
- */
 import { ClassMetadata } from "./Metadata";
 
 export function createMetadata(rootUrl: string): ClassMetadata[] {
@@ -40,10 +36,6 @@ export function createAddressMetadata(rootUrl: string): ClassMetadata {
   };
 }
 
-/**
- * @return ClassMetadata
- * @param rootUrl {string}
- */
 export function createCarMetadata(rootUrl: string): ClassMetadata {
   return {
     caption: "Car",
@@ -66,10 +58,6 @@ export function createCarMetadata(rootUrl: string): ClassMetadata {
   };
 }
 
-/**
- * @return ClassMetadata
- * @param rootUrl {string}
- */
 export function createAlbumMetadata(rootUrl: string): ClassMetadata {
   return {
     caption: "Album",
@@ -92,10 +80,6 @@ export function createAlbumMetadata(rootUrl: string): ClassMetadata {
   };
 }
 
-/**
- * @return ClassMetadata
- * @param rootUrl {string}
- */
 export function createNoteMetadata(rootUrl: string): ClassMetadata {
   return {
     caption: "Note",

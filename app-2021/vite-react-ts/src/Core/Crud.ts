@@ -4,38 +4,33 @@ import { Entity } from "./Metadata";
  * Describes an object that performs CRUD for a given entity.
  */
 export class Crud<T extends Entity> {
-  /**
-   * Creates a new object for the given `rootUrl`.
-   *
-   * @param {string} rootUrl The root URL to use.
-   */
   constructor(rootUrl: string) {
     this.#_rootUrl = rootUrl;
   }
 
   timeOutInMilliseconds = 5000;
 
-  getAll() {
+  getAll(): Promise<T[]> {
     return this.#execute(this.#_rootUrl);
   }
 
-  get(id: number) {
+  get(id: number): Promise<T> {
     return this.#execute(`${this.#_rootUrl}/${id}`);
   }
 
-  insert(entity: Entity) {
+  insert(entity: T): Promise<T> {
     return this.#insertOrUpdate(`${this.#_rootUrl}/`, entity, "POST");
   }
 
-  update(entity: Entity) {
+  update(entity: T): Promise<T> {
     return this.#insertOrUpdate(`${this.#_rootUrl}/${entity.id}`, entity, "PUT");
   }
 
-  delete(entity: Entity) {
+  delete(entity: T): Promise<T> {
     return this.#execute(`${this.#_rootUrl}/${entity.id}`, { method: "DELETE" });
   }
 
-  save(entity: Entity) {
+  save(entity: T): Promise<T> {
     if (entity.id) {
       return this.update(entity);
     }
@@ -53,9 +48,6 @@ export class Crud<T extends Entity> {
     return response.json();
   }
 
-  /**
-   * @return {Promise<Response>}
-   */
   #fetchWithTimeout = (url: string, { signal, ...options }: RequestInit = {}) => {
     const controller = new AbortController();
     const response = fetch(url, { signal: controller.signal, ...options });
@@ -68,11 +60,6 @@ export class Crud<T extends Entity> {
     return response.finally(() => clearTimeout(timeout));
   };
 
-  /**
-   * @param {string} url
-   * @param {{}} entity
-   * @param {string} method
-   */
   #insertOrUpdate(url: string, entity: Entity, method: string) {
     return this.#execute(url, {
       method: method,
@@ -83,8 +70,5 @@ export class Crud<T extends Entity> {
     });
   }
 
-  /**
-   * @type {string}
-   */
-  readonly #_rootUrl;
+  readonly #_rootUrl: string;
 }

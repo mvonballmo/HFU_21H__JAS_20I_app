@@ -8,39 +8,17 @@ type EntityCreator = () => Entity;
 
 type TypeMetadata = "text";
 
-export class PropertyMetadata {
+export type PropertyMetadata = {
   name: string;
   type: TypeMetadata;
   caption: string;
+};
 
-  constructor(name: string, caption: string, type: TypeMetadata) {
-    this.name = name;
-    this.type = type;
-    this.caption = caption;
-  }
-}
-
-export class ClassMetadata {
+export type ClassMetadata = {
   caption: string;
   pluralCaption: string;
   rootUrl: string;
   properties: PropertyMetadata[];
   getTitle: TitleGetter;
   createNew: EntityCreator;
-
-  constructor(
-    caption: string,
-    pluralCaption: string,
-    rootUrl: string,
-    fields: PropertyMetadata[],
-    getTitle: TitleGetter,
-    createNew: EntityCreator,
-  ) {
-    this.caption = caption;
-    this.pluralCaption = pluralCaption;
-    this.rootUrl = rootUrl;
-    this.properties = fields;
-    this.getTitle = getTitle;
-    this.createNew = createNew;
-  }
-}
+};

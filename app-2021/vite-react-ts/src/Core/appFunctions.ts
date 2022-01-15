@@ -87,7 +87,7 @@ export function reducer(state: AppState, action: AppAction): AppState {
     case "changeEntityData": {
       const { entity } = state;
       if (!entity) {
-        throw new Error("The entity must be assigned in order to be modifed.");
+        throw new Error("The entity must be assigned in order to be modified.");
       }
 
       const { name, value } = action;
