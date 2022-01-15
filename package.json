@@ -8,6 +8,7 @@
     "2021-server": "json-server ./app-2021/data.json --watch --port 3000",
     "2021-client": "npx http-server ./app-2021 --port 8081"
   },
+  "type": "module",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/mvonballmo/HFU_21H__JAS_20I_app.git"
@@ -31,6 +32,7 @@
     "babel-jest": "^27.3.1",
     "eslint": "^8.3.0",
     "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-react-hooks": "^4.3.0",
     "http-server": "^14.0.0",
     "isomorphic-fetch": "^3.0.0",
     "jest": "^27.3.1",
