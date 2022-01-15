@@ -1,10 +1,9 @@
 import { Dispatch } from "react";
-import { AppAction } from "../Core/appFunctions";
+import { AppAction } from "./appFunctions";
 import { ClassMetadata, Entity } from "./Metadata";
 import { AppState } from "./AppState";
 
 export class AppService {
-  private dispatch: Dispatch<AppAction>;
   constructor(dispatch: Dispatch<AppAction>) {
     this.dispatch = dispatch;
   }
@@ -19,20 +18,27 @@ export class AppService {
 
   async saveEntity(state: AppState) {
     let entity = state.entity;
+    if (!entity) {
+      throw new Error("The entity must be assigned in order to be saved.");
+    }
     for (const property of state.classMetadata.properties) {
       const name = property.name;
-      entity[name] = document.getElementById(name).value;
+      entity[name] = (document.getElementById(name) as HTMLInputElement)?.value;
     }
 
-    entity = await state.crud.save(entity);
+    entity = (await state.crud.save(entity)) as Entity;
 
     this.dispatch({ type: "saveEntity", entity });
   }
 
   async deleteEntity(state: AppState) {
-    await state.crud.delete(state.entity);
+    const entity = state.entity;
+    if (!entity) {
+      throw new Error("The entity must be assigned in order to be deleted.");
+    }
+    await state.crud.delete(entity);
 
-    this.dispatch({ type: "deleteEntity", entity: state.entity });
+    this.dispatch({ type: "deleteEntity", entity });
   }
 
   createEntity() {
@@ -46,4 +52,6 @@ export class AppService {
   setEntities(entities: Entity[]) {
     this.dispatch({ type: "setEntities", entities });
   }
+
+  private readonly dispatch: Dispatch<AppAction>;
 }

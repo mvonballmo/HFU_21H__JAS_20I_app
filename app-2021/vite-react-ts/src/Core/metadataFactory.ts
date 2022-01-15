@@ -19,7 +19,7 @@ export function createAddressMetadata(rootUrl: string): ClassMetadata {
     pluralCaption: "Addresses",
     rootUrl: `${rootUrl}addresses`,
     getTitle: a => `${a.firstName} ${a.lastName}`,
-    createNew: () => ({ firstName: "", lastName: "", salary: "" }),
+    createNew: () => ({ id: undefined, firstName: "", lastName: "", salary: "" }),
     properties: [
       {
         name: "firstName",
@@ -50,7 +50,7 @@ export function createCarMetadata(rootUrl: string): ClassMetadata {
     pluralCaption: "Cars",
     rootUrl: `${rootUrl}cars`,
     getTitle: c => `${c.make} ${c.model}`,
-    createNew: () => ({ make: "", model: "" }),
+    createNew: () => ({ id: undefined, make: "", model: "" }),
     properties: [
       {
         name: "make",
@@ -76,7 +76,7 @@ export function createAlbumMetadata(rootUrl: string): ClassMetadata {
     pluralCaption: "Albums",
     rootUrl: `${rootUrl}albums`,
     getTitle: a => `${a.title}`,
-    createNew: () => ({ title: "", description: "" }),
+    createNew: () => ({ id: undefined, title: "", description: "" }),
     properties: [
       {
         name: "title",
@@ -102,7 +102,7 @@ export function createNoteMetadata(rootUrl: string): ClassMetadata {
     pluralCaption: "Notes",
     rootUrl: `${rootUrl}notes`,
     getTitle: n => `${n.title}`,
-    createNew: () => ({ title: "", description: "" }),
+    createNew: () => ({ id: undefined, title: "", description: "" }),
     properties: [
       {
         name: "title",

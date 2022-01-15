@@ -1,5 +1,5 @@
 export type Entity = {
-  id: number;
+  id: number | undefined;
   [otherOptions: string]: unknown;
 };
 

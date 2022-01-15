@@ -20,7 +20,7 @@ export function InputRow({ p, validate }: InputRowProps) {
     [validate],
   );
 
-  const value = entity[p.name] as string;
+  const value = entity ? (entity[p.name] as string) : "";
 
   return useMemo(
     () => (

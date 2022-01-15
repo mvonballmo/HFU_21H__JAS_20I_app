@@ -71,7 +71,7 @@ export function reducer(state: AppState, action: AppAction): AppState {
       const entities = state.entities;
 
       let entityToSelect = state.entity;
-      if (entityToDelete.id === state.entity.id) {
+      if (entityToDelete.id === state.entity?.id) {
         const index = entities.indexOf(entityToDelete);
         if (index < 0) {
           // Do nothing; entityToDelete is not in list
@@ -90,6 +90,10 @@ export function reducer(state: AppState, action: AppAction): AppState {
     }
     case "changeEntityData": {
       const { entity } = state;
+      if (!entity) {
+        throw new Error("The entity must be assigned in order to be modifed.");
+      }
+
       const { name, value } = action;
       const newEntity = {
         ...entity,
