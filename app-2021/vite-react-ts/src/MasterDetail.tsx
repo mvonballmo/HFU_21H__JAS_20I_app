@@ -8,11 +8,17 @@ export function MasterDetail() {
   const { classMetadata } = state;
   const [loading, setLoading] = useState(true);
 
-  useEffect(async () => {
-    setLoading(true);
-    const data = await state.crud.getAll();
-    service.setEntities(data);
-    setLoading(false);
+  useEffect(() => {
+    async function setEntities() {
+      setLoading(true);
+      const data = await state.crud.getAll();
+      service.setEntities(data);
+      setLoading(false);
+    }
+
+    setEntities().catch(e => {
+      throw e;
+    });
   }, [classMetadata]);
 
   return loading ? (
