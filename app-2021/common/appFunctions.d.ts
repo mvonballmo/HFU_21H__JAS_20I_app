@@ -16,26 +16,26 @@ interface SetMetadataAction {
   classMetadata: ClassMetadata;
 }
 
-interface SetEntityAction extends Action {
+interface SetEntityAction {
   type: ActionType.setEntity;
   entity: Entity;
 }
 
-interface SaveEntityAction extends Action {
+interface SaveEntityAction {
   type: ActionType.saveEntity;
   entity: Entity;
 }
 
-interface DeleteEntityAction extends Action {
+interface DeleteEntityAction {
   type: ActionType.deleteEntity;
   entity: Entity;
 }
 
-interface CreateEntityAction extends Action {
+interface CreateEntityAction {
   type: ActionType.createEntity;
 }
 
-interface ChangeEntityDataAction extends Action {
+interface ChangeEntityDataAction {
   type: ActionType.changeEntityData;
   name: string;
   value: unknown;
