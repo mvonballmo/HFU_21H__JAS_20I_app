@@ -1,5 +1,5 @@
 import { Dispatch } from "react";
-import { ActionType, AppAction } from "../../../common/appFunctions";
+import { AppAction } from "../Core/appFunctions";
 import { ClassMetadata, Entity } from "./Metadata";
 import { AppState } from "./AppState";
 
