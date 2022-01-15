@@ -4,8 +4,8 @@ import { createInitialState, reducer } from "../../common/appFunctions.js";
 import { useReducer } from "react";
 import { AppHeader } from "./AppHeader";
 import { MasterDetail } from "./MasterDetail";
-import "../reset.css";
-import "../styles.css";
+import "../../reset.css";
+import "../../styles.css";
 
 function App() {
   const [state, dispatch] = useReducer(reducer, createInitialState());
