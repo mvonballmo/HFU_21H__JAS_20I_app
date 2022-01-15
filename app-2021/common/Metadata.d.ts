@@ -1,10 +1,13 @@
-type Entity = Record<string, unknown>;
+type Entity = {
+  id: number;
+  [otherOptions: string]: unknown;
+};
 type TitleGetter = (obj: Entity) => string;
 type EntityCreator = () => Entity;
 
 type TypeMetadata = "text";
 
-class PropertyMetadata {
+export class PropertyMetadata {
   name: string;
   type: TypeMetadata;
   caption: string;
@@ -16,7 +19,7 @@ class PropertyMetadata {
   }
 }
 
-class ClassMetadata {
+export class ClassMetadata {
   caption: string;
   pluralCaption: string;
   rootUrl: string;
