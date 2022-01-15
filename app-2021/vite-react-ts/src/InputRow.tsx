@@ -1,6 +1,6 @@
 import { useCallback, useContext, useMemo } from "react";
 import { AppContext } from "./AppContext";
-import { PropertyMetadata } from "../../common/Metadata";
+import { PropertyMetadata } from "./Metadata";
 
 type InputRowProps = {
   p: PropertyMetadata;

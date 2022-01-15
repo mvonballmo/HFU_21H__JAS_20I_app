@@ -1,6 +1,6 @@
 import { useContext, useCallback, useMemo } from "react";
 import { AppContext } from "./AppContext";
-import { Entity } from "../../common/Metadata";
+import { Entity } from "./Metadata";
 
 type ItemProps = {
   entity: Entity;

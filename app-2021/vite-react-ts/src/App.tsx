@@ -1,6 +1,6 @@
 import { AppContext } from "./AppContext";
-import { AppService } from "../../common/AppService.js";
-import { createInitialState, reducer } from "../../common/appFunctions.js";
+import { AppService } from "./AppService.js";
+import { createInitialState, reducer } from "./appFunctions.js";
 import { useReducer } from "react";
 import { AppHeader } from "./AppHeader";
 import { MasterDetail } from "./MasterDetail";

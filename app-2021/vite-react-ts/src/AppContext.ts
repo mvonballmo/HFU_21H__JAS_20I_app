@@ -1,6 +1,6 @@
 import { createContext } from "react";
-import { AppService } from "../../common/AppService";
-import { AppState } from "../../common/AppState";
+import { AppService } from "./AppService";
+import { AppState } from "./AppState";
 
 type TAppContext = {
   state: AppState;
