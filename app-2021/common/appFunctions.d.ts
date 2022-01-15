@@ -1,49 +1,35 @@
 import { AppState } from "./AppState";
 import { ClassMetadata, Entity } from "./Metadata";
 
-enum ActionType {
-  setMetadata,
-  setEntity,
-  saveEntity,
-  deleteEntity,
-  createEntity,
-  changeEntityData,
-  setEntities,
-}
-
 interface SetMetadataAction {
-  type: ActionType.setMetadata;
+  type: "setMetadata";
   classMetadata: ClassMetadata;
 }
 
 interface SetEntityAction {
-  type: ActionType.setEntity;
+  type: "setEntity";
   entity: Entity;
 }
 
 interface SaveEntityAction {
-  type: ActionType.saveEntity;
+  type: "saveEntity";
   entity: Entity;
 }
 
 interface DeleteEntityAction {
-  type: ActionType.deleteEntity;
+  type: "deleteEntity";
   entity: Entity;
 }
 
 interface CreateEntityAction {
-  type: ActionType.createEntity;
+  type: "createEntity";
 }
 
 interface ChangeEntityDataAction {
-  type: ActionType.changeEntityData;
+  type: "changeEntityData";
   name: string;
   value: unknown;
 }
-
-// function createSetMetadataAction(classMetadata: ClassMetadata) {
-//
-// }
 
 type AppAction =
   | SetMetadataAction
@@ -53,6 +39,6 @@ type AppAction =
   | CreateEntityAction
   | ChangeEntityDataAction;
 
-export function reducer(state: AppState, action: AppAction);
+export function reducer(state: AppState, action: AppAction): AppState;
 
 export function createInitialState(): AppState;

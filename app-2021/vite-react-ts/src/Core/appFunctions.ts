@@ -3,52 +3,42 @@ import { createMetadata } from "./metadataFactory.js";
 import { AppState } from "./AppState";
 import { ClassMetadata, Entity } from "./Metadata";
 
-enum ActionType {
-  setMetadata = "setMetadata",
-  setEntity = "setEntity",
-  saveEntity = "saveEntity",
-  deleteEntity = "deleteEntity",
-  createEntity = "createEntity",
-  changeEntityData = "changeEntityData",
-  setEntities = "setEntities",
-}
-
 interface SetMetadataAction {
-  type: ActionType.setMetadata;
+  type: "setMetadata";
   classMetadata: ClassMetadata;
 }
 
 interface SetEntityAction {
-  type: ActionType.setEntity;
+  type: "setEntity";
   entity: Entity;
 }
 
 interface SaveEntityAction {
-  type: ActionType.saveEntity;
+  type: "saveEntity";
   entity: Entity;
 }
 
 interface DeleteEntityAction {
-  type: ActionType.deleteEntity;
+  type: "deleteEntity";
   entity: Entity;
 }
 
 interface CreateEntityAction {
-  type: ActionType.createEntity;
+  type: "createEntity";
 }
 
 interface ChangeEntityDataAction {
-  type: ActionType.changeEntityData;
+  type: "changeEntityData";
   name: string;
   value: unknown;
 }
 
 interface SetEntitiesAction {
-  type: ActionType.setEntities;
+  type: "setEntities";
   entities: Entity[];
 }
 
-type AppAction =
+export type AppAction =
   | SetMetadataAction
   | SetEntityAction
   | SaveEntityAction
@@ -114,8 +104,6 @@ export function reducer(state: AppState, action: AppAction): AppState {
         entities: action.entities,
         entity: action.entities.length > 0 ? action.entities[0] : null,
       };
-    default:
-      throw new Error(`Unknown action [${action.type}]`);
   }
 }
 
