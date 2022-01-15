@@ -1,5 +1,5 @@
 import { useContext, useCallback } from "react";
-import { AppContext } from "./AppContext";
+import { AppContext } from "../Core/AppContext";
 import { Item } from "./Item";
 
 export function List() {

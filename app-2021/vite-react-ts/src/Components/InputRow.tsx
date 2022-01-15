@@ -1,7 +1,13 @@
 import { useCallback, useContext, useMemo } from "react";
-import { AppContext } from "./AppContext";
+import { AppContext } from "../Core/AppContext";
+import { PropertyMetadata } from "../Core/Metadata";
 
-export function InputRow({ p, validate }) {
+type InputRowProps = {
+  p: PropertyMetadata;
+  validate: (e: HTMLElement) => void;
+};
+
+export function InputRow({ p, validate }: InputRowProps) {
   const { state, service } = useContext(AppContext);
   const { entity } = state;
 
@@ -14,7 +20,7 @@ export function InputRow({ p, validate }) {
     [validate],
   );
 
-  const value = entity[p.name];
+  const value = entity[p.name] as string;
 
   return useMemo(
     () => (

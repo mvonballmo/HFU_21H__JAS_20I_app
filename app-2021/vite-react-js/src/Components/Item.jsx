@@ -1,13 +1,7 @@
 import { useContext, useCallback, useMemo } from "react";
-import { AppContext } from "./AppContext";
-import { Entity } from "./Metadata";
+import { AppContext } from "../Core/AppContext";
 
-type ItemProps = {
-  entity: Entity;
-  log: () => void;
-};
-
-export function Item({ entity, log }: ItemProps) {
+export function Item({ entity, log }) {
   const { state, service } = useContext(AppContext);
   const { classMetadata, entity: selectedEntity } = state;
 

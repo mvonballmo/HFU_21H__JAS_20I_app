@@ -1,4 +1,4 @@
-import { Crud } from "./crud.js";
+import { Crud } from "./Crud.js";
 import { createMetadata } from "./metadataFactory.js";
 import { AppState } from "./AppState";
 import { ClassMetadata, Entity } from "./Metadata";

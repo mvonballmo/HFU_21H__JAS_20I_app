@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { AppContext } from "./AppContext";
+import { AppContext } from "../Core/AppContext";
 
 export function AppHeader() {
   const { state, service } = useContext(AppContext);

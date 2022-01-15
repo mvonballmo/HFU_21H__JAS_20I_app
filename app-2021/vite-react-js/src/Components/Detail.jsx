@@ -1,24 +1,24 @@
-import { MouseEvent, useCallback, useContext, useEffect, useRef } from "react";
-import { AppContext } from "./AppContext";
+import { useCallback, useContext, useEffect, useRef } from "react";
+import { AppContext } from "../Core/AppContext";
 import { InputRow } from "./InputRow";
 
 export function Detail() {
   const { state, service } = useContext(AppContext);
   const { classMetadata, entity } = state;
-  const saveButton = useRef(null as unknown as HTMLButtonElement);
+  const saveButton = useRef(null);
 
-  const saveEntity = async (e: MouseEvent<HTMLButtonElement>) => {
+  const saveEntity = async e => {
     await service.saveEntity(state);
     e.preventDefault();
   };
 
-  const deleteEntity = async (e: MouseEvent<HTMLButtonElement>) => {
+  const deleteEntity = async e => {
     await service.deleteEntity(state);
     e.preventDefault();
   };
 
   const checkValidity = () => {
-    saveButton.current?.form?.reportValidity();
+    saveButton.current.form.reportValidity();
   };
 
   const validate = useCallback(input => (saveButton.current.disabled = !input.form.checkValidity()), []);

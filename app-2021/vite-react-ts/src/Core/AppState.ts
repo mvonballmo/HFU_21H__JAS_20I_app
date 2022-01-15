@@ -1,5 +1,5 @@
 import { ClassMetadata, Entity } from "./Metadata";
-import { Crud } from "./crud";
+import { Crud } from "./Crud";
 
 export type AppState = {
   allMetadata: ClassMetadata[];
