@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Animation Demo</title>
+    <script src="animation-main.js" type="module"></script>
+    <link rel="stylesheet" href="../reset.css" />
+    <link rel="stylesheet" href="../styles.css" />
+    <style>
+      nav > div,
+      section div {
+        display: grid;
+        grid-template-rows: 1fr;
+        gap: 1rem;
+      }
+
+      nav button {
+        display: block;
+        width: 100%;
+        margin-block: 10px;
+      }
+
+      section div p {
+        background-color: darkseagreen;
+        height: 100px;
+      }
+
+      #cssTransitionBlock {
+        transition: opacity 1s;
+      }
+
+      #cssAnimationBlock {
+        animation-name: fadeOut;
+        animation-duration: 1s;
+        animation-fill-mode: forwards;
+        animation-play-state: paused;
+      }
+
+      @keyframes fadeOut {
+        0% {
+          opacity: 1;
+        }
+        100% {
+          opacity: 0.3;
+        }
+      }
+
+      @keyframes fadeIn {
+        0% {
+          opacity: 0.3;
+        }
+        100% {
+          opacity: 1;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>Animations</h1>
+    </header>
+    <main>
+      <nav>
+        <h2>Controls</h2>
+        <ul>
+          <li><button id="naive">Naive</button></li>
+          <li><button id="requestAnimationFrame">Request Animation Frame</button></li>
+          <li><button id="cssTransitions">CSS Transitions</button></li>
+          <li><button id="cssAnimations">CSS Animations</button></li>
+          <li><button id="webAnimations">Web Animation API</button></li>
+        </ul>
+      </nav>
+      <section>
+        <h2>Sandbox</h2>
+        <div>
+          <p id="naiveBlock"></p>
+          <p id="requestAnimationFrameBlock"></p>
+          <p id="cssTransitionBlock"></p>
+          <p id="cssAnimationBlock"></p>
+          <p id="webAnimationBlock"></p>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>

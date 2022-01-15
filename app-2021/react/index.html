@@ -4,14 +4,14 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>React Demo</title>
-    <link rel="stylesheet" href="reset.css" />
-    <link rel="stylesheet" href="styles.css" />
-    <script src="./src/lib/react.development.js"></script>
-    <script src="./src/lib/react-dom.development.js"></script>
-    <script src="./src/lib/babel.min.js"></script>
+    <link rel="stylesheet" href="../reset.css" />
+    <link rel="stylesheet" href="../styles.css" />
+    <script src="lib/react.development.js"></script>
+    <script src="lib/react-dom.development.js"></script>
+    <script src="lib/babel.min.js"></script>
     <script type="text/babel" data-type="module">
-      import { AppService } from "./src/components/react/AppService.js";
-      import { createInitialState, reducer } from "./src/components/react/appFunctions.js";
+      import { AppService } from "../common/AppService.js";
+      import { createInitialState, reducer } from "../common/appFunctions.js";
 
       const AppContext = React.createContext(null);
 

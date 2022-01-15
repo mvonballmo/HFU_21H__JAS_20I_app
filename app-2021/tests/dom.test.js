@@ -4,7 +4,7 @@
 
 import { describe, expect, test } from "@jest/globals";
 import "isomorphic-fetch";
-import { Crud } from "../utils/crud.js";
+import { Crud } from "../common/crud.js";
 
 describe("DOM", () => {
   test("get element properties", () => {

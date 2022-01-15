@@ -1,5 +1,5 @@
-import { Crud } from "../../utils/crud.js";
-import { createMetadata } from "../../metadataFactory.js";
+import { Crud } from "./crud.js";
+import { createMetadata } from "./metadataFactory.js";
 
 export function reducer(state, action) {
   switch (action.type) {

@@ -31,21 +31,6 @@ app-header, app-master-detail, app-detail, app-list, #root {
   height: 100%;
 }
 
-nav {
-  overflow: auto;
-}
-
-nav {
-  display: grid;
-  grid-template-rows: auto minmax(100px, 1fr);
-}
-
-nav ul {
-  overflow: auto;
-  list-style: none;
-  padding: 0;
-}
-
 header,
 nav {
   background-color: aliceblue;
@@ -69,6 +54,25 @@ header ul li {
 
 header ul li:not(:first-child):before {
   content: " | ";
+}
+
+nav {
+  overflow: auto;
+}
+
+nav {
+  display: grid;
+  grid-template-rows: auto minmax(100px, 1fr);
+}
+
+nav ul {
+  overflow: auto;
+  list-style: none;
+  padding: 0;
+}
+
+nav a {
+  display: block;
 }
 
 section,
@@ -95,10 +99,6 @@ article form label {
 input:invalid {
   outline: 1px dotted red;
   background-color: mistyrose;
-}
-
-nav a {
-  display: block;
 }
 
 .removed {

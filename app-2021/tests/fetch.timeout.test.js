@@ -1,5 +1,5 @@
 import { describe, expect, test } from "@jest/globals";
-import { Crud } from "../utils/crud";
+import { Crud } from "../common/crud.js";
 
 describe("Fetch Timeout", () => {
   const fetchRequestDurationInMilliseconds = 1000;

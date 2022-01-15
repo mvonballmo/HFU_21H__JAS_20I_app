@@ -1,7 +1,7 @@
 import { describe, expect, test } from "@jest/globals";
 import "isomorphic-fetch";
-import { Crud } from "../utils/crud.js";
-import { testingRootUrl } from "../test-library.js";
+import { Crud } from "./crud.js";
+import { testingRootUrl } from "../tests/test-library.js";
 
 describe("crud", () => {
   const serverRoot = testingRootUrl;
