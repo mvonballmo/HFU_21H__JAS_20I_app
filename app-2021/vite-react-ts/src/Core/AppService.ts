@@ -1,5 +1,13 @@
 import { Dispatch } from "react";
-import { AppAction } from "./appFunctions";
+import {
+  AppAction,
+  CreateChangeEntityDataAction,
+  CreateDeleteEntityAction,
+  CreateSaveEntityAction,
+  CreateSetEntitiesAction,
+  CreateSetEntityAction,
+  CreateSetMetadataAction,
+} from "./appFunctions";
 import { ClassMetadata, Entity } from "./Metadata";
 import { AppState } from "./AppState";
 
@@ -9,11 +17,11 @@ export class AppService {
   }
 
   setMetadata(classMetadata: ClassMetadata) {
-    this.dispatch({ type: "setMetadata", classMetadata });
+    this.dispatch(CreateSetMetadataAction(classMetadata));
   }
 
   setEntity(entity: Entity) {
-    this.dispatch({ type: "setEntity", entity });
+    this.dispatch(CreateSetEntityAction(entity));
   }
 
   async saveEntity(state: AppState) {
@@ -28,7 +36,7 @@ export class AppService {
 
     entity = (await state.crud.save(entity)) as Entity;
 
-    this.dispatch({ type: "saveEntity", entity });
+    this.dispatch(CreateSaveEntityAction(entity));
   }
 
   async deleteEntity(state: AppState) {
@@ -38,7 +46,7 @@ export class AppService {
     }
     await state.crud.delete(entity);
 
-    this.dispatch({ type: "deleteEntity", entity });
+    this.dispatch(CreateDeleteEntityAction(entity));
   }
 
   createEntity() {
@@ -46,11 +54,11 @@ export class AppService {
   }
 
   changeEntityData(name: string, value: unknown) {
-    this.dispatch({ type: "changeEntityData", name, value });
+    this.dispatch(CreateChangeEntityDataAction(name, value));
   }
 
   setEntities(entities: Entity[]) {
-    this.dispatch({ type: "setEntities", entities });
+    this.dispatch(CreateSetEntitiesAction(entities));
   }
 
   private readonly dispatch: Dispatch<AppAction>;

@@ -3,49 +3,45 @@ import { createMetadata } from "./metadataFactory.js";
 import { AppState } from "./AppState";
 import { ClassMetadata, Entity } from "./Metadata";
 
-interface SetMetadataAction {
-  type: "setMetadata";
-  classMetadata: ClassMetadata;
+export function CreateSetMetadataAction(classMetadata: ClassMetadata) {
+  return {
+    type: "setMetadata" as const,
+    classMetadata,
+  };
 }
 
-interface SetEntityAction {
-  type: "setEntity";
-  entity: Entity;
+export function CreateSetEntityAction(entity: Entity) {
+  return { type: "setEntity" as const, entity };
 }
 
-interface SaveEntityAction {
-  type: "saveEntity";
-  entity: Entity;
+export function CreateSaveEntityAction(entity: Entity) {
+  return { type: "saveEntity" as const, entity };
 }
 
-interface DeleteEntityAction {
-  type: "deleteEntity";
-  entity: Entity;
+export function CreateDeleteEntityAction(entity: Entity) {
+  return { type: "deleteEntity" as const, entity };
 }
 
-interface CreateEntityAction {
-  type: "createEntity";
+export function CreateCreateEntityAction() {
+  return { type: "createEntity" as const };
 }
 
-interface ChangeEntityDataAction {
-  type: "changeEntityData";
-  name: string;
-  value: unknown;
+export function CreateChangeEntityDataAction(name: string, value: unknown) {
+  return { type: "changeEntityData" as const, name, value };
 }
 
-interface SetEntitiesAction {
-  type: "setEntities";
-  entities: Entity[];
+export function CreateSetEntitiesAction(entities: Entity[]) {
+  return { type: "setEntities" as const, entities };
 }
 
 export type AppAction =
-  | SetMetadataAction
-  | SetEntityAction
-  | SaveEntityAction
-  | DeleteEntityAction
-  | CreateEntityAction
-  | ChangeEntityDataAction
-  | SetEntitiesAction;
+  | ReturnType<typeof CreateSetMetadataAction>
+  | ReturnType<typeof CreateSetEntityAction>
+  | ReturnType<typeof CreateSaveEntityAction>
+  | ReturnType<typeof CreateDeleteEntityAction>
+  | ReturnType<typeof CreateCreateEntityAction>
+  | ReturnType<typeof CreateChangeEntityDataAction>
+  | ReturnType<typeof CreateSetEntitiesAction>;
 
 export function reducer(state: AppState, action: AppAction): AppState {
   switch (action.type) {
