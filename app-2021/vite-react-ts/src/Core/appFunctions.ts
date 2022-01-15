@@ -3,32 +3,24 @@ import { createMetadata } from "./metadataFactory.js";
 import { AppState } from "./AppState";
 import { ClassMetadata, Entity } from "./Metadata";
 
-export function CreateSetMetadataAction(classMetadata: ClassMetadata) {
-  return {
-    type: "setMetadata" as const,
-    classMetadata,
-  };
-}
+export const CreateSetMetadataAction = (classMetadata: ClassMetadata) => ({
+  type: "setMetadata" as const,
+  classMetadata,
+});
 
-export function CreateSetEntityAction(entity: Entity) {
-  return { type: "setEntity" as const, entity };
-}
+export const CreateSetEntityAction = (entity: Entity) => ({ type: "setEntity" as const, entity });
 
-export function CreateSaveEntityAction(entity: Entity) {
-  return { type: "saveEntity" as const, entity };
-}
+export const CreateSaveEntityAction = (entity: Entity) => ({ type: "saveEntity" as const, entity });
 
-export function CreateDeleteEntityAction(entity: Entity) {
-  return { type: "deleteEntity" as const, entity };
-}
+export const CreateDeleteEntityAction = (entity: Entity) => ({ type: "deleteEntity" as const, entity });
 
-export function CreateCreateEntityAction() {
-  return { type: "createEntity" as const };
-}
+export const CreateCreateEntityAction = () => ({ type: "createEntity" as const });
 
-export function CreateChangeEntityDataAction(name: string, value: unknown) {
-  return { type: "changeEntityData" as const, name, value };
-}
+export const CreateChangeEntityDataAction = (name: string, value: unknown) => ({
+  type: "changeEntityData" as const,
+  name,
+  value,
+});
 
 export function CreateSetEntitiesAction(entities: Entity[]) {
   return { type: "setEntities" as const, entities };
