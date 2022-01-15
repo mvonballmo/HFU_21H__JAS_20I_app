@@ -2,7 +2,7 @@
  * @return ClassMetadata[]
  * @param rootUrl {string}
  */
-export function createMetadata(rootUrl) {
+export function createMetadata(rootUrl: string) {
   return [
     createAddressMetadata(rootUrl),
     createCarMetadata(rootUrl),
@@ -11,16 +11,36 @@ export function createMetadata(rootUrl) {
   ];
 }
 
+type Address = {
+  id: number;
+  firstName: string;
+  lastName: string;
+};
+
+type Car = {
+  id: number;
+  model: string;
+  make: string;
+};
+
+type Album = {
+  id: number;
+  title: string;
+  description: string;
+};
+
+type Note = Album;
+
 /**
  * @return ClassMetadata
  * @param rootUrl {string}
  */
-export function createAddressMetadata(rootUrl) {
+export function createAddressMetadata(rootUrl: string) {
   return {
     caption: "Address",
     pluralCaption: "Addresses",
     rootUrl: `${rootUrl}addresses`,
-    getTitle: a => `${a.firstName} ${a.lastName}`,
+    getTitle: (a: Address) => `${a.firstName} ${a.lastName}`,
     createNew: () => ({ firstName: "", lastName: "", salary: "" }),
     properties: [
       {
@@ -46,12 +66,12 @@ export function createAddressMetadata(rootUrl) {
  * @return ClassMetadata
  * @param rootUrl {string}
  */
-export function createCarMetadata(rootUrl) {
+export function createCarMetadata(rootUrl: string) {
   return {
     caption: "Car",
     pluralCaption: "Cars",
     rootUrl: `${rootUrl}cars`,
-    getTitle: c => `${c.make} ${c.model}`,
+    getTitle: (c: Car) => `${c.make} ${c.model}`,
     createNew: () => ({ make: "", model: "" }),
     properties: [
       {
@@ -72,12 +92,12 @@ export function createCarMetadata(rootUrl) {
  * @return ClassMetadata
  * @param rootUrl {string}
  */
-export function createAlbumMetadata(rootUrl) {
+export function createAlbumMetadata(rootUrl: string) {
   return {
     caption: "Album",
     pluralCaption: "Albums",
     rootUrl: `${rootUrl}albums`,
-    getTitle: c => `${c.title}`,
+    getTitle: (a: Album) => `${a.title}`,
     createNew: () => ({ title: "", description: "" }),
     properties: [
       {
@@ -98,12 +118,12 @@ export function createAlbumMetadata(rootUrl) {
  * @return ClassMetadata
  * @param rootUrl {string}
  */
-export function createNoteMetadata(rootUrl) {
+export function createNoteMetadata(rootUrl: string) {
   return {
     caption: "Note",
     pluralCaption: "Notes",
     rootUrl: `${rootUrl}notes`,
-    getTitle: c => `${c.title}`,
+    getTitle: (n: Note) => `${n.title}`,
     createNew: () => ({ title: "", description: "" }),
     properties: [
       {

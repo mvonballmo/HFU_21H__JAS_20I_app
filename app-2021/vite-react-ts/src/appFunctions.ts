@@ -1,10 +1,70 @@
 import { Crud } from "./crud.js";
 import { createMetadata } from "./metadataFactory.js";
+import { AppState } from "./AppState";
+import { ClassMetadata, Entity } from "./Metadata";
 
-export function reducer(state, action) {
+enum ActionType {
+  setMetadata = "setMetadata",
+  setEntity = "setEntity",
+  saveEntity = "saveEntity",
+  deleteEntity = "deleteEntity",
+  createEntity = "createEntity",
+  changeEntityData = "changeEntityData",
+  setEntities = "setEntities",
+}
+
+interface SetMetadataAction {
+  type: ActionType.setMetadata;
+  classMetadata: ClassMetadata;
+}
+
+interface SetEntityAction {
+  type: ActionType.setEntity;
+  entity: Entity;
+}
+
+interface SaveEntityAction {
+  type: ActionType.saveEntity;
+  entity: Entity;
+}
+
+interface DeleteEntityAction {
+  type: ActionType.deleteEntity;
+  entity: Entity;
+}
+
+interface CreateEntityAction {
+  type: ActionType.createEntity;
+}
+
+interface ChangeEntityDataAction {
+  type: ActionType.changeEntityData;
+  name: string;
+  value: unknown;
+}
+
+interface SetEntitiesAction {
+  type: ActionType.setEntities;
+  entities: Entity[];
+}
+
+type AppAction =
+  | SetMetadataAction
+  | SetEntityAction
+  | SaveEntityAction
+  | DeleteEntityAction
+  | CreateEntityAction
+  | ChangeEntityDataAction
+  | SetEntitiesAction;
+
+export function reducer(state: AppState, action: AppAction): AppState {
   switch (action.type) {
     case "setMetadata":
-      return resetState(state, action.classMetadata);
+      return {
+        ...state,
+        classMetadata: action.classMetadata,
+        crud: new Crud(action.classMetadata.rootUrl),
+      };
     case "setEntity":
       return { ...state, entity: action.entity };
     case "saveEntity": {
@@ -59,18 +119,16 @@ export function reducer(state, action) {
   }
 }
 
-export const createInitialState = () => {
+export function createInitialState(): AppState {
   const rootUrl = "http://localhost:3000/";
   const allMetadata = createMetadata(rootUrl);
   const classMetadata = allMetadata[0];
 
-  return resetState({ allMetadata }, classMetadata);
-};
-
-function resetState(state, classMetadata) {
   return {
-    ...state,
+    allMetadata,
     classMetadata,
     crud: new Crud(classMetadata.rootUrl),
+    entities: [],
+    entity: null,
   };
 }

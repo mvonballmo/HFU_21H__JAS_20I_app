@@ -1,16 +1,15 @@
-/** @type {import('./crud')} */
-// Use JSDOC above to be able to use the type definitions in this file as well
+import { Entity } from "./Metadata";
 
 /**
  * Describes an object that performs CRUD for a given entity.
  */
-export class Crud {
+export class Crud<T extends Entity> {
   /**
    * Creates a new object for the given `rootUrl`.
    *
    * @param {string} rootUrl The root URL to use.
    */
-  constructor(rootUrl) {
+  constructor(rootUrl: string) {
     this.#_rootUrl = rootUrl;
   }
 
@@ -20,23 +19,23 @@ export class Crud {
     return this.#execute(this.#_rootUrl);
   }
 
-  get(id) {
+  get(id: number) {
     return this.#execute(`${this.#_rootUrl}/${id}`);
   }
 
-  insert(entity) {
+  insert(entity: Entity) {
     return this.#insertOrUpdate(`${this.#_rootUrl}/`, entity, "POST");
   }
 
-  update(entity) {
+  update(entity: Entity) {
     return this.#insertOrUpdate(`${this.#_rootUrl}/${entity.id}`, entity, "PUT");
   }
 
-  delete(entity) {
+  delete(entity: Entity) {
     return this.#execute(`${this.#_rootUrl}/${entity.id}`, { method: "DELETE" });
   }
 
-  save(entity) {
+  save(entity: Entity) {
     if (entity.id) {
       return this.update(entity);
     }
@@ -44,11 +43,7 @@ export class Crud {
     return this.insert(entity);
   }
 
-  /**
-   * @param {string} url
-   * @param {RequestInit} init
-   */
-  async #execute(url, init = undefined) {
+  async #execute(url: string, init: RequestInit | undefined = undefined) {
     const response = await this.#fetchWithTimeout(url, init);
 
     if (!response.ok) {
@@ -61,7 +56,7 @@ export class Crud {
   /**
    * @return {Promise<Response>}
    */
-  #fetchWithTimeout = (url, { signal, ...options } = {}) => {
+  #fetchWithTimeout = (url: string, { signal, ...options }: RequestInit = {}) => {
     const controller = new AbortController();
     const response = fetch(url, { signal: controller.signal, ...options });
 
@@ -78,7 +73,7 @@ export class Crud {
    * @param {{}} entity
    * @param {string} method
    */
-  #insertOrUpdate(url, entity, method) {
+  #insertOrUpdate(url: string, entity: Entity, method: string) {
     return this.#execute(url, {
       method: method,
       headers: {
@@ -91,5 +86,5 @@ export class Crud {
   /**
    * @type {string}
    */
-  #_rootUrl;
+  readonly #_rootUrl;
 }

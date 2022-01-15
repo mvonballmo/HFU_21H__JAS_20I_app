@@ -1,7 +1,8 @@
-type Entity = {
+export type Entity = {
   id: number;
   [otherOptions: string]: unknown;
 };
+
 type TitleGetter = (obj: Entity) => string;
 type EntityCreator = () => Entity;
 
