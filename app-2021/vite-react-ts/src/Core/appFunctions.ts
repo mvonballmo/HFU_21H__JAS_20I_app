@@ -1,5 +1,5 @@
-import { Crud } from "./Crud.js";
-import { createMetadata } from "./metadataFactory.js";
+import { Crud } from "./Crud";
+import { createMetadata } from "./metadataFactory";
 import { AppState } from "./AppState";
 import { ClassMetadata, Entity } from "./Metadata";
 
