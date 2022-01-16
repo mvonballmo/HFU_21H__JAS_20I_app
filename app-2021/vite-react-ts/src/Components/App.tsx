@@ -1,3 +1,4 @@
+import React from "react";
 import { AppContext } from "../Core/AppContext";
 import { AppService } from "../Core/AppService";
 import { createInitialState, reducer } from "../Core/appFunctions";
