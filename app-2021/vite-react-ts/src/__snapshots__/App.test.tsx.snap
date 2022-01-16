@@ -1,0 +1,3 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`App Component App initial contents 1`] = `"<header><h1>Addresses</h1><ul><li><a href=\\"#\\">Addresses</a></li><li><a href=\\"#\\">Cars</a></li><li><a href=\\"#\\">Albums</a></li><li><a href=\\"#\\">Notes</a></li></ul></header><main><div>loading...</div></main>"`;

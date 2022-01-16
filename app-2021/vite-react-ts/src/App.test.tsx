@@ -1,7 +1,12 @@
 import { describe, expect, test } from "@jest/globals";
+import React from "react";
+import { render } from "@testing-library/react";
+import App from "./Components/App";
 
 describe("App Component", () => {
-  test("that jest is working", () => {
-    expect(1).toBe(1);
+  test("App initial contents", () => {
+    const { container } = render(<App />);
+
+    expect(container.innerHTML).toMatchSnapshot();
   });
 });
