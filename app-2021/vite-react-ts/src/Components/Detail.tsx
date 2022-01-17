@@ -5,7 +5,7 @@ import { InputRow } from "./InputRow";
 export function Detail() {
   const { state, service } = useContext(AppContext);
   const { classMetadata, entity } = state;
-  const saveButton = useRef(null as unknown as HTMLButtonElement);
+  const saveButton = useRef<HTMLButtonElement>(null);
 
   const saveEntity = async (e: MouseEvent<HTMLButtonElement>) => {
     await service.saveEntity(state);
