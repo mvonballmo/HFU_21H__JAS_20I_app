@@ -19,9 +19,25 @@ In order to run all tests, do the following:
 - Execute `npm run 2021-test-server`
 - Execute `npm run test`
 
-### Run
+## Run
 
 - Open a terminal in this folder
-- Execute `npm run 2021-server`
+- Execute `npm run 2021-server` to start the REST server for all versions
+
+### Web Components & Plain React Versions
+
 - Execute `npm run 2021-client`
-- Browse to [http://127.0.0.1:8081](http://127.0.0.1:8081)
+- Browse to [http://127.0.0.1:8081/web-components/](http://127.0.0.1:8081/web-components/)
+- Browse to [http://127.0.0.1:8081/react/](http://127.0.0.1:8081/react/)
+
+### Vite React-JS Version
+
+- Open a terminal in this folder
+- Execute `npm run 2021-js-vite-react`
+- Browse to [http://127.0.0.1:4000/](http://127.0.0.1:4000/)
+
+### Vite React-TS Version
+
+- Open a terminal in this folder
+- Execute `npm run 2021-ts-vite-react`
+- Browse to [http://127.0.0.1:4001/](http://127.0.0.1:4001/)
