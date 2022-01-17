@@ -10,7 +10,6 @@
     "2021-js-vite-react": "pushd app-2021/vite-react-js && npm run dev && popd",
     "2021-ts-vite-react": "pushd app-2021/vite-react-ts && npm run dev && popd"
   },
-  "type": "module",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/mvonballmo/HFU_21H__JAS_20I_app.git"
