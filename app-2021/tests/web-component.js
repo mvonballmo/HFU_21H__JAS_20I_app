@@ -4,11 +4,11 @@ class MyElement extends HTMLElement {
   }
 
   static get observedAttributes() {
-    return ["a"];
+    return ["title"];
   }
 
   attributeChangedCallback(name, oldValue, newValue) {
-    this.innerHTML = `<b>${name} = ${newValue}</b>`;
+    this.innerHTML = `<b>${newValue}</b>`;
   }
 }
 

@@ -2,4 +2,4 @@
 
 exports[`Web Component initialize 1`] = `"<b>Title</b>"`;
 
-exports[`Web Component set attribute 1`] = `"<b>a = b</b>"`;
+exports[`Web Component set attribute 1`] = `"<b>This is my excellent title.</b>"`;

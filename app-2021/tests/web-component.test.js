@@ -23,7 +23,7 @@ describe("Web Component", () => {
 
     const [myElement] = document.getElementsByTagName("my-element");
 
-    myElement.setAttribute("a", "b");
+    myElement.setAttribute("title", "This is my excellent title.");
 
     expect(myElement.innerHTML).toMatchSnapshot();
   });
