@@ -1,0 +1,19 @@
+{
+  "name": "lk1",
+  "version": "1.0.0",
+  "description": "Erste Prüfung JS 2023",
+  "main": "lk1.library.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "author": "Marco von Ballmoos",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/core": "^7.16.0",
+    "@babel/node": "^7.16.0",
+    "@babel/preset-env": "^7.23.6",
+    "babel-jest": "^27.3.1",
+    "@jest/globals": "^27.4.0",
+    "jest": "^27.3.1"
+  }
+}

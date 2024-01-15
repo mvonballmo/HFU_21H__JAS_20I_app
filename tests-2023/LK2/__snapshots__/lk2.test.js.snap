@@ -1,0 +1,47 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`LK2 Cookies get key/value pairs 1`] = `
+Array [
+  Object {
+    "key": "lastUsername",
+    "value": "John",
+  },
+  Object {
+    "key": "expertMode",
+    "value": "true",
+  },
+]
+`;
+
+exports[`LK2 Cookies get values in object 1`] = `
+Object {
+  "expertMode": "true",
+  "lastUsername": "John",
+}
+`;
+
+exports[`LK2 Cookies store and load JSON 1`] = `"person={\\"first\\":\\"Bob\\",\\"last\\":\\"Hoffman\\",\\"age\\":34,\\"company\\":{\\"name\\":\\"Apple\\"}}"`;
+
+exports[`LK2 Storage get key/value pairs 1`] = `
+Array [
+  Object {
+    "key": "lastUsername",
+    "value": "John",
+  },
+  Object {
+    "key": "expertMode",
+    "value": "true",
+  },
+]
+`;
+
+exports[`LK2 Storage get values in object 1`] = `
+Object {
+  "expertMode": "true",
+  "lastUsername": "John",
+}
+`;
+
+exports[`LK2 Web components initialize 1`] = `"<b>Title</b>"`;
+
+exports[`LK2 Web components set attribute 1`] = `"<b>This is my excellent title.</b>"`;
