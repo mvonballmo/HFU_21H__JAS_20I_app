@@ -1,16 +1,13 @@
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="style.css" />
 <script src="lib.js"></script>
 
 <script>
-  function getAddressUrl(relativeUrl = '') {
+  function getAddressUrl(relativeUrl = "") {
     return `addresses/${relativeUrl}`;
   }
 
   function setError(message) {
-    setContent(
-      "status",
-      createText(message)
-    );
+    setContent("status", createText(message));
   }
 
   async function deleteAddress(id, index) {
@@ -49,10 +46,10 @@
   }
 
   function saveAddress(address, index) {
-    const inputs = document.getElementById('detail-panel').getElementsByTagName('input');
+    const inputs = document.getElementById("detail-panel").getElementsByTagName("input");
 
     for (const input of inputs) {
-      address[input.id] = input.value
+      address[input.id] = input.value;
     }
 
     if (addressExists(address, index)) {
@@ -75,13 +72,7 @@
   }
 
   function setDetail(address, index) {
-    setContent(
-      "detail-panel",
-      createPanel(
-        address,
-        getDetailButtons(address, index)
-      )
-    );
+    setContent("detail-panel", createPanel(address, getDetailButtons(address, index)));
   }
 
   async function showAddress(id, index) {
@@ -90,23 +81,20 @@
 
       setDetail(address, index);
     } catch (error) {
-      setContent('detail-panel', createText('no address'));
+      setContent("detail-panel", createText("no address"));
       setError(`Unable to retrieve address [${id}]: ${error.message}`);
     }
   }
 
   function createAddressListItem(a, index) {
-    return createLink(`${a.firstName} ${a.lastName}`, () => showAddress(a.id, index))
+    return createLink(`${a.firstName} ${a.lastName}`, () => showAddress(a.id, index));
   }
 
   async function getAddresses() {
     try {
       const addresses = await getData(getAddressUrl());
 
-      setList(
-        "list-panel",
-        addresses.map(createAddressListItem)
-      );
+      setList("list-panel", addresses.map(createAddressListItem));
     } catch (error) {
       setError(`Unable to retrieve addresses: ${error.message}`);
     }
@@ -115,11 +103,11 @@
   function createAddress() {
     // TODO Figure out how to create a new object generically (add to schema?)
     const address = {
-      firstName: '',
-      lastName: '',
+      firstName: "",
+      lastName: "",
       birthDate: new Date(),
       salary: 0,
-    }
+    };
     setDetail(address, -1);
   }
 
@@ -133,16 +121,13 @@
       <li><a href="#" onclick="createAddress()">New...</a></li>
       <li><a href="#" onclick="getAddresses()">Refresh</a></li>
     </ul>
-    <ul id="list-panel">
-    </ul>
+    <ul id="list-panel"></ul>
   </div>
   <div id="data">
     <div id="detail">
       <h2>Details</h2>
-      <div id="detail-panel">
-      </div>
+      <div id="detail-panel"></div>
     </div>
-    <div id="status">
-    </div>
+    <div id="status"></div>
   </div>
 </body>
