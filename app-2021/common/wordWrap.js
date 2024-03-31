@@ -4,7 +4,7 @@
  * @param char
  * @param start
  * @param finish
- * @returns {Generator<int>}
+ * @returns {Generator<number, void, *>}
  */
 function* getBreaks(text, char, start, finish) {
   let index = start;
@@ -26,6 +26,12 @@ function* getBreaks(text, char, start, finish) {
   }
 }
 
+/**
+ *
+ * @param text
+ * @param char
+ * @returns {Generator<string, void, *>}
+ */
 function* getChunks(text, char) {
   let first = 0;
   for (const last of getBreaks(text, char, 0, text.length)) {
@@ -52,24 +58,47 @@ export function* getLines(text) {
 
 export function* getWrappedLineSpans(text, width, indent) {
   let start = 0;
-  for (const lineBreak of getLineBreaks(text)) {
-    const lineLength = lineBreak - start;
-    if (indent.length + lineLength < width) {
-      yield { start, finish: lineBreak };
-      start = lineBreak + 1;
-    } else {
-      let lastWordBreak = start;
-      for (const wordBreak of getWordBreaks(text, start, lineBreak)) {
-        const lineLength = wordBreak - start;
-        if (indent.length + lineLength > width) {
-          yield { start, finish: lastWordBreak };
 
-          start = wordBreak + 1;
-        } else {
-          lastWordBreak = wordBreak;
-        }
+  function* getWrappedLineSpansInSingleLine(lineBreak) {
+    let lastWordBreak = start;
+
+    function createSpan(start, finish) {
+      return { start, finish };
+    }
+
+    for (const wordBreak of getWordBreaks(text, start, lineBreak)) {
+      const lineLength = wordBreak - start;
+      if (indent.length + lineLength > width) {
+        // Don't include the word-break character
+        const finish = lastWordBreak - 1;
+
+        yield createSpan(start, finish);
+
+        start = lastWordBreak + 1;
+      } else {
+        lastWordBreak = wordBreak;
       }
     }
+
+    if (start < lineBreak) {
+      yield createSpan(start, lineBreak);
+    }
+  }
+
+  for (const lineBreak of getLineBreaks(text)) {
+    const finish = lineBreak;
+    const lineLength = finish - start;
+    if (indent.length + lineLength < width) {
+      yield { start, finish };
+      start = lineBreak + 1;
+    } else {
+      yield* getWrappedLineSpansInSingleLine(lineBreak);
+      start = lineBreak + 1;
+    }
+  }
+
+  if (start < text.length) {
+    yield* getWrappedLineSpansInSingleLine(text.length);
   }
 }
 
@@ -80,7 +109,7 @@ function* getWrappedLines(text, width, indent) {
     if (span.start === span.finish) {
       yield lineTerminator;
     } else {
-      yield indent + text.substring(span.start, span.finish) + lineTerminator;
+      yield indent + text.substring(span.start, span.finish + 1) + lineTerminator;
     }
   }
 }
