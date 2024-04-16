@@ -22,7 +22,7 @@ DDDD`;
 
     const output = [...getLineBreaks(text)];
 
-    expect(output).toStrictEqual([1, 4, 8, 11, 13, 14, 15, 20]);
+    expect(output).toStrictEqual([1, 4, 8, 11, 13, 14, 15]);
   });
 
   test("gets word breaks", () => {
@@ -30,7 +30,7 @@ DDDD`;
 
     const output = [...getWordBreaks(text, 0, text.length)];
 
-    expect(output).toStrictEqual([1, 4, 8, 11, 13, 14, 15, 20]);
+    expect(output).toStrictEqual([1, 4, 8, 11, 13, 14, 15]);
   });
 
   test("get word breaks in actual text", () => {
@@ -70,6 +70,36 @@ DDDD`;
     const output = [...getWords(text)];
 
     expect(output).toStrictEqual(["A", "BB", "CCC", "BB", "A", "", "", "DDDD"]);
+  });
+
+  test("wraps a one-character line", () => {
+    const text = `A B`;
+
+    const output = getWrappedText(text, 5, "    ");
+
+    expect(output).toBe(`    A
+    B`);
+  });
+
+  test("wraps one-character lines", () => {
+    const text = `A B C
+
+    D E F
+
+    `;
+
+    const output = getWrappedText(text, 5, "    ");
+
+    expect(output).toBe(`    A
+    B
+    C
+
+
+    D
+    E
+    F
+
+    `);
   });
 
   test("wraps short lines", () => {

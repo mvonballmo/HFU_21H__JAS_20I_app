@@ -15,14 +15,9 @@ function* getBreaks(text, char, start, finish) {
 
   let result = getNextCharacter();
   while (result !== -1 && result < finish) {
-    // TODO Are we returning the character before the char?
     yield result;
     index = result + 1;
     result = getNextCharacter();
-  }
-
-  if (index < finish) {
-    yield finish;
   }
 }
 
@@ -59,20 +54,24 @@ export function* getLines(text) {
 export function* getWrappedLineSpans(text, width, indent) {
   let start = 0;
 
-  function* getWrappedLineSpansInSingleLine(lineBreak) {
+  function* getWrappedLineSpansInSingleLine(lastCharacterIndex) {
     let lastWordBreak = start;
 
     function createSpan(start, finish) {
+      if (start > finish) {
+        throw `Start [${start}] cannot be greater than finish [${finish}]`;
+      }
+
       return { start, finish };
     }
 
-    for (const wordBreak of getWordBreaks(text, start, lineBreak)) {
+    // TODO Remove this instantiation for the word-break array (remove square brackets)
+    let wordBreaks = [...getWordBreaks(text, start, lastCharacterIndex)];
+
+    for (const wordBreak of wordBreaks) {
       const lineLength = wordBreak - start;
       if (indent.length + lineLength > width) {
-        // Don't include the word-break character
-        const finish = lastWordBreak - 1;
-
-        yield createSpan(start, finish);
+        yield createSpan(start, lastWordBreak);
 
         start = lastWordBreak + 1;
       } else {
@@ -80,36 +79,48 @@ export function* getWrappedLineSpans(text, width, indent) {
       }
     }
 
-    if (start < lineBreak) {
-      yield createSpan(start, lineBreak);
+    if (start < lastWordBreak) {
+      yield createSpan(start, lastWordBreak);
+
+      start = lastWordBreak + 1;
+    }
+
+    if (start <= lastCharacterIndex) {
+      yield createSpan(start, lastCharacterIndex);
     }
   }
 
-  for (const lineBreak of getLineBreaks(text)) {
+  // TODO Remove this instantiation for the line-break array (remove square brackets)
+  let lineBreaks = [...getLineBreaks(text)];
+
+  for (const lineBreak of lineBreaks) {
     const finish = lineBreak;
     const lineLength = finish - start;
     if (indent.length + lineLength < width) {
       yield { start, finish };
       start = lineBreak + 1;
     } else {
-      yield* getWrappedLineSpansInSingleLine(lineBreak);
+      yield* getWrappedLineSpansInSingleLine(lineBreak - 1);
       start = lineBreak + 1;
     }
   }
 
-  if (start < text.length) {
+  if (start <= text.length) {
     yield* getWrappedLineSpansInSingleLine(text.length);
   }
 }
 
 function* getWrappedLines(text, width, indent) {
-  for (const span of getWrappedLineSpans(text, width, indent)) {
+  // TODO Remove this instantiation for the wrapped-line-span array (remove square brackets)
+  let wrappedLineSpans = [...getWrappedLineSpans(text, width, indent)];
+
+  for (const span of wrappedLineSpans) {
     const isLastLine = span.finish === text.length;
     const lineTerminator = isLastLine ? "" : "\n";
     if (span.start === span.finish) {
       yield lineTerminator;
     } else {
-      yield indent + text.substring(span.start, span.finish + 1) + lineTerminator;
+      yield indent + text.substring(span.start, span.finish) + lineTerminator;
     }
   }
 }
