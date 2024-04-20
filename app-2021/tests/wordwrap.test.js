@@ -1,13 +1,5 @@
 import { describe, expect, test } from "@jest/globals";
-import {
-  getLineBreaks,
-  getLines,
-  getWordBreaks,
-  getWords,
-  getWrappedLineSpans,
-  getWrappedText,
-  wordWrap,
-} from "../common/wordWrap";
+import { getLineBreaks, getWordBreaks, getWrappedLineSpans, getWrappedText, wordWrap } from "../common/wordWrap";
 
 describe("Word-wrapping", () => {
   test("gets newline breaks", () => {
@@ -49,29 +41,6 @@ DDDD`;
     expect(output).toStrictEqual([8, 11]);
   });
 
-  test("gets lines", () => {
-    const text = `A
-BB
-CCC
-BB
-A
-
-
-DDDD`;
-
-    const output = [...getLines(text)];
-
-    expect(output).toStrictEqual(["A", "BB", "CCC", "BB", "A", "", "", "DDDD"]);
-  });
-
-  test("gets words", () => {
-    const text = `A BB CCC BB A   DDDD`;
-
-    const output = [...getWords(text)];
-
-    expect(output).toStrictEqual(["A", "BB", "CCC", "BB", "A", "", "", "DDDD"]);
-  });
-
   test("wraps a one-character line", () => {
     const text = `A B`;
 
@@ -79,6 +48,23 @@ DDDD`;
 
     expect(output).toBe(`    A
     B`);
+  });
+
+  test("wraps one-character lines", () => {
+    const text = `A B C`;
+
+    const output = getWrappedText(text, 5, "    ");
+
+    expect(output).toBe(`    A
+    B
+    C
+
+
+    D
+    E
+    F
+
+    `);
   });
 
   test("wraps one-character lines", () => {

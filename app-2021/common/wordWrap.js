@@ -21,34 +21,12 @@ function* getBreaks(text, char, start, finish) {
   }
 }
 
-/**
- *
- * @param text
- * @param char
- * @returns {Generator<string, void, *>}
- */
-function* getChunks(text, char) {
-  let first = 0;
-  for (const last of getBreaks(text, char, 0, text.length)) {
-    yield text.substring(first, last);
-    first = last + 1;
-  }
-}
-
 export function* getLineBreaks(text) {
   yield* getBreaks(text, "\n", 0, text.length);
 }
 
 export function* getWordBreaks(text, start, finish) {
   yield* getBreaks(text, " ", start, finish);
-}
-
-export function* getWords(text) {
-  yield* getChunks(text, " ");
-}
-
-export function* getLines(text) {
-  yield* getChunks(text, "\n");
 }
 
 export function* getWrappedLineSpans(text, width, indent) {
