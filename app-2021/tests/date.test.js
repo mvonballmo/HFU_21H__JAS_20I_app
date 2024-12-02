@@ -48,4 +48,28 @@ describe("Dates", () => {
 
     expect(now).toEqual(date);
   });
+
+  test("relative dates in German", () => {
+    const date = new Date("04 Dec 2021 00:10:00 GMT");
+    const dateTimeFormat = new Intl.DateTimeFormat("de-CH");
+    const formattedDate = dateTimeFormat.format(date);
+
+    expect(formattedDate).toBe("4.12.2021");
+
+    const timeFormat = new Intl.RelativeTimeFormat("de-CH");
+    const formatted = timeFormat.format(1, "day");
+
+    expect(formatted).toBe("in 1 Tag");
+
+    const autoTimeFormat = new Intl.RelativeTimeFormat("de-CH", {
+      numeric: "auto",
+    });
+    const tomorrow = autoTimeFormat.format(1, "day");
+
+    expect(tomorrow).toBe("morgen");
+
+    const nextWeek = autoTimeFormat.format(1, "week");
+
+    expect(nextWeek).toBe("nächste Woche");
+  });
 });
