@@ -4,12 +4,22 @@
 <head>
   <meta charset="UTF-8">
   <title>Demo</title>
-  <script src="library.js"></script>
+  <script type="module">
+    import { show, increment, decrement } from './library.js';
+
+    window.add = () => {
+      show(increment())
+    };
+
+    window.subtract = () => {
+      show(decrement())
+    };
+  </script>
 </head>
 
 <body>
-  <button onclick="show(increment())">+</button>
-  <button onclick="show(decrement())">-</button>
+  <button onclick="add()">+</button>
+  <button onclick="subtract()">-</button>
 </body>
 
 </html>
