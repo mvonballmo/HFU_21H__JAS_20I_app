@@ -1,6 +1,6 @@
 import { test, describe, expect } from "@jest/globals";
 import { counter, increment, decrement } from "./library";
-import "isomorphic-fetch";  // Oben in die Datei
+import "isomorphic-fetch"; // Oben in die Datei
 
 describe("library", () => {
   test("counter is initialized to 1", () => {
@@ -25,5 +25,12 @@ describe("library", () => {
       .then(addresses => {
         expect(addresses.length).toBe(3);
       });
+  });
+
+  test("call fetch with async/await", async () => {
+    const response = await fetch("http://localhost:3000/addresses");
+    const addresses = await response.json();
+
+    expect(addresses.length).toBe(3);
   });
 });

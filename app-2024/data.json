@@ -1,13 +1,13 @@
 {
   "addresses": [
     {
-      "name": "Maria"
+      "firstName": "Maria"
     },
     {
-      "name": "Johann"
+      "firstName": "Johann"
     },
     {
-      "name": "Bob"
+      "firstName": "Bob"
     }
   ]
 }
