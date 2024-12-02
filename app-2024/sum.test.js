@@ -10,4 +10,17 @@ describe("Tests", () => {
   test("adds numbers", () => {
     expect(sum(19, 21)).toBe(40);
   });
+
+  test("array test", () => {
+    const a = [1, 2, 3];
+
+    expect(a[0]).toBe(1);
+  });
+
+  test("object test", () => {
+    const a = { firstName: "bob" };
+
+    expect(a.firstName).toBe("bob");
+  });
+
 });
