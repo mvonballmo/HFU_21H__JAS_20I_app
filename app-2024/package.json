@@ -1,0 +1,14 @@
+{
+  "name": "html",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "author": "Marco von Ballmoos",
+  "license": "ISC",
+  "description": "Let's make software great again.",
+  "dev-dependencies": {
+    "jest": "^29.7.0"
+  }
+}
