@@ -33,4 +33,50 @@ describe("library", () => {
 
     expect(addresses.length).toBe(3);
   });
+
+  test("call fetch for one address", async () => {
+    const response = await fetch("http://localhost:3000/addresses/2");
+    const johann = await response.json();
+
+    expect(johann.firstName).toBe("Johann");
+  });
+
+  test("add address", async () => {
+    const address = {
+      firstName: "Bob",
+      lastName: "Jones",
+    };
+
+    const response = await fetch("http://localhost:3000/addresses/", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(address),
+    });
+
+    expect(response.ok).toBeTruthy();
+
+    const newAddress = await response.json();
+
+    expect(newAddress.id).toBeTruthy();
+  });
+
+  function getAddresses() {
+    return fetch("http://localhost:3000/addresses");
+  }
+
+  function getCars() {
+    return fetch("http://localhost:3000/cars");
+  }
+
+  // ignore("wait for multiple fetch calls", async () => {
+  //   const p1 = await fetch("http://localhost:3000/addresses");
+  //   const p2 = await fetch("http://localhost:3000/cars");
+
+  //   const [addresses, cars] = await Promise.all([p1, p2]);
+
+  //   expect(addresses.length).toBe(3);
+  //   expect(cars.length).toBe(3);
+  // });
 });
