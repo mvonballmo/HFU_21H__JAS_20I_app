@@ -71,7 +71,7 @@ describe("Arrays", () => {
   test("array reduce", () => {
     const items = [10, 20, 30, 40, 50];
 
-    const sum = (a, b) => a + b;
+    const sum = (accumulator, item) => accumulator + item;
 
     const result = items.reduce(sum);
 
