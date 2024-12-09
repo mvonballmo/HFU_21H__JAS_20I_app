@@ -16,7 +16,7 @@
     };
 
     window.getAndShowAddresses = async () => {
-      const response = await fetch("http://localhost:20242/addresses");
+      const response = await fetch("http://localhost:20241/addresses");
       const addresses = await response.json();
 
       const addressListElement = document.getElementById("addresses");
