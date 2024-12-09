@@ -14,12 +14,29 @@
     window.subtract = () => {
       show(decrement())
     };
+
+    window.getAndShowAddresses = async () => {
+      const response = await fetch("http://localhost:20242/addresses");
+      const addresses = await response.json();
+
+      const addressListElement = document.getElementById("addresses");
+      const addressText = addresses.map(a => `${a.firstName} ${a.lastName}`).join("\n");
+
+      const addressesText = document.createTextNode(addressText);
+
+      addressListElement.textContent = "";
+      addressListElement.appendChild(addressesText);
+    }
   </script>
 </head>
 
 <body>
   <button onclick="add()">+</button>
   <button onclick="subtract()">-</button>
+  <button onclick="getAndShowAddresses()">Get and show addresses</button>
 </body>
+
+<div id="addresses" style="background: cornsilk; min-height: 100px;">
+</div>
 
 </html>
