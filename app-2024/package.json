@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
+    "client": "npx http-server",
     "app-data": "npx json-server ./data/app-data.json -p 20241",
     "test-data": "npx json-server ./data/test-data.json -p 20242",
     "test": "cross-env NODE_OPTIONS=--experimental-vm-modules npx jest"

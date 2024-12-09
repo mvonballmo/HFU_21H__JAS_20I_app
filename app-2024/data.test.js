@@ -1,8 +1,8 @@
 import { test, describe, expect } from "@jest/globals";
-import { counter, increment, decrement } from "./library";
+import { counter, increment, decrement } from "./counter";
 import "isomorphic-fetch"; // Oben in die Datei
 
-describe("library", () => {
+describe("data", () => {
   test("counter is initialized to 1", () => {
     expect(counter()).toBe(1);
   });

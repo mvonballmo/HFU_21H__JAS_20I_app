@@ -18,4 +18,5 @@ To run all tests, do the following:
 ## Run
 
 - Open a terminal in this folder.
+- Execute `npm run client` to start the web server for the app.
 - Execute `npm run app-data` to start the data server for the app.
