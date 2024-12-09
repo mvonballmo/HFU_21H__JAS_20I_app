@@ -71,4 +71,56 @@ describe("library", () => {
       });
     }
   });
+
+  test("update address", async () => {
+    const address = {
+      firstName: "Bob",
+      lastName: "Jones",
+    };
+
+    let newAddressId;
+
+    try {
+      const response = await fetch("http://localhost:20242/addresses/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(address),
+      });
+
+      expect(response.ok).toBeTruthy();
+
+      const newAddress = await response.json();
+
+      newAddressId = newAddress.id;
+
+      address.lastName = "Müller";
+
+      const putResponse = await fetch(`http://localhost:20242/addresses/${newAddressId}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(address),
+      });
+
+      expect(putResponse.ok).toBeTruthy();
+
+      const updatedAddress = await putResponse.json();
+
+      expect(updatedAddress.lastName).toBe("Müller");
+
+      const getResponse = await fetch(`http://localhost:20242/addresses/${newAddressId}`);
+      const bob = await getResponse.json();
+
+      expect(getResponse.ok).toBeTruthy();
+
+      expect(bob.lastName).toBe("Müller");
+    } finally {
+      await fetch(`http://localhost:20242/addresses/${newAddressId}`, {
+        method: "DELETE",
+      });
+    }
+  });
 });
