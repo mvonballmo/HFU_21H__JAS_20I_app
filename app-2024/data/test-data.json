@@ -2,12 +2,12 @@
   "addresses": [
     {
       "firstName": "Maria",
-      "lastName": "Maria",
+      "lastName": "Müller",
       "id": "1"
     },
     {
       "firstName": "Johann",
-      "lastName": "Johann",
+      "lastName": "Bach",
       "id": "2"
     }
   ],
