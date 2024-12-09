@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <title>App 2024</title>
   <script type="module">
-    window.getAndShowAddresses = async () => {
+    const getAndShowAddresses = async () => {
       const response = await fetch("http://localhost:20241/addresses");
       const addresses = await response.json();
 
@@ -17,11 +17,15 @@
       addressListElement.textContent = "";
       addressListElement.appendChild(addressesText);
     }
+
+    const getAndShowButton = document.getElementById("showButton");
+
+    getAndShowButton.addEventListener("click", getAndShowAddresses);
   </script>
 </head>
 
 <body>
-  <button onclick="getAndShowAddresses()">Get and show addresses</button>
+  <button id="showButton">Get and show addresses</button>
 </body>
 
 <div id="addresses" style="background: cornsilk; min-height: 100px;">
