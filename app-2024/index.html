@@ -3,18 +3,8 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>Demo</title>
+  <title>App 2024</title>
   <script type="module">
-    import { show, increment, decrement } from './lib/counter.js';
-
-    window.add = () => {
-      show(increment())
-    };
-
-    window.subtract = () => {
-      show(decrement())
-    };
-
     window.getAndShowAddresses = async () => {
       const response = await fetch("http://localhost:20241/addresses");
       const addresses = await response.json();
@@ -31,8 +21,6 @@
 </head>
 
 <body>
-  <button onclick="add()">+</button>
-  <button onclick="subtract()">-</button>
   <button onclick="getAndShowAddresses()">Get and show addresses</button>
 </body>
 
