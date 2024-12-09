@@ -22,6 +22,23 @@
 
     getAndShowButton.addEventListener("click", getAndShowAddresses);
   </script>
+
+  <style>
+    form {
+      --standard-spacing: 10px;
+      display: grid;
+      grid-template-columns: minmax(150px, auto) 1fr;
+      gap: var(--standard-spacing);
+    }
+
+    form *:nth-child(odd) {
+      justify-self: end;
+    }
+
+    form input {
+      align-self: center;
+    }
+  </style>
 </head>
 
 <body>
@@ -30,5 +47,46 @@
 
 <div id="addresses" style="background: cornsilk; min-height: 100px;">
 </div>
+
+<h1>Formular: Beispiel</h1>
+<form>
+  <label>First name</label>
+  <input list="firstNames" placeholder="vorname">
+  <label>Last name</label>
+  <input>
+  <label>Salary</label>
+  <input max="500000" step="1000" type="number" pattern="[0-9]*">
+  <label>Birth date</label>
+  <input type="date">
+  <label>Manager</label>
+  <select>
+    <option value="Joe">Joe</option>
+    <option value="Jane">Jane</option>
+    <option value="John">John</option>
+    <option value="Jessica">Jessica</option>
+  </select>
+  <label>Status</label>
+  <div>
+    <input type="radio" name="status" value="1" checked> <label>Active</label>
+    <input type="radio" name="status" value="2"> <label>Retired</label>
+  </div>
+  <label>Pensum (%)</label>
+  <div>
+    <input type="range" id="pensum" min="20" max="100" step="20" value="80">
+    <output id="pensumOutput" for="pensum">80</output>
+    <script>
+      const pensum = document.getElementById("pensum");
+      const pensumOutput = document.getElementById("pensumOutput");
+
+      pensum.addEventListener("input", () => pensumOutput.value = pensum.value);
+    </script>
+  </div>
+</form>
+<datalist id="firstNames">
+  <option value="Joe"></option>
+  <option value="Jane"></option>
+  <option value="John"></option>
+  <option value="Jessica"></option>
+</datalist>
 
 </html>
