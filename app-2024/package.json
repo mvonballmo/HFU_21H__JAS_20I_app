@@ -1,20 +1,22 @@
 {
   "name": "app-2024",
   "version": "1.0.0",
-  "type": "module",
   "scripts": {
     "client": "npx http-server",
     "app-data": "npx json-server ./data/app-data.json -p 20241",
     "test-data": "npx json-server ./data/test-data.json -p 20242",
-    "test": "cross-env NODE_OPTIONS=--experimental-vm-modules npx jest"
+    "test": "jest"
   },
   "author": "Marco von Ballmoos",
   "license": "ISC",
   "description": "Let's make software great again.",
   "devDependencies": {
+    "@babel/core": "^7.16.0",
+    "@babel/node": "^7.16.0",
+    "@babel/preset-env": "^7.16.0",
+    "babel-jest": "^27.3.1",
     "http-server": "^14.1.1",
     "jest": "^29.7.0",
-    "cross-env": "^7.0.3",
     "json-server": "^1.0.0-beta.3"
   }
 }
