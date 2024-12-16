@@ -19,6 +19,11 @@
     const firstName = document.getElementById("firstName");
     const lastName = document.getElementById("lastName");
 
+    /**
+     * @type {HTMLFormElement}
+     * */
+    const detailForm = document.getElementById("detail");
+
     async function getAndShowAddresses() {
       const response = await fetch("http://localhost:20241/addresses");
       const addresses = await response.json();
@@ -38,22 +43,27 @@
     }
 
     async function saveAddress() {
-      firstAddress.firstName = firstName.value;
-      firstAddress.lastName = lastName.value;
 
-      const putResponse = await fetch(`http://localhost:20241/addresses/${firstAddress.id}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(firstAddress),
-      });
+      const isValid = detailForm.reportValidity();
 
-      if (putResponse.ok) {
-        alert("Object saved.");
-      }
-      else {
-        alert("Error while saving object.");
+      if (isValid) {
+        firstAddress.firstName = firstName.value;
+        firstAddress.lastName = lastName.value;
+
+        const putResponse = await fetch(`http://localhost:20241/addresses/${firstAddress.id}`, {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(firstAddress),
+        });
+
+        if (putResponse.ok) {
+          alert("Object saved.");
+        }
+        else {
+          alert("Error while saving object.");
+        }
       }
     }
 
@@ -91,24 +101,28 @@
 
 <body>
   <button id="showButton">Get and show addresses</button>
-  <button id="saveButton">Save address</button>
+
+  <div id="addresses" style="background: cornsilk; min-height: 100px;">
+  </div>
+
+  <h1>Address details</h1>
+  <form id="detail">
+    <label>First name</label>
+    <input list="firstNames" placeholder="vorname" id="firstName" required>
+
+    <label>Last name</label>
+    <input id="lastName" required>
+
+    <button type="submit" id="saveButton">Save address</button>
+
+    <datalist id="firstNames">
+      <option value="Joe"></option>
+      <option value="Jane"></option>
+      <option value="John"></option>
+      <option value="Jessica"></option>
+    </datalist>
+  </form>
+
 </body>
-
-<div id="addresses" style="background: cornsilk; min-height: 100px;">
-</div>
-
-<h1>Formular: Beispiel</h1>
-<form>
-  <label>First name</label>
-  <input list="firstNames" placeholder="vorname" id="firstName">
-  <label>Last name</label>
-  <input id="lastName">
-</form>
-<datalist id="firstNames">
-  <option value="Joe"></option>
-  <option value="Jane"></option>
-  <option value="John"></option>
-  <option value="Jessica"></option>
-</datalist>
 
 </html>
