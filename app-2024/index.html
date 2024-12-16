@@ -63,8 +63,12 @@
   </script>
 
   <style>
-    form {
+    html {
       --standard-spacing: 10px;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    form {
       display: grid;
       grid-template-columns: minmax(150px, auto) 1fr;
       gap: var(--standard-spacing);
@@ -75,6 +79,11 @@
     }
 
     form input {
+      align-self: center;
+      padding: var(--standard-spacing);
+    }
+
+    form label {
       align-self: center;
     }
   </style>
