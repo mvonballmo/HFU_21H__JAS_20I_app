@@ -62,33 +62,6 @@
   <input list="firstNames" placeholder="vorname" id="firstName">
   <label>Last name</label>
   <input id="lastName">
-  <label>Salary</label>
-  <input max="500000" step="1000" type="number" pattern="[0-9]*">
-  <label>Birth date</label>
-  <input type="date">
-  <label>Manager</label>
-  <select>
-    <option value="Joe">Joe</option>
-    <option value="Jane">Jane</option>
-    <option value="John">John</option>
-    <option value="Jessica">Jessica</option>
-  </select>
-  <label>Status</label>
-  <div>
-    <input type="radio" name="status" value="1" checked> <label>Active</label>
-    <input type="radio" name="status" value="2"> <label>Retired</label>
-  </div>
-  <label>Pensum (%)</label>
-  <div>
-    <input type="range" id="pensum" min="20" max="100" step="20" value="80">
-    <output id="pensumOutput" for="pensum">80</output>
-    <script>
-      const pensum = document.getElementById("pensum");
-      const pensumOutput = document.getElementById("pensumOutput");
-
-      pensum.addEventListener("input", () => pensumOutput.value = pensum.value);
-    </script>
-  </div>
 </form>
 <datalist id="firstNames">
   <option value="Joe"></option>
