@@ -16,6 +16,14 @@
 
       addressListElement.textContent = "";
       addressListElement.appendChild(addressesText);
+
+      const firstName = document.getElementById("firstName");
+      const lastName = document.getElementById("lastName");
+
+      const firstAddress = addresses[0];
+
+      firstName.value = firstAddress.firstName;
+      lastName.value = firstAddress.lastName;
     }
 
     const getAndShowButton = document.getElementById("showButton");
@@ -51,9 +59,9 @@
 <h1>Formular: Beispiel</h1>
 <form>
   <label>First name</label>
-  <input list="firstNames" placeholder="vorname">
+  <input list="firstNames" placeholder="vorname" id="firstName">
   <label>Last name</label>
-  <input>
+  <input id="lastName">
   <label>Salary</label>
   <input max="500000" step="1000" type="number" pattern="[0-9]*">
   <label>Birth date</label>
