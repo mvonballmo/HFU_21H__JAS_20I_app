@@ -5,13 +5,13 @@
   <meta charset="UTF-8">
   <title>App 2024</title>
   <script type="module">
+    function addClickHandler(id, handler) {
+      document.getElementById(id).addEventListener("click", handler);
+    }
+
     function setUpButtons() {
-
-      const getAndShowButton = document.getElementById("showButton");
-      const saveButton = document.getElementById("saveButton");
-
-      getAndShowButton.addEventListener("click", getAndShowAddresses);
-      saveButton.addEventListener("click", saveAddress);
+      addClickHandler("showButton", getAndShowAddresses);
+      addClickHandler("saveButton", saveAddress);
     }
 
     let firstAddress;
