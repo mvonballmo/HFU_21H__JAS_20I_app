@@ -5,103 +5,92 @@
   <meta charset="UTF-8">
   <title>App 2024</title>
   <script type="module">
-    class MyElement extends HTMLElement {
+    class App extends HTMLElement {
       static get observedAttributes() {
-        return ["a"];
+        return ["url"];
       }
-      connectedCallback() {
-        this.updateValue();
+
+      #addClickHandler = (id, handler) => {
+        document.getElementById(id).addEventListener("click", handler);
+      }
+
+      setUpButtons() {
+        this.#addClickHandler("showButton", this.getAndShowAddresses);
+        this.#addClickHandler("saveButton", this.saveAddress);
+
+        this.firstName = document.getElementById("firstName");
+        this.lastName = document.getElementById("lastName");
+        this.detailForm = document.getElementById("detail");
+        this.self = this;
+      }
+
+      firstAddress;
+      firstName;
+      lastName;
+      self;
+
+      /**
+       * @type {HTMLFormElement}
+       * */
+      detailForm;
+
+      async getAndShowAddresses() {
+        const response = await fetch("http://localhost:20241/addresses");
+        const addresses = await response.json();
+
+        const addressListElement = document.getElementById("addresses");
+        const addressText = addresses.map(a => `${a.firstName} ${a.lastName}`).join("\n");
+
+        const addressesText = document.createTextNode(addressText);
+
+        addressListElement.textContent = "";
+        addressListElement.appendChild(addressesText);
+
+        this.firstAddress = addresses[0];
+
+        this.firstName.value = this.firstAddress.firstName;
+        this.lastName.value = this.firstAddress.lastName;
+      }
+
+      async saveAddress(e) {
+        e.preventDefault();
+
+        const self = document.getElementById("detail");
+
+        const isValid = self.detailForm.reportValidity();
+
+        if (isValid) {
+          self.firstAddress.firstName = self.firstName.value;
+          self.firstAddress.lastName = self.lastName.value;
+
+          const putResponse = await fetch(`http://localhost:20241/addresses/${firstAddress.id}`, {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(self.firstAddress),
+          });
+
+          if (putResponse.ok) {
+            alert("Object saved.");
+          }
+          else {
+            alert("Error while saving object.");
+          }
+        }
+      }
+
+      async connectedCallback() {
+        this.setUpButtons();
+        await this.getAndShowAddresses();
       }
 
       attributeChangedCallback(name, oldValue, newValue) {
-        // Wird nur für Attribut "a" ausgeführt
-        this.updateValue();
-      }
-
-      updateValue() {
-        const value = this.getAttribute("a")
-        this.innerHTML = `<b>${value}</b>`;
+        // Wird nur für Attribut "url" ausgeführt
       }
     }
 
-    customElements.define("my-element", MyElement);
-
-
-    function addClickHandler(id, handler) {
-      document.getElementById(id).addEventListener("click", handler);
-    }
-
-    function changeAttribute() {
-      /**
-       * @type {HTMLElement}
-       * */
-      const [myTag] = document.getElementsByTagName("my-element");
-
-      myTag.setAttribute("a", "crocodile");
-    }
-
-    function setUpButtons() {
-      addClickHandler("showButton", getAndShowAddresses);
-      addClickHandler("saveButton", saveAddress);
-      addClickHandler("changeAttribute", changeAttribute);
-    }
-
-    let firstAddress;
-
-    const firstName = document.getElementById("firstName");
-    const lastName = document.getElementById("lastName");
-
-    /**
-     * @type {HTMLFormElement}
-     * */
-    const detailForm = document.getElementById("detail");
-
-    async function getAndShowAddresses() {
-      const response = await fetch("http://localhost:20241/addresses");
-      const addresses = await response.json();
-
-      const addressListElement = document.getElementById("addresses");
-      const addressText = addresses.map(a => `${a.firstName} ${a.lastName}`).join("\n");
-
-      const addressesText = document.createTextNode(addressText);
-
-      addressListElement.textContent = "";
-      addressListElement.appendChild(addressesText);
-
-      firstAddress = addresses[0];
-
-      firstName.value = firstAddress.firstName;
-      lastName.value = firstAddress.lastName;
-    }
-
-    async function saveAddress() {
-
-      const isValid = detailForm.reportValidity();
-
-      if (isValid) {
-        firstAddress.firstName = firstName.value;
-        firstAddress.lastName = lastName.value;
-
-        const putResponse = await fetch(`http://localhost:20241/addresses/${firstAddress.id}`, {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(firstAddress),
-        });
-
-        if (putResponse.ok) {
-          alert("Object saved.");
-        }
-        else {
-          alert("Error while saving object.");
-        }
-      }
-    }
-
-    setUpButtons();
-    await getAndShowAddresses();
-
+    customElements.define("app-2024", App);
   </script>
 
   <style>
@@ -132,33 +121,31 @@
 </head>
 
 <body>
-  <div style="background: lightsalmon; min-height: 100px;">
-    <my-element a="alligator"></my-element>
-  </div>
+  <app-2024 url="http://localhost:20241/addresses">
+    <button id="showButton">Get and show addresses</button>
+    <button id="changeAttribute">Update Attribute</button>
 
-  <button id="showButton">Get and show addresses</button>
-  <button id="changeAttribute">Update Attribute</button>
+    <div id="addresses" style="background: cornsilk; min-height: 100px;">
+    </div>
 
-  <div id="addresses" style="background: cornsilk; min-height: 100px;">
-  </div>
+    <h1>Address details</h1>
+    <form id="detail">
+      <label>First name</label>
+      <input list="firstNames" placeholder="vorname" id="firstName" required>
 
-  <h1>Address details</h1>
-  <form id="detail">
-    <label>First name</label>
-    <input list="firstNames" placeholder="vorname" id="firstName" required>
+      <label>Last name</label>
+      <input id="lastName" required>
 
-    <label>Last name</label>
-    <input id="lastName" required>
+      <button id="saveButton">Save address</button>
 
-    <button type="submit" id="saveButton">Save address</button>
-
-    <datalist id="firstNames">
-      <option value="Joe"></option>
-      <option value="Jane"></option>
-      <option value="John"></option>
-      <option value="Jessica"></option>
-    </datalist>
-  </form>
+      <datalist id="firstNames">
+        <option value="Joe"></option>
+        <option value="Jane"></option>
+        <option value="John"></option>
+        <option value="Jessica"></option>
+      </datalist>
+    </form>
+  </app-2024>
 
 </body>
 
