@@ -5,28 +5,6 @@
   <meta charset="UTF-8">
   <title>App 2024</title>
   <script type="module">
-    class MyElement extends HTMLElement {
-      static get observedAttributes() {
-        return ["a"];
-      }
-      connectedCallback() {
-        this.updateValue();
-      }
-
-      attributeChangedCallback(name, oldValue, newValue) {
-        // Wird nur für Attribut "a" ausgeführt
-        this.updateValue();
-      }
-
-      updateValue() {
-        const value = this.getAttribute("a")
-        this.innerHTML = `<b>${value}</b>`;
-      }
-    }
-
-    customElements.define("my-element", MyElement);
-
-
     function addClickHandler(id, handler) {
       document.getElementById(id).addEventListener("click", handler);
     }
@@ -132,12 +110,7 @@
 </head>
 
 <body>
-  <div style="background: lightsalmon; min-height: 100px;">
-    <my-element a="alligator"></my-element>
-  </div>
-
   <button id="showButton">Get and show addresses</button>
-  <button id="changeAttribute">Update Attribute</button>
 
   <div id="addresses" style="background: cornsilk; min-height: 100px;">
   </div>
