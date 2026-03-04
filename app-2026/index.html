@@ -1,18 +1,35 @@
 <html>
-  <script type="module">
-    import * as counter from "./counter.js";
+<script type="module">
+  import * as counter from "./counter.js";
+  import { Car } from "./car.js";
 
-    window.add = () => {
-      counter.show(counter.increment());
-    };
+  window.add = () => {
+    counter.show(counter.increment());
+  };
 
-    window.subtract = () => {
-      counter.show(counter.decrement());
-    };
-  </script>
+  window.subtract = () => {
+    counter.show(counter.decrement());
+  };
 
-  <body>
-    <button onclick="add()">+</button>
-    <button onclick="subtract()">-</button>
-  </body>
+  window.playWithJson = () => {
+    const v = new Car();
+
+    console.log(v);
+
+    const text = JSON.stringify(v);
+
+    console.log(text);
+
+    const v2 = JSON.parse(text);
+
+    console.log(v2);
+  }
+</script>
+
+<body>
+  <button onclick="add()">+</button>
+  <button onclick="subtract()">-</button>
+  <button onclick="playWithJson()">JSON</button>
+</body>
+
 </html>
