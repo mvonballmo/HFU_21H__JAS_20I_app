@@ -1,22 +1,25 @@
 {
   "addresses": [
     {
-      "name": "Maria"
+      "name": "Maria",
+      "id": "e8e8"
     },
     {
-      "name": "Johann"
+      "name": "Johann",
+      "id": "9546"
     }
   ],
   "cars": [
     {
-      "id": 1,
+      "id": "1",
       "make": "Volkswagen",
       "model": "Jetta"
     },
     {
-      "id": 2,
+      "id": "2",
       "make": "Volkswagen",
       "model": "Golf"
     }
-  ]
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
 }
