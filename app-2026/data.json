@@ -1,0 +1,22 @@
+{
+  "addresses": [
+    {
+      "name": "Maria"
+    },
+    {
+      "name": "Johann"
+    }
+  ],
+  "cars": [
+    {
+      "id": 1,
+      "make": "Volkswagen",
+      "model": "Jetta"
+    },
+    {
+      "id": 2,
+      "make": "Volkswagen",
+      "model": "Golf"
+    }
+  ]
+}
