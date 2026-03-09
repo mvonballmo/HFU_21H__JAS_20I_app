@@ -49,6 +49,16 @@ describe("Dates", () => {
     expect(now).toEqual(date);
   });
 
+  test("create Date with empty constructor is equal to now()", () => {
+
+    const now = new Date(Date.now()); // jetzt
+    const date = new Date(); // jetzt
+
+    now.getDay();
+
+    expect(now).toEqual(date);
+  });
+
   test("relative dates in German", () => {
     const date = new Date("04 Dec 2021 00:10:00 GMT");
     const dateTimeFormat = new Intl.DateTimeFormat("de-CH");
@@ -60,6 +70,18 @@ describe("Dates", () => {
     const formatted = timeFormat.format(1, "day");
 
     expect(formatted).toBe("in 1 Tag");
+
+    const timeFormat2 = new Intl.RelativeTimeFormat("en-GB");
+    const formatted2 = timeFormat2.format(1, "day");
+
+    expect(formatted2).toBe("in 1 day");
+
+    const autoTimeFormat2 = new Intl.RelativeTimeFormat("en-GB", {
+      numeric: "auto",
+    });
+    const tomorrow2 = autoTimeFormat2.format(1, "day");
+
+    expect(tomorrow2).toBe("tomorrow");
 
     const autoTimeFormat = new Intl.RelativeTimeFormat("de-CH", {
       numeric: "auto",

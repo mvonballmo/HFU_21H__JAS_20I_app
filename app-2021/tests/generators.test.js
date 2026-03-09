@@ -1,6 +1,6 @@
 import { describe, expect, test } from "@jest/globals";
 
-describe("Recursion", () => {
+describe("Generators", () => {
   const cases = [
     ["a b c", ["a", "b", "c"]],
     ["d e f", ["d", "e", "f"]],
@@ -30,7 +30,7 @@ describe("Recursion", () => {
     expect(getWordsSplit(input)).toEqual(expected);
   });
 
-  test.each(cases)("getWords using simple generator: %p yields %p", (input, expected) => {
+  test.each(cases)("getWords using simple generator and spread: %p yields %p", (input, expected) => {
     function* getWordsGenerator(n) {
       for (const word of n.split(" ")) {
         yield word;
@@ -38,6 +38,24 @@ describe("Recursion", () => {
     }
 
     expect([...getWordsGenerator(input)]).toEqual(expected);
+  });
+
+  test.each(cases)("getWords using simple generator and next(): %p yields %p", (input, expected) => {
+    function* getWordsGenerator(n) {
+      for (const word of n.split(" ")) {
+        yield word;
+      }
+    }
+
+    const words = getWordsGenerator(input);
+
+    const value1 = words.next().value;
+    const value2 = words.next().value;
+    const value3 = words.next().value;
+
+    const result = [value1, value2, value3];
+
+    expect(result).toEqual(expected);
   });
 
   test.each(cases)("getWords using delegated generator: %p yields %p", (input, expected) => {

@@ -94,6 +94,14 @@ describe("Arrays", () => {
     expect(result).toEqual([10, 20, 30, 60, 40, 50]);
   });
 
+  test("array flat five-dimensional", () => {
+    const items = [1, [2, [3, [4, [5, [6, 7]]]]]];
+
+    const result = items.flat(5);
+
+    expect(result).toEqual([1, 2, 3, 4, 5, 6, 7]);
+  });
+
   test("array slice", () => {
     const items = [10, 20, 30, 40, 50];
 

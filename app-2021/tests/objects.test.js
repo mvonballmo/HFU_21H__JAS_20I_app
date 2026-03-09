@@ -61,11 +61,61 @@ describe("Objects", () => {
       age: 34,
       company: {
         name: "Apple",
+        owner: {
+          firstname: "bob"
+        }
       },
     };
 
     expect(person.age).toBe(34);
     expect(person.company.name).toBe("Apple");
+  });
+
+  test("Simple objects", () => {
+    const person = {
+      _age: 34,
+
+      get age() {
+        return this._age;
+      },
+
+      set age(a) {
+        this._age = a - 10; // Don't lie about your age 😉...
+      },
+    };
+
+    // Verify default value
+    expect(person.age).toBe(34);
+
+    person.age = 42;
+
+    // Verify sanity value
+    expect(person.age).toBe(32);
+  });
+
+  test("Simple objects with classes", () => {
+    class Person
+    {
+      _age = 34;
+
+      get age() {
+        return this._age;
+      };
+
+      set age(a) {
+        this._age = a - 10; // Don't lie about your age 😉...
+      };
+    };
+
+    const person = new Person();
+
+    // Verify default value
+    expect(person.age).toBe(34);
+
+    person.age = 42;
+
+    // Verify sanity value
+    expect(person.age).toBe(32);
   });
 
   test("add method adds one", () => {

@@ -78,5 +78,7 @@ describe("Recursion", () => {
     expect(fibonacci.next().value).toBe(5);
     expect(fibonacci.next().value).toBe(8);
     expect(fibonacci.next().value).toBe(13);
+    expect(fibonacci.next().value).toBe(21);
+    expect(fibonacci.next().value).toBe(34);
   });
 });
