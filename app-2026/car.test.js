@@ -8,7 +8,7 @@ describe("car", () => {
     const car2 = new Car();
 
     expect(car1 == car2).toBeFalsy();
-    expect(car1 === car2).toBeTruthy();
+    expect(car1 === car2).toBeFalsy();
     expect(car1).toStrictEqual(car2);
   });
 });

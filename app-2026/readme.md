@@ -1,3 +1,3 @@
 ## Testing
 
-Run the `json-server` with `npx json-server ./data.js`.
+Run the `json-server` with `npx json-server ./data.json`.
