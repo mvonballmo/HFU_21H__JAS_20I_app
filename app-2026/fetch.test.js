@@ -1,15 +1,23 @@
 import { test, describe, expect } from "@jest/globals";
 
+/**
+ * Gets an array of all entities from the database.
+ *
+ * @return {Promise<[{ id: number, name: string }]>} Array of all entities
+ */
+async function getAddresses() {
+  const response = await fetch("http://localhost:3000/addresses");
+  if (response.ok) {
+    return await response.json();
+  }
+
+  throw `Response was ${response.statusText}.`;
+}
+
 describe("fetch", () => {
   test("call fetch gets addresses", async () => {
-    const response = await fetch("http://localhost:3000/addresses");
-    if (response.ok) {
-      const addresses = await response.json();
-
-      expect(addresses.length).toBe(2);
-    } else {
-      expect(false);
-    }
+    const addresses = await getAddresses();
+    expect(addresses.length).toBe(2);
   });
 
   test("create and delete address", async () => {
