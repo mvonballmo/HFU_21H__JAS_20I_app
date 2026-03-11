@@ -1,9 +1,10 @@
 import { test, describe, expect } from "@jest/globals";
+import { Address } from "./Address";
 
 /**
  * Gets an array of all entities from the database.
  *
- * @return {Promise<[{ id: number, name: string }]>} Array of all entities
+ * @return {Promise<[Address]>} Array of all entities
  */
 async function getAddresses() {
   const response = await fetch("http://localhost:3000/addresses");
