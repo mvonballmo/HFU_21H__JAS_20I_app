@@ -94,7 +94,9 @@
     try {
       const addresses = await getData(getAddressUrl());
 
-      setList("list-panel", addresses.map(createAddressListItem));
+      const listItems = addresses.map(createAddressListItem);
+
+      setList("list-panel", listItems);
     } catch (error) {
       setError(`Unable to retrieve addresses: ${error.message}`);
     }
