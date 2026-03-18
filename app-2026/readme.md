@@ -1,3 +1,4 @@
 ## Testing
 
-Run the `json-server` with `npx json-server ./data.json`.
+1. Run the data server with `npm run test-server`.
+2. Run tests with `npm test`.

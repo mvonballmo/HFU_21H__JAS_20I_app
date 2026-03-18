@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "main": "index.html",
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "test-server": "npx json-server ./data.json"
   },
   "author": "Marco",
   "license": "ISC",
