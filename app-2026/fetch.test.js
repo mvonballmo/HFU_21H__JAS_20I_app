@@ -3,21 +3,8 @@
  */
 
 import { test, describe, expect } from "@jest/globals";
-import { Address } from "./Address";
-
-/**
- * Gets an array of all entities from the database.
- *
- * @return {Promise<[Address]>} Array of all entities
- */
-async function getAddresses() {
-  const response = await fetch("http://localhost:3000/addresses");
-  if (response.ok) {
-    return await response.json();
-  }
-
-  throw `Response was ${response.statusText}.`;
-}
+import { getAddresses } from "./Address";
+import "isomorphic-fetch";
 
 describe("general", () => {
   describe("fetch", () => {
