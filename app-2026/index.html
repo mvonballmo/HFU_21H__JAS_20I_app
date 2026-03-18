@@ -24,12 +24,30 @@
 
     console.log(v2);
   }
+
+  const buttons = document.getElementsByTagName("button");
+  for (const button of buttons) {
+    button.addEventListener("click", e => console.log(this.id));
+  }
+
+  document.addEventListener("DOMContentLoaded", () => {
+    const duckDuckGo = document.getElementById("search");
+
+    duckDuckGo.addEventListener("click", e => {
+      if (!confirm("Are you sure?")) {
+        e.preventDefault();
+      }
+    });
+  })
 </script>
 
 <body>
   <button onclick="add()">+</button>
   <button onclick="subtract()">-</button>
   <button onclick="playWithJson()">JSON</button>
+  <a href="https://duckduckgo.com" id="search">DuckDuckGo</a>
+  <script>
+  </script>
 </body>
 
 </html>
