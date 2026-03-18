@@ -1,44 +1,28 @@
 <html>
 <script type="module">
-  import * as counter from "./counter.js";
-  import { Car } from "./car.js";
+  import { getAddresses } from "Address.js"
 
-  window.add = () => {
-    counter.show(counter.increment());
-  };
 
-  window.subtract = () => {
-    counter.show(counter.decrement());
-  };
+</script>
 
-  window.playWithJson = () => {
-    const v = new Car();
+<script>
+  class MyElement extends HTMLElement {
+    static {
+      customElements.define("marco-tag", MyElement);
+    }
 
-    console.log(v);
+    static get observedAttributes() {
+      return ["a"];
+    }
 
-    const text = JSON.stringify(v);
+    connectedCallback() {
+      this.innerHTML = "<h1>Marco</h1>";
+    }
 
-    console.log(text);
-
-    const v2 = JSON.parse(text);
-
-    console.log(v2);
+    attributeChangedCallback(name, oldValue, newValue) {
+      // Wird nur für Attribut "a" ausgeführt
+    }
   }
-
-  const buttons = document.getElementsByTagName("button");
-  for (const button of buttons) {
-    button.addEventListener("click", e => console.log(this.id));
-  }
-
-  document.addEventListener("DOMContentLoaded", () => {
-    const duckDuckGo = document.getElementById("search");
-
-    duckDuckGo.addEventListener("click", e => {
-      if (!confirm("Are you sure?")) {
-        e.preventDefault();
-      }
-    });
-  })
 </script>
 
 <style>
@@ -63,12 +47,8 @@
 </style>
 
 <body>
-  <button onclick="add()">+</button>
-  <button onclick="subtract()">-</button>
-  <button onclick="playWithJson()">JSON</button>
-  <a href="https://duckduckgo.com" id="search">DuckDuckGo</a>
-
   <div class="reveal">
+    <marco-tag></marco-tag>
     <form>
       <label>First name</label>
       <input list="firstNames">
