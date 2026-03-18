@@ -16,7 +16,7 @@
     }
 
     connectedCallback() {
-      this.innerHTML = "<h1>Marco</h1>";
+      this.attachShadow({ mode: 'closed' }).innerHTML = "<h1>Marco</h1>";
     }
 
     attributeChangedCallback(name, oldValue, newValue) {
