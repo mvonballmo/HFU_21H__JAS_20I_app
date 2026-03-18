@@ -3,6 +3,10 @@ import "./list.js";
 import "./detail.js";
 
 class MasterDetail extends HTMLElement {
+  static {
+    customElements.define("app-master-detail", MasterDetail);
+  }
+
   /**
    * @type {Crud<address>}
    */
@@ -105,5 +109,3 @@ class MasterDetail extends HTMLElement {
     this.#detail.entity = entity;
   }
 }
-
-customElements.define("app-master-detail", MasterDetail);
