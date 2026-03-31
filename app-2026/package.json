@@ -4,14 +4,13 @@
   "main": "index.html",
   "scripts": {
     "test": "jest",
-    "test-server": "npx json-server ./data.json"
+    "test-server": "npx json-server ./data/test-data.json",
+    "data-server": "npx json-server ./data/app-data.json"
   },
   "author": "Marco",
   "license": "ISC",
   "description": "",
   "devDependencies": {
-    "@babel/core": "^7.29.0",
-    "@babel/node": "^7.29.0",
     "@babel/preset-env": "^7.29.0",
     "@eslint/js": "^9.39.3",
     "@tsconfig/recommended": "^1.0.13",
