@@ -1,0 +1,13 @@
+{
+  "addresses": [
+    {
+      "name": "Maria",
+      "id": "e8e8"
+    },
+    {
+      "name": "Johann",
+      "id": "9546"
+    }
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
+}
