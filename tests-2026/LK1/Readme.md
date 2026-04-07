@@ -6,21 +6,20 @@
 
 ## Aufsetzen
 
-1. `LK1` In Visual Studio Code öffnen.
+1. `LK1` in Visual Studio Code öffnen.
 1. `npm install` ausführen.
-1. Ctrl + Shift + P und `Developer: Reload Windows` ausführen, um die Testumgebung einzuschalten.
+1. `Ctrl + Shift + P` und `Developer: Reload Windows` ausführen, um die Testumgebung einzuschalten.
 1. Tests ausführen.
 
 ## Lösen
 
-⛔️ 24 / 25 Tests schlagen fehl
+⛔️ Viele Tests schlagen fehl
 😓 Eure Aufgabe?
 ✅ Möglichst viele Tests zum Laufen bringen
-💡 Grossenteils wird `library.js` geändert werden müssen
-⚠️ Test-Ergebnisse nicht anpassen
+💡 Anpassungen in `lk1.library.js` und `lk1.test.js` möglich
+⚠️ *Test-Ergebnisse* nicht anpassen bzw. die Tests sollen weiterhin *sinnvoll* sein.
 
 ## Fertigstellen
 
 💾 Änderungen speichern (commit)
 ⬆️ Nach GitHub hochladen (push)
-
